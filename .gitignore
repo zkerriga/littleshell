@@ -2,3 +2,4 @@ minishell
 cmake-build-debug/
 .idea/
 bin/
+.DS_Store
