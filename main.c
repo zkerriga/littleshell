@@ -22,18 +22,22 @@ void	loop(char **envp)
 	char	*clean_cmd_line;
 	t_list	*cmd_list;
 	int		status;
+	char	*current_path;
 
 	envp = (void *)envp;
 	status = 1; //TODO: сделать штуку, которая отчистит терминал
 	while (status)
 	{
-		write(1, "$> ", 3);
+		current_path = getcwd(NULL, 0);
+		write(1, current_path, ft_strlen(current_path));
+		write(1, ": ", 2);
 		cmd_line = read_line();
 		clean_cmd_line = clear_command_line(cmd_line);
 		cmd_list = parse_commands(clean_cmd_line);
 		status = exec_all_commands(cmd_list);
 		free(cmd_line);
 		free(clean_cmd_line);
+		free(current_path);
 		ft_lstclear(&cmd_list, NULL); //TODO: заменить NULL на функцию для удаления
 	}
 }
