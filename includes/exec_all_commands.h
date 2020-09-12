@@ -10,4 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef EXEC_ALL_COMMANDS_H
+# define EXEC_ALL_COMMANDS_H
 
+#endif
