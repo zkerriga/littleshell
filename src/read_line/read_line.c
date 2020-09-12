@@ -11,13 +11,14 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "get_next_line.h"
 
 /*
 **	Just return line from user.
-**	No error mngmnt
+**	No error management
 */
 
-char *read_line()
+char	*read_line()
 {
 	char *line;
 
