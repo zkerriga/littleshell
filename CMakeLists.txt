@@ -11,6 +11,6 @@ set(READ_LINE_SRCS
 
 add_executable(minishell
         ${}
-        main.c)
+        main.c src/clear_comand_line/clear_comand_line.c)
 
 target_link_libraries(minishell ${CMAKE_SOURCE_SIR}/libs/libft)
