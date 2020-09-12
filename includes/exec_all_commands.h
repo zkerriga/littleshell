@@ -13,4 +13,8 @@
 #ifndef EXEC_ALL_COMMANDS_H
 # define EXEC_ALL_COMMANDS_H
 
+# include "libft.h"
+
+int	exec_all_commands(t_list *cmd_list);
+
 #endif

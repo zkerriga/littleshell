@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _H
-# define _H
+#ifndef CLEAR_COMMAND_LINE_H
+# define CLEAR_COMMAND_LINE_H
+
+char	*clear_command_line(char *cmd_line);
 
 #endif

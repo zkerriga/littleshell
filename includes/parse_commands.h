@@ -13,4 +13,8 @@
 #ifndef PARSE_COMMANDS_H
 # define PARSE_COMMANDS_H
 
+# include "libft.h"
+
+t_list	*parse_commands(char *clear_cmd_line);
+
 #endif
