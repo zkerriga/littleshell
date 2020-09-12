@@ -10,13 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct s_cmd
-{
-    char        *cmd_name;
-    char        **args;
-    char        **redir_in;
-    char        **redir_in_app;
-    char        **redir_out;
-    char        **redir_out_app;
-}               t_cmd;
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
+typedef struct	s_cmd
+{
+	char		*cmd_name;
+	char		**args;
+	char		**redir_in;
+	char		**redir_in_app;
+	char		**redir_out;
+	char		**redir_out_app;
+}				t_cmd;
+
+#endif
