@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 
-char *clear_command_line(char *cmd_line)
+char	*clear_command_line(char *cmd_line)
 {
 	char *clear_cmd_line;
 
