@@ -19,9 +19,10 @@ LIB_DIR = libs
 
 CC = gcc
 INCLUDES =  -I./$(LIB_DIR)/libft -I./$(HDR_DIR)
-FLAGS = -Wall -Wextra -Werror $(INCLUDES) -O2 -MMD
+FLAGS = -Wall -Wextra -Werror $(INCLUDES) -O2
 
-FILES = $(wildcard $(SRC_DIR)/*.c) \
+FILES = main.c \
+		$(wildcard $(SRC_DIR)/*.c) \
 		$(wildcard $(SRC_DIR)/read_line/*.c) \
 		$(wildcard $(SRC_DIR)/clear_command_line/*.c) \
 		$(wildcard $(SRC_DIR)/parse_commands/*.c) \
@@ -35,11 +36,11 @@ all: $(OBJ_DIR) lft $(NAME)
 	@echo "\n\033[32m[+] The $(NAME) assembled!\033[0m\n"
 
 $(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/read_line/ \
-	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/clear_command_line/ \
-	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/parse_commands/ \
-	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/exec_all_commands/ \
-	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/builtin_functions/
+	mkdir -p	$(OBJ_DIR)/$(SRC_DIR)/read_line/ \
+				$(OBJ_DIR)/$(SRC_DIR)/clear_command_line/ \
+				$(OBJ_DIR)/$(SRC_DIR)/parse_commands/ \
+				$(OBJ_DIR)/$(SRC_DIR)/exec_all_commands/ \
+				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/
 
 .PHONY: lft
 lft:
@@ -50,7 +51,7 @@ $(NAME): $(FILES_O)
 	$(CC) $(FLAGS) $(FILES_O) -L./$(LIB_DIR)/libft/ -lft -o $(NAME)
 
 $(FILES_O): $(OBJ_DIR)/%.o: %.c
-	@$(CC) $(FLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) -MMD -c $< -o $@
 include $(wildcard $(OBJ_DIR)/*.d $(OBJ_DIR)/*/*.d $(OBJ_DIR)/*/*/*.d)
 
 .PHONY: clean
