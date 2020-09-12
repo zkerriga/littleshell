@@ -10,4 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef BUILTIN_FUNCTION_H
+# define BUILTIN_FUNCTION_H
 
+#endif

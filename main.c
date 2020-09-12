@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "read_line.h"
 
-int loop(char **envp)
+int	loop(char **envp)
 {
 	char	*cmd_line;
 	char	*clean_cmd_line;
@@ -24,17 +25,21 @@ int loop(char **envp)
 	{
 		write(1, "$> ", 3);
 		cmd_line = read_line();
-		clean_cmd_line = clear_command_line(cmd_line);
-		cmd_list = parse_commands(clean_cmd_line);
-		status = exec_all_commands(cmd_list);
+//		clean_cmd_line = clear_command_line(cmd_line);
+//		cmd_list = parse_commands(clean_cmd_line);
+//		status = exec_all_commands(cmd_list);
 		free(cmd_line);
-		free(clean_cmd_line);
-		ft_list_clear(cmd_list);
+//		free(clean_cmd_line);
+//		ft_list_clear(cmd_list);
+		status = 0;
 	}
 }
 
 int main(int ac, char **av, char **envp)
 {
-	loop(envp);
+	if (ac && av)
+	{
+		loop(envp);
+	}
 	return (0);
 }
