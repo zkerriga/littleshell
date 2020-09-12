@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int exec_all_commands(t_list *cmd_list)
+int	exec_all_commands(t_list *cmd_list)
 {
 	if (cmd_list)
 		;

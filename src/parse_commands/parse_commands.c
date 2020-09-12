@@ -13,7 +13,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-t_list *parse_commands(char *cmd_line)
+t_list	*parse_commands(char *cmd_line)
 {
 	t_list *new_list;
 

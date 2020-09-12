@@ -35,7 +35,6 @@ void	loop(char **envp)
 		free(cmd_line);
 		free(clean_cmd_line);
 		ft_lstclear(&cmd_list, NULL); //TODO: заменить NULL на функцию для удаления
-		status = 0;
 	}
 }
 

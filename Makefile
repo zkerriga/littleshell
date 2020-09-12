@@ -36,7 +36,7 @@ all: $(OBJ_DIR) lft $(NAME)
 	@echo "\n\033[32m[+] The $(NAME) assembled!\033[0m\n"
 
 $(OBJ_DIR):
-	mkdir -p	$(OBJ_DIR)/$(SRC_DIR)/read_line/ \
+	@mkdir -p	$(OBJ_DIR)/$(SRC_DIR)/read_line/ \
 				$(OBJ_DIR)/$(SRC_DIR)/clear_command_line/ \
 				$(OBJ_DIR)/$(SRC_DIR)/parse_commands/ \
 				$(OBJ_DIR)/$(SRC_DIR)/exec_all_commands/ \
