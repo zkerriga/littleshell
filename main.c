@@ -13,13 +13,14 @@
 #include "minishell.h"
 #include "read_line.h"
 
-int	loop(char **envp)
+void	loop(char **envp)
 {
 	char	*cmd_line;
-	char	*clean_cmd_line;
-	t_list	*cmd_list;
+//	char	*clean_cmd_line;
+//	t_list	*cmd_list;
 	int		status;
 
+	envp = (void *)envp;
 	status = 1; //TODO: сделать штуку, которая отчистит терминал
 	while (status)
 	{
@@ -35,7 +36,7 @@ int	loop(char **envp)
 	}
 }
 
-int main(int ac, char **av, char **envp)
+int		main(int ac, char **av, char **envp)
 {
 	if (ac && av)
 	{
