@@ -24,9 +24,9 @@ int loop(char **envp)
 	{
 		write(1, "$> ", 3);
 		cmd_line = read_line();
-		clean_cmd_line = clear_comand_line(cmd_line);
-		cmd_list = parse_comands(clean_cmd_line);
-		status = exec_all_comands(cmd_list);
+		clean_cmd_line = clear_command_line(cmd_line);
+		cmd_list = parse_commands(clean_cmd_line);
+		status = exec_all_commands(cmd_list);
 		free(cmd_line);
 		free(clean_cmd_line);
 		ft_list_clear(cmd_list);
