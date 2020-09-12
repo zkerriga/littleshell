@@ -26,7 +26,7 @@ FILES = $(wildcard $(SRC_DIR)/*.c) \
 		$(wildcard $(SRC_DIR)/clear_command_line/*.c) \
 		$(wildcard $(SRC_DIR)/parse_commands/*.c) \
 		$(wildcard $(SRC_DIR)/exec_all_commands/*.c) \
-		$(wildcard $(SRC_DIR)/builin_functions/*.c)
+		$(wildcard $(SRC_DIR)/builtin_functions/*.c)
 
 FILES_O = $(addprefix $(OBJ_DIR)/, $(FILES:.c=.o))
 
@@ -39,7 +39,7 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/clear_command_line/ \
 	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/parse_commands/ \
 	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/exec_all_commands/ \
-	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/builin_functions/
+	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/builtin_functions/
 
 .PHONY: lft
 lft:
