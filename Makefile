@@ -44,7 +44,7 @@ $(OBJ_DIR):
 .PHONY: lft
 lft:
 	@$(MAKE) -C ./$(LIB_DIR)/libft --no-print-directory --silent
-	@echo "\e[32m[+] Libft is assembled!\e[0m"
+	@echo "\033[32m[+] Libft is assembled!\033[0m"
 
 $(NAME): $(FILES_O)
 	$(CC) $(FLAGS) $(FILES_O) -L./$(LIB_DIR)/libft/ -lft -o $(NAME)
