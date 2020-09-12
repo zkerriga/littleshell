@@ -18,7 +18,7 @@
 **	No error management
 */
 
-char	*read_line()
+char	*read_line(void)
 {
 	char *line;
 
