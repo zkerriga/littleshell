@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_command_line.c                                :+:      :+:    :+:   */
+/*   exec_all_commands.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matrus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/12 15:54:46 by matrus            #+#    #+#             */
-/*   Updated: 2020/09/12 15:54:48 by matrus           ###   ########.fr       */
+/*   Created: 2020/09/12 17:46:25 by matrus            #+#    #+#             */
+/*   Updated: 2020/09/12 17:46:26 by matrus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-char *clear_command_line(char *cmd_line)
+int exec_all_commands(t_list *cmd_list)
 {
-	char *clear_cmd_line;
-
-	clear_cmd_line = NULL;
-	while (*cmd_line)
-	{
-
-		cmd_line++;
-	}
-	return (clear_cmd_line);
+	if (cmd_list)
+		;
+	return (0);
 }
-
-//						world =_hhe_'f'
-
-// 		cmd: 			ehco \' hello $world ' hahah '
-//		clean_str? :	echo ' hello _hhe_'f' ' hahah '
-// 		echo:	 		ehco ' hello _hhe_'f'  hahah
