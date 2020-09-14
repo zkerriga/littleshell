@@ -18,11 +18,11 @@
 ** NULL is also returned in case of an error (you need to check errno).
 */
 
-char	*get_value(t_env *self, const char *key)
+const char	*get_value(t_env *self, const char *key)
 {
-	char	**tab;
-	char	*value;
-	size_t	len;
+	char		**tab;
+	const char	*value;
+	size_t		len;
 
 	if (!(tab = self->__env_array))
 		return (NULL);
@@ -32,7 +32,7 @@ char	*get_value(t_env *self, const char *key)
 	{
 		if (!ft_strncmp(key, *tab, len))
 		{
-			value = ft_strdup(ft_strchr(*tab, '=') + 1);
+			value = ft_strchr(*tab, '=') + 1;
 			break ;
 		}
 		++tab;

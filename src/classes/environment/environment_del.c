@@ -14,6 +14,6 @@
 
 void	environment_del(t_env *self)
 {
-	ft_free_tab(self->__env_array);
+	ft_free_tab((void **)self->__env_array);
 	free(self);
 }
