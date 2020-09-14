@@ -27,5 +27,6 @@ typedef struct	s_env
 }				t_env;
 
 t_env			*environment_new(char **envp);
+void			environment_del(t_env *self);
 
 #endif
