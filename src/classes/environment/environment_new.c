@@ -12,14 +12,26 @@
 
 #include "_environment.h"
 
+static int	envp_is_valid(const char **envp)
+{
+	while (envp)
+	{
+		if (ft_strchr(*envp++, '='))
+			return (0);
+	}
+	return (1);
+}
+
 /*
 ** Class constructor. Returns NULL if an error occurs.
 */
 
-t_env	*environment_new(char **envp)
+t_env	*environment_new(const char **envp)
 {
 	t_env	*self;
 
+	if (!envp_is_valid(envp))
+		return (NULL);
 	if ((self = ft_calloc(sizeof(t_env), 1)))
 	{
 		if ((self->__env_array = ft_tabdub(envp)))
@@ -27,7 +39,7 @@ t_env	*environment_new(char **envp)
 			self->add = NULL;
 			self->remove = NULL;
 			self->print = NULL;
-			self->get_value = NULL;
+			self->get_value = get_value;
 			self->transfer_control = NULL;
 			self->del = environment_del;
 		}
