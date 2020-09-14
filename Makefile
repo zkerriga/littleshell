@@ -19,7 +19,7 @@ LIB_DIR = libs
 
 CC = gcc
 INCLUDES =  -I./$(LIB_DIR)/libft -I./$(HDR_DIR)
-FLAGS = -Wall -Wextra -Werror $(INCLUDES) -O2
+FLAGS = -Wall -Wextra -Werror $(INCLUDES) #-O2
 
 FILES = main.c \
 		$(wildcard $(SRC_DIR)/*.c) \
