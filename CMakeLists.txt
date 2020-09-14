@@ -8,7 +8,7 @@ include_directories(includes libs/libft)
 set(READ_LINE_SRCS
         src/read_line/read_line.c)
 
-set(PARSE_COMMANDS src/parse_commands/parse_commands.c )
+set(PARSE_COMMANDS src/parse_commands/parse_commands.c src/parse_commands/separate_commands.c src/parse_commands/parse_single_command.c)
 
 set(EXEC_ALL_COMMANDS src/exec_all_commands/exec_all_commands.c)
 

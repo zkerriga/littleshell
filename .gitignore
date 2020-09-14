@@ -3,3 +3,5 @@ cmake-build-debug/
 .idea/
 bin/
 .DS_Store
+libs/libft/libft.a
+libs/libft/obj
