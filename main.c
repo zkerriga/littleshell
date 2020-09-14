@@ -19,7 +19,7 @@
 void	loop(char **envp)
 {
 	char	*cmd_line;
-	char	*clean_cmd_line;
+	//char	*clean_cmd_line;
 	t_list	*cmd_list;
 	int		status;
 	char	*current_path;
@@ -32,13 +32,14 @@ void	loop(char **envp)
 		write(1, current_path, ft_strlen(current_path));
 		write(1, ": ", 2);
 		cmd_line = read_line();
-		clean_cmd_line = clear_command_line(cmd_line);
-		cmd_list = parse_commands(clean_cmd_line);
+		//clean_cmd_line = clear_command_line(cmd_line);
+		cmd_list = parse_command_line(cmd_line);
 		status = exec_all_commands(cmd_list);
 		free(cmd_line);
-		free(clean_cmd_line);
+		//free(clean_cmd_line);
 		free(current_path);
 		ft_lstclear(&cmd_list, NULL); //TODO: заменить NULL на функцию для удаления
+		status = 1; // for testing
 	}
 }
 

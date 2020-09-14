@@ -15,6 +15,6 @@
 
 # include "libft.h"
 
-t_list	*parse_commands(char *clear_cmd_line);
+t_list	*parse_command_line(char *clear_cmd_line);
 
 #endif

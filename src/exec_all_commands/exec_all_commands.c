@@ -15,6 +15,8 @@
 int	exec_all_commands(t_list *cmd_list)
 {
 	if (cmd_list)
+	{
 		;
+	}
 	return (0);
 }

@@ -24,6 +24,6 @@ typedef struct	s_cmd
 	char		**redir_out;
 	char		**redir_out_app;
 	char		next_operator[2];
-}				t_cmd;
+}				t_command;
 
 #endif

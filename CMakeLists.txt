@@ -19,7 +19,6 @@ add_executable(minishell
         ${PARSE_COMMANDS}
         ${EXEC_ALL_COMMANDS}
         ${CLEAR_COMMAND_LINE}
-
         main.c)
 
-target_link_libraries(minishell ${CMAKE_SOURCE_SIR}/libs/libft)
+target_link_libraries(minishell ${CMAKE_CURRENT_SOURCE_DIR}/libs/libft/libft.a)
