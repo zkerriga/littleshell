@@ -32,9 +32,9 @@ const char	*environment_get_value(t_env *self, const char *key)
 	{
 		while (*tab)
 		{
-			if (!ft_strncmp(key, *tab, len))
+			if (!ft_strncmp(key, *tab, len) && (*tab)[len] == '=')
 			{
-				value = ft_strchr(*tab, '=') + 1;
+				value = &((*tab)[len + 1]);
 				break ;
 			}
 			++tab;
