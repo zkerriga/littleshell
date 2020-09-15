@@ -23,6 +23,8 @@
 **	with meta chars).
 */
 
+
+// Probably not needed
 int		shell_raw_word_len(char *str)
 {
 	int		quote;
@@ -46,7 +48,7 @@ int		shell_raw_word_len(char *str)
 	}
 	return (len);
 }
-
+// Probably not needed
 void	form_raw_word(char *to, char **from)
 {
 	int		quote;
@@ -77,20 +79,53 @@ void	form_raw_word(char *to, char **from)
 	}
 }
 
-char	*get_shell_word_and_go_next(char **str)
+#define SHELL_WORD_LEN 256
+
+char *get_shell_word_and_go_next(char **str, t_env *env)
 {
 	char	*word;
+	char 	*substr_to_copy;
+	int		len_to_copy;
 	int		w_len;
+	int		i_word;
+	int		quote;
+	int 	d_quote;
 
-	w_len = shell_raw_word_len(*str);
-	word = (char*)malloc(sizeof(char) * (w_len + 1));
-	ft_bzero(word, sizeof(char) * (w_len + 1));
+	w_len = SHELL_WORD_LEN;
+	word = (char*)ft_calloc(w_len, sizeof(*word));
+
+	i_word = 0;
+	while (**str && !ft_isspace(**str))
+	{
+		len_to_copy = 1;
+		// Check quotes
+		shell_word_check_quotes(str, &quote, &d_quote);
+
+		if (!quote)
+		{
+			// Check backslash
+			shell_word_check_backslash(str, d_quote);
+
+			// Check expand
+			shell_word_check_expand(str, &substr_to_copy, &len_to_copy);
+		}
+		// Check realloc
+		shell_word_check_realloc(&word, len_to_copy);
+
+		// Copy to arg
+		ft_strlcpy(&(word[i_word++]), substr_to_copy, len_to_copy);
+
+		++(*str);
+	}
+
+
+	env->get_value(env, "key");
 	form_raw_word(word, str);
 	//expand_shell_word(&word);
 	return (word);
 }
 
-char	**shell_word_split_with_env(char *str)
+char **shell_word_split_with_env(char *str, t_env *env)
 {
 	char	**tab_word;
 	int		i_word;
@@ -104,7 +139,7 @@ char	**shell_word_split_with_env(char *str)
 			str++;
 		if (*str)
 		{
-			tab_word[i_word] = get_shell_word_and_go_next(&str);	// TODO: mignt be malloc error
+			tab_word[i_word] = get_shell_word_and_go_next(&str, env);	// TODO: mignt be malloc error
 			i_word++;
 			if (!(tab_word = (char **)ft_realloc_tab((void **)tab_word, i_word, i_word + 1)))
 				printf("Malloc error in shell_word_split_with_env\n"); // TODO: error check
@@ -118,7 +153,7 @@ void parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 	char	**tab_word;
 	char	**i_tab_word;
 
-	tab_word = shell_word_split_with_env(cmd_str);
+	tab_word = shell_word_split_with_env(cmd_str, env);
 	i_tab_word = tab_word;
 
 	// TEST each cmd_str should separate on words properly
