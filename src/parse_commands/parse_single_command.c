@@ -12,120 +12,60 @@
 
 #include "libft.h"
 #include "minishell.h"
+#include "environment.h"
+#include "word_work.h"
 #include <stdlib.h>
 
 //
 #include <stdio.h>
-#include <environment.h>
-
-/*
-**	Counts MINIMAL length of shell word. E.d. RAW shell word (no expand and
-**	with meta chars).
-*/
-
-
-// Probably not needed
-int		shell_raw_word_len(char *str)
-{
-	int		quote;
-	int 	d_quote;
-	int		len;
-
-	quote = 0;
-	d_quote = 0;
-	len = 0;
-	while (	*str &&
-			((quote || d_quote) ||
-			(!(*str == '\\' && *(str + 1) == ' ') ||
-			*str != ' ')))
-	{
-		if (*str == '\'' && !d_quote)
-			quote = !quote;
-		if (*str == '\"' && !quote)
-			d_quote = !d_quote;
-		str++;
-		len++;
-	}
-	return (len);
-}
-// Probably not needed
-void	form_raw_word(char *to, char **from)
-{
-	int		quote;
-	int 	d_quote;
-	int		i_to;
-	
-	quote = 0;
-	d_quote = 0;
-	i_to = 0;
-	(*from)--;
-	while (	*(++(*from)) &&
-			((quote || d_quote) ||
-			((**from == ' ' && *(*from - 1) == '\\') ||
-			**from != ' ')))
-	{
-		if (**from == '\'' && !d_quote)
-		{
-			quote = !quote;
-			continue ;
-		}
-		if (**from == '\"' && !quote)
-		{
-			d_quote = !d_quote;
-			continue ;
-		}
-		if (**from)
-			to[i_to++] = **from;
-	}
-}
-
-#define SHELL_WORD_LEN 256
 
 char *get_shell_word_and_go_next(char **str, t_env *env)
 {
-	char	*word = NULL;
-//	char 	*substr_to_copy;
-//	int		len_to_copy;
-//	int		w_len;
-//	int		i_word;
-//	int		quote;
-//	int 	d_quote;
-//
-//	w_len = SHELL_WORD_LEN;
-//	word = (char*)ft_calloc(w_len, sizeof(*word));
-//
-//	i_word = 0;
-//	--(*str);
-//	while (*(*str)++)
-//	{
-//		if (ft_isspace(**str))
-//			break ;
-//		len_to_copy = 1;
-//
-//		// Check quotes
-//		shell_word_check_quotes(str, &quote, &d_quote);
-//
-//		if (!quote)
-//		{
-//			// Check backslash
-//			shell_word_check_backslash(str, d_quote);
-//
-//			// Check expand
-//			shell_word_check_expand(str, &substr_to_copy, &len_to_copy);
-//		}
-//		// Check realloc
-//		shell_word_check_realloc(&word, len_to_copy);
-//
-//		// Copy to arg
-//		ft_strlcpy(&(word[i_word++]), substr_to_copy, len_to_copy);
-//	}
-//
-//
-//	env->get_value(env, "key");
-//	form_raw_word(word, str);
-//	//expand_shell_word(&word);
-	if (str || env)
-		return (word);
+	int			quote;
+	int			d_quote;
+	char		*word;
+	t_word_work	*word_work;
+
+	quote = 0;
+	d_quote = 0;
+	word_work = word_work_new();
+	while (ft_isspace(**str))
+		++(*str);
+	while (**str)
+	{
+		if (ft_isspace(**str))
+		{
+			++(*str);
+			break;
+		}
+		if (**str == '\'' && !d_quote)
+		{
+			++(*str);
+			quote = !quote;
+		}
+		else if (**str == '"')
+		{
+			++(*str);
+			d_quote = !d_quote;
+		}
+		else if (**str == '\\')
+		{
+			if (quote)
+				word_work->add_char(word_work, **str);
+			else if (d_quote)
+			{
+				if (*(*str + 1) == '$' || *(*str + 1) == '"')
+					++(*str);
+				word_work->add_char(word_work, **str);
+			}
+		}
+		else if (**str == '$')
+			(*str) += word_work->expand(word_work, *str, env);
+		else
+			word_work->add_char(word_work, **str);
+		++(*str);
+	}
+	word = ft_strdup(word_work->ret_word(word_work));
 	return (word);
 }
 
@@ -156,30 +96,11 @@ char **shell_word_split_with_env(char *str, t_env *env)
 void parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 {
 	char	**tab_word;
-	char	**i_tab_word;
 
 	tab_word = shell_word_split_with_env(cmd_str, env);
-	i_tab_word = tab_word;
 
-	// TEST each cmd_str should separate on words properly
-	printf("command: %s\n", cmd_str);
-	while (*tab_word)
-	{
-		printf("word: %s\n", *tab_word);
-		tab_word++;
-	}
-	printf("\n\n");
-	// TEST END
-
-	while (*i_tab_word)
-	{
-
-		i_tab_word++;
-	}
-
-	if (cmd)
-	{
-		;
-	}
+	//	first argument is always command_name
+	cmd->args = tab_word;
+	cmd->cmd_name = ft_strdup(tab_word[0]);
 }
 

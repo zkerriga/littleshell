@@ -3,7 +3,10 @@ project(minishell C)
 
 set(CMAKE_C_STANDARD 11)
 
-include_directories(includes/ libs/libft/ src/classes/environment/)
+include_directories(includes/
+                    libs/libft/
+                    src/classes/environment/
+                    src/classes/word_work)
 
 set(READ_LINE_SRCS
         src/read_line/read_line.c)
@@ -11,7 +14,7 @@ set(READ_LINE_SRCS
 set(PARSE_COMMANDS
         src/parse_commands/parse_commands.c
         src/parse_commands/separate_commands.c
-        src/parse_commands/parse_single_command.c)
+        src/parse_commands/parse_single_command.c src/classes/word_work/word_work_new.c)
 
 set(EXEC_ALL_COMMANDS
         src/exec_all_commands/exec_all_commands.c)
@@ -29,6 +32,13 @@ set(ENVIRONMENT
         src/classes/environment/environment_get_value.c
         )
 
+set(WORD_WORK
+        src/classes/word_work/word_work_delete.c
+        src/classes/word_work/word_work_expand.c
+        src/classes/word_work/word_work_add_char.c
+        src/classes/word_work/word_work_ret_word.c
+        src/classes/word_work/word_work_add_size.c)
+
 FILE(GLOB LIBFT libs/libft/*/*.c)
 
 add_executable(minishell
@@ -37,6 +47,7 @@ add_executable(minishell
         ${EXEC_ALL_COMMANDS}
         ${CLEAR_COMMAND_LINE}
         ${ENVIRONMENT}
+        ${WORD_WORK}
         ${LIBFT}
         main.c)
 
@@ -48,4 +59,5 @@ add_library(test
         ${ENVIRONMENT}
         ${LIBFT}
         main.c)
+
 add_subdirectory(unit_testing)
