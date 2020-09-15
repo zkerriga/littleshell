@@ -83,47 +83,52 @@ void	form_raw_word(char *to, char **from)
 
 char *get_shell_word_and_go_next(char **str, t_env *env)
 {
-	char	*word;
-	char 	*substr_to_copy;
-	int		len_to_copy;
-	int		w_len;
-	int		i_word;
-	int		quote;
-	int 	d_quote;
-
-	w_len = SHELL_WORD_LEN;
-	word = (char*)ft_calloc(w_len, sizeof(*word));
-
-	i_word = 0;
-	while (**str && !ft_isspace(**str))
-	{
-		len_to_copy = 1;
-		// Check quotes
-		shell_word_check_quotes(str, &quote, &d_quote);
-
-		if (!quote)
-		{
-			// Check backslash
-			shell_word_check_backslash(str, d_quote);
-
-			// Check expand
-			shell_word_check_expand(str, &substr_to_copy, &len_to_copy);
-		}
-		// Check realloc
-		shell_word_check_realloc(&word, len_to_copy);
-
-		// Copy to arg
-		ft_strlcpy(&(word[i_word++]), substr_to_copy, len_to_copy);
-
-		++(*str);
-	}
-
-
-	env->get_value(env, "key");
-	form_raw_word(word, str);
-	//expand_shell_word(&word);
+	char	*word = NULL;
+//	char 	*substr_to_copy;
+//	int		len_to_copy;
+//	int		w_len;
+//	int		i_word;
+//	int		quote;
+//	int 	d_quote;
+//
+//	w_len = SHELL_WORD_LEN;
+//	word = (char*)ft_calloc(w_len, sizeof(*word));
+//
+//	i_word = 0;
+//	--(*str);
+//	while (*(*str)++)
+//	{
+//		if (ft_isspace(**str))
+//			break ;
+//		len_to_copy = 1;
+//
+//		// Check quotes
+//		shell_word_check_quotes(str, &quote, &d_quote);
+//
+//		if (!quote)
+//		{
+//			// Check backslash
+//			shell_word_check_backslash(str, d_quote);
+//
+//			// Check expand
+//			shell_word_check_expand(str, &substr_to_copy, &len_to_copy);
+//		}
+//		// Check realloc
+//		shell_word_check_realloc(&word, len_to_copy);
+//
+//		// Copy to arg
+//		ft_strlcpy(&(word[i_word++]), substr_to_copy, len_to_copy);
+//	}
+//
+//
+//	env->get_value(env, "key");
+//	form_raw_word(word, str);
+//	//expand_shell_word(&word);
+	if (str || env)
+		return (word);
 	return (word);
 }
+
 
 char **shell_word_split_with_env(char *str, t_env *env)
 {
