@@ -71,3 +71,6 @@ bonus: all
 .PHONY: libfclean
 libfclean:
 	@$(MAKE) -C ./$(LIB_DIR)/libft --no-print-directory fclean
+
+test:
+	gcc test.c -I./$(LIB_DIR)/libft -L./$(LIB_DIR)/libft -lft -o test_program && ./test_program
