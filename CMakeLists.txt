@@ -14,14 +14,22 @@ set(EXEC_ALL_COMMANDS src/exec_all_commands/exec_all_commands.c)
 
 set(CLEAR_COMMAND_LINE src/clear_command_line/clear_command_line.c)
 
-re
+set(ENVIRONMENT
+        src/classes/environment/environment_new.c
+        src/classes/environment/environment_del.c
+        src/classes/environment/environment_add.c
+        src/classes/environment/environment_print.c
+        src/classes/environment/environment_remove.c
+        src/classes/environment/environment_transfer_control.c
+        src/classes/environment/environment_get_value.c
+        )
 
 add_executable(minishell
         ${READ_LINE_SRCS}
         ${PARSE_COMMANDS}
         ${EXEC_ALL_COMMANDS}
         ${CLEAR_COMMAND_LINE}
-        main.c
-        )
+        ${ENVIRONMENT}
+        main.c)
 
 target_link_libraries(minishell ${CMAKE_CURRENT_SOURCE_DIR}/libs/libft/libft.a)
