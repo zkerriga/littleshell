@@ -23,14 +23,14 @@ static char	*create_env_string(const char *key, const char *value)
 	value_len = ft_strlen(value);
 	if ((env_str = (char *)malloc(sizeof(char) * (key_len + value_len + 2))))
 	{
-		ft_strlcpy(env_str, key, key_len);
+		ft_strlcpy(env_str, key, key_len + 1);
 		env_str[key_len] = '=';
-		ft_strlcpy(&(env_str[key_len + 1]), value, value_len);
+		ft_strlcpy(&(env_str[key_len + 1]), value, value_len + 1);
 	}
 	return (env_str);
 }
 
-void		*ft_realloc(void *ptr, size_t prev_size, size_t new_size)
+static void	*ft_specalloc(void *ptr, size_t prev_size, size_t new_size)
 {
 	void	*new_memory;
 
@@ -42,18 +42,41 @@ void		*ft_realloc(void *ptr, size_t prev_size, size_t new_size)
 	return (new_memory);
 }
 
+static int	if_exist_add_into(t_env *self, const char *key, char *new_env_str)
+{
+	char	**env_tab;
+	size_t	key_len;
+
+	env_tab = self->_env_array;
+	key_len = ft_strlen(key);
+	while (*env_tab)
+	{
+		if (!ft_strncmp(key, *env_tab, key_len) && (*env_tab)[key_len] == '=')
+		{
+			free(*env_tab);
+			*env_tab = new_env_str;
+			return (1);
+		}
+		++env_tab;
+	}
+	return (0);
+}
+
 int			environment_add(t_env *self, const char *key, const char *value)
 {
-	char	*env_str;
+	char	*new_env_str;
 
-	if (!(env_str = create_env_string(key, value)))
+	if (!(new_env_str = create_env_string(key, value)))
 		return (1);
-	self->_env_array = ft_realloc(self->_env_array,
-						sizeof(char *) * (self->len + 1),
-						sizeof(char *) * (self->len + 2));
-	if (!self->_env_array)
-		return (1);
-	self->_env_array[self->len++] = env_str;
-	self->_env_array[self->len] = NULL;
+	if (!if_exist_add_into(self, key, new_env_str))
+	{
+		self->_env_array = ft_specalloc(self->_env_array,
+										sizeof(char *) * (self->len + 1),
+										sizeof(char *) * (self->len + 2));
+		if (!self->_env_array)
+			return (1);
+		self->_env_array[self->len++] = new_env_str;
+		self->_env_array[self->len] = NULL;
+	}
 	return (0);
 }

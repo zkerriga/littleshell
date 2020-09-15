@@ -44,7 +44,7 @@ t_env			*environment_new(const char **envp)
 			self->len = len;
 			self->add = environment_add;
 			self->remove = NULL;
-			self->print = NULL;
+			self->print = environment_print;
 			self->get_value = environment_get_value;
 			self->transfer_control = environment_transfer_control;
 			self->del = environment_del;
