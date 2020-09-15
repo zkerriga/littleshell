@@ -38,14 +38,14 @@
 
 typedef struct	s_env
 {
-	int			(*add)(struct s_env *self, char *key, char *value);
-	void		(*remove)(struct s_env *self, char *key);
+	int			(*add)(struct s_env *self, const char *key, const char *value);
+	void		(*remove)(struct s_env *self, const char *key);
 	void		(*print)(struct s_env *self, int fd);
-	char		*(*get_value)(struct s_env *self, char *key);
+	const char	*(*get_value)(struct s_env *self, const char *key);
 	char		**(*transfer_control)(struct s_env *self);
 	void		(*del)(struct s_env *self);
 }				t_env;
 
-t_env			*environment_new(char **envp);
+t_env			*environment_new(const char **envp);
 
 #endif

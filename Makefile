@@ -16,9 +16,10 @@ OBJ_DIR = bin
 SRC_DIR = src
 HDR_DIR = includes
 LIB_DIR = libs
+CLASS_DIR = classes
 
 CC = gcc
-INCLUDES =  -I./$(LIB_DIR)/libft -I./$(HDR_DIR)
+INCLUDES =  -I./$(LIB_DIR)/libft -I./$(HDR_DIR) -I./$(SRC_DIR)/$(CLASS_DIR)/environment
 FLAGS = -Wall -Wextra -Werror $(INCLUDES) #-O2
 
 FILES = main.c \
@@ -27,7 +28,8 @@ FILES = main.c \
 		$(wildcard $(SRC_DIR)/clear_command_line/*.c) \
 		$(wildcard $(SRC_DIR)/parse_commands/*.c) \
 		$(wildcard $(SRC_DIR)/exec_all_commands/*.c) \
-		$(wildcard $(SRC_DIR)/builtin_functions/*.c)
+		$(wildcard $(SRC_DIR)/builtin_functions/*.c) \
+		$(wildcard $(SRC_DIR)/$(CLASS_DIR)/environment/*.c)
 
 FILES_O = $(addprefix $(OBJ_DIR)/, $(FILES:.c=.o))
 
@@ -40,7 +42,8 @@ $(OBJ_DIR):
 				$(OBJ_DIR)/$(SRC_DIR)/clear_command_line/ \
 				$(OBJ_DIR)/$(SRC_DIR)/parse_commands/ \
 				$(OBJ_DIR)/$(SRC_DIR)/exec_all_commands/ \
-				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/
+				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/ \
+				$(OBJ_DIR)/$(SRC_DIR)/$(CLASS_DIR)/environment
 
 .PHONY: lft
 lft:
@@ -52,7 +55,7 @@ $(NAME): $(FILES_O)
 
 $(FILES_O): $(OBJ_DIR)/%.o: %.c
 	@$(CC) $(FLAGS) -MMD -c $< -o $@
-include $(wildcard $(OBJ_DIR)/*.d $(OBJ_DIR)/*/*.d $(OBJ_DIR)/*/*/*.d)
+include $(wildcard $(OBJ_DIR)/*.d $(OBJ_DIR)/*/*.d $(OBJ_DIR)/*/*/*.d $(OBJ_DIR)/*/*/*/*.d)
 
 .PHONY: clean
 clean:
