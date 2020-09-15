@@ -24,11 +24,15 @@ typedef struct	s_env
 	char		**(*transfer_control)(struct s_env *self);
 	void		(*del)(struct s_env *self);
 	char		**_env_array;
+	size_t		len;
 }				t_env;
 
 t_env			*environment_new(const char **envp);
 void			environment_del(t_env *self);
-const char		*get_value(t_env *self, const char *key);
+const char		*environment_get_value(t_env *self, const char *key);
 char			**environment_transfer_control(t_env *self);
+int				environment_add(t_env *, const char *key, const char *value);
+void			environment_print(t_env *self, int fd);
+void			environment_remove(t_env *self, const char *key);
 
 #endif
