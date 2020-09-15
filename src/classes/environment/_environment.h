@@ -32,5 +32,6 @@ void			environment_del(t_env *self);
 const char		*environment_get_value(t_env *self, const char *key);
 char			**environment_transfer_control(t_env *self);
 int				environment_add(t_env *, const char *key, const char *value);
+void			environment_print(t_env *self, int fd);
 
 #endif
