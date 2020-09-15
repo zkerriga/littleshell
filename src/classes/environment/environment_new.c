@@ -36,11 +36,11 @@ t_env	*environment_new(const char **envp)
 	{
 		if ((self->_env_array = ft_tabdub(envp)))
 		{
-			self->add = NULL;
+			self->add = environment_add;
 			self->remove = NULL;
 			self->print = NULL;
-			self->get_value = get_value;
-			self->transfer_control = NULL;
+			self->get_value = environment_get_value;
+			self->transfer_control = environment_transfer_control;
 			self->del = environment_del;
 		}
 		else
