@@ -99,15 +99,17 @@ void parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 	tab_word = shell_word_split_with_env(cmd_str, env);
 
 	//	first argument is always command name
-	cmd->args = tab_word;
-	cmd->cmd_name = ft_strdup(tab_word[0]);
-
+	if (*tab_word)
+	{
+		cmd->args = tab_word;
+		cmd->cmd_name = ft_strdup(tab_word[0]);
+	}
 	// TEST
 	char	**i_tab_word;
 	i_tab_word = tab_word;
 	while (*i_tab_word)
 	{
-		printf("|%s", *i_tab_word);
+		printf("|%s", *i_tab_word ? *i_tab_word : "null!");
 		++i_tab_word;
 	}
 	printf("\n\n");
