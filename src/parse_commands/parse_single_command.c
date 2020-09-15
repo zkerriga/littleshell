@@ -39,15 +39,9 @@ char *get_shell_word_and_go_next(char **str, t_env *env)
 			break;
 		}
 		if (**str == '\'' && !d_quote)
-		{
-			++(*str);
 			quote = !quote;
-		}
 		else if (**str == '"')
-		{
-			++(*str);
 			d_quote = !d_quote;
-		}
 		else if (**str == '\\')
 		{
 			if (quote)
