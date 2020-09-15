@@ -66,7 +66,7 @@ int			environment_add(t_env *self, const char *key, const char *value)
 {
 	char	*new_env_str;
 
-	if (!(new_env_str = create_env_string(key, value)))
+	if (!key || !value || !(new_env_str = create_env_string(key, value)))
 		return (1);
 	if (!if_exist_add_into(self, key, new_env_str))
 	{
