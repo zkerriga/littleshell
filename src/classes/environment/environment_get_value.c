@@ -24,18 +24,21 @@ const char	*get_value(t_env *self, const char *key)
 	const char	*value;
 	size_t		len;
 
-	if (!(tab = self->__env_array))
+	if (!(tab = self->_env_array))
 		return (NULL);
 	value = NULL;
 	len = ft_strlen(key);
-	while (tab)
+	if (len)
 	{
-		if (!ft_strncmp(key, *tab, len))
+		while (*tab)
 		{
-			value = ft_strchr(*tab, '=') + 1;
-			break ;
+			if (!ft_strncmp(key, *tab, len))
+			{
+				value = ft_strchr(*tab, '=') + 1;
+				break ;
+			}
+			++tab;
 		}
-		++tab;
 	}
 	return (value);
 }

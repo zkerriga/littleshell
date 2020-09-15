@@ -14,9 +14,9 @@
 
 static int	envp_is_valid(const char **envp)
 {
-	while (envp)
+	while (*envp)
 	{
-		if (ft_strchr(*envp++, '='))
+		if (!ft_strchr(*envp++, '='))
 			return (0);
 	}
 	return (1);
@@ -34,7 +34,7 @@ t_env	*environment_new(const char **envp)
 		return (NULL);
 	if ((self = ft_calloc(sizeof(t_env), 1)))
 	{
-		if ((self->__env_array = ft_tabdub(envp)))
+		if ((self->_env_array = ft_tabdub(envp)))
 		{
 			self->add = NULL;
 			self->remove = NULL;
