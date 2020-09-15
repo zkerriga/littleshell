@@ -33,14 +33,14 @@ char *get_shell_word_and_go_next(char **str, t_env *env)
 		++(*str);
 	while (**str)
 	{
-		if (ft_isspace(**str))
+		if (ft_isspace(**str) && !(d_quote || quote))
 		{
 			++(*str);
 			break;
 		}
 		if (**str == '\'' && !d_quote)
 			quote = !quote;
-		else if (**str == '"')
+		else if (**str == '"' && !quote)
 			d_quote = !d_quote;
 		else if (**str == '\\')
 		{
