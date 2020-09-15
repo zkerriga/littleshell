@@ -85,7 +85,7 @@ t_list *parse_command_line(char *cmd_line, t_env *env)
 	lst_head = NULL;
 	while (*cmd_line)
 	{
-		if (!(cur_cmd = new_command()) ||
+		if (!(cur_cmd = new_command()) ||		// TODO: refactor command_new
 			!(lst_cur = ft_lstnew(cur_cmd)))
 			printf("Malloc error parse commands!\n");	//	TODO: add error management
 		cmd_line = parse_first_cmd_and_go_next(cmd_line, lst_cur->content, env);
