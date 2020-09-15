@@ -29,5 +29,6 @@ typedef struct	s_env
 t_env			*environment_new(const char **envp);
 void			environment_del(t_env *self);
 const char		*get_value(t_env *self, const char *key);
+char			**environment_transfer_control(t_env *self);
 
 #endif

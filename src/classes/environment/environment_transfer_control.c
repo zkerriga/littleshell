@@ -9,3 +9,10 @@
 /*   Updated: 2020/09/14 19:28:59 by zkerriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "_environment.h"
+
+char	**environment_transfer_control(t_env *self)
+{
+	return (self->_env_array);
+}
