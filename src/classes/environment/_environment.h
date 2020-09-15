@@ -23,7 +23,7 @@ typedef struct	s_env
 	const char	*(*get_value)(struct s_env *self, const char *key);
 	char		**(*transfer_control)(struct s_env *self);
 	void		(*del)(struct s_env *self);
-	char		**__env_array;
+	char		**_env_array;
 }				t_env;
 
 t_env			*environment_new(const char **envp);

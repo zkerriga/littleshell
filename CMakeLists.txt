@@ -3,16 +3,21 @@ project(minishell C)
 
 set(CMAKE_C_STANDARD 11)
 
-include_directories(includes libs/libft)
+include_directories(includes/ libs/libft/ src/classes/environment/)
 
 set(READ_LINE_SRCS
         src/read_line/read_line.c)
 
-set(PARSE_COMMANDS src/parse_commands/parse_commands.c src/parse_commands/separate_commands.c src/parse_commands/parse_single_command.c)
+set(PARSE_COMMANDS
+        src/parse_commands/parse_commands.c
+        src/parse_commands/separate_commands.c
+        src/parse_commands/parse_single_command.c)
 
-set(EXEC_ALL_COMMANDS src/exec_all_commands/exec_all_commands.c)
+set(EXEC_ALL_COMMANDS
+        src/exec_all_commands/exec_all_commands.c)
 
-set(CLEAR_COMMAND_LINE src/clear_command_line/clear_command_line.c)
+set(CLEAR_COMMAND_LINE
+        src/clear_command_line/clear_command_line.c)
 
 set(ENVIRONMENT
         src/classes/environment/environment_new.c
@@ -24,12 +29,15 @@ set(ENVIRONMENT
         src/classes/environment/environment_get_value.c
         )
 
+FILE(GLOB LIBFT libs/libft/*/*.c)
+
 add_executable(minishell
         ${READ_LINE_SRCS}
         ${PARSE_COMMANDS}
         ${EXEC_ALL_COMMANDS}
         ${CLEAR_COMMAND_LINE}
         ${ENVIRONMENT}
+        ${LIBFT}
         main.c)
 
-target_link_libraries(minishell ${CMAKE_CURRENT_SOURCE_DIR}/libs/libft/libft.a)
+#target_link_libraries(minishell ${CMAKE_CURRENT_SOURCE_DIR}/libs/libft/libft.a)

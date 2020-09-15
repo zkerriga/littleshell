@@ -43,22 +43,16 @@ void	loop(t_env *env)
 	}
 }
 
-t_env *environment_new(char **env)
-{
-	if (env)
-	{
-		;
-	}
-}
-
+#include <stdio.h>
 int		main(int ac, char **av, char **envp)
 {
-	t_env *env;
+	t_env	*env;
 
 	env = environment_new(envp);
 	if (ac && av)
 	{
 		loop(env);
 	}
+	env->del(env);
 	return (0);
 }
