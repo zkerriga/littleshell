@@ -14,9 +14,10 @@
 #include "read_line.h"
 #include "exec_all_commands.h"
 #include "parse_commands.h"
+#include "environment.h"
 #include "clear_command_line.h"
 
-void	loop(char **envp)
+void	loop(t_env *env)
 {
 	char	*cmd_line;
 	//char	*clean_cmd_line;
@@ -24,7 +25,6 @@ void	loop(char **envp)
 	int		status;
 	char	*current_path;
 
-	envp = (void *)envp;
 	status = 1; //TODO: сделать штуку, которая отчистит терминал
 	while (status)
 	{
@@ -33,21 +33,32 @@ void	loop(char **envp)
 		write(1, ": ", 2);
 		cmd_line = read_line();
 		//clean_cmd_line = clear_command_line(cmd_line);
-		cmd_list = parse_command_line(cmd_line);
+		cmd_list = parse_command_line(cmd_line, env);
 		status = exec_all_commands(cmd_list);
 		free(cmd_line);
 		//free(clean_cmd_line);
 		free(current_path);
 		ft_lstclear(&cmd_list, NULL); //TODO: заменить NULL на функцию для удаления
-		status = 1; // for testing
+		status = 0; // for testing
+	}
+}
+
+t_env *environment_new(char **env)
+{
+	if (env)
+	{
+		;
 	}
 }
 
 int		main(int ac, char **av, char **envp)
 {
+	t_env *env;
+
+	env = environment_new(envp);
 	if (ac && av)
 	{
-		loop(envp);
+		loop(env);
 	}
 	return (0);
 }

@@ -16,6 +16,7 @@
 
 //
 #include <stdio.h>
+#include <environment.h>
 
 /*
 **	Counts MINIMAL length of shell word. E.d. RAW shell word (no expand and
@@ -112,11 +113,14 @@ char	**shell_word_split_with_env(char *str)
 	return (tab_word);
 }
 
-void	parse_single_command(char *cmd_str, t_command *cmd)
+void parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 {
 	char	**tab_word;
+	char	**i_tab_word;
 
 	tab_word = shell_word_split_with_env(cmd_str);
+	i_tab_word = tab_word;
+
 	// TEST each cmd_str should separate on words properly
 	printf("command: %s\n", cmd_str);
 	while (*tab_word)
@@ -126,6 +130,13 @@ void	parse_single_command(char *cmd_str, t_command *cmd)
 	}
 	printf("\n\n");
 	// TEST END
+
+	while (*i_tab_word)
+	{
+
+		i_tab_word++;
+	}
+
 	if (cmd)
 	{
 		;

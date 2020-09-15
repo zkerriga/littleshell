@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "minishell.h"
 #include "parse_commands.h"
+#include "environment.h"
 
 //
 #include <stdio.h>
@@ -51,7 +52,7 @@ t_command	*new_command()
 **	return modified *cmd_line;
 */
 
-char	*parse_first_cmd_and_go_next(char *cmd_line, t_command *cmd)
+char *parse_first_cmd_and_go_next(char *cmd_line, t_command *cmd, t_env *env)
 {
 	char	*cur_cmd_line;
 
@@ -70,11 +71,11 @@ char	*parse_first_cmd_and_go_next(char *cmd_line, t_command *cmd)
 	// END TEST
 
 	// parse_single_command(cur_cmd_line, cmd) is next task
-	parse_single_command(cur_cmd_line, cmd);
+	parse_single_command(cur_cmd_line, cmd, env);
 	return (cmd_line);
 }
 
-t_list	*parse_command_line(char *cmd_line)
+t_list *parse_command_line(char *cmd_line, t_env *env)
 {
 	t_list		*lst_head;
 	t_list		*lst_cur;
@@ -87,7 +88,7 @@ t_list	*parse_command_line(char *cmd_line)
 		if (!(cur_cmd = new_command()) ||
 			!(lst_cur = ft_lstnew(cur_cmd)))
 			printf("Malloc error parse commands!\n");	//	TODO: add error management
-		cmd_line = parse_first_cmd_and_go_next(cmd_line, lst_cur->content);
+		cmd_line = parse_first_cmd_and_go_next(cmd_line, lst_cur->content, env);
 		// yeah, there leaks cos no push in lst;
 		//ft_lstadd_back(&lst_head, lst_cur);
 	}
