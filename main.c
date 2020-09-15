@@ -48,7 +48,7 @@ int		main(int ac, char **av, char **envp)
 {
 	t_env	*env;
 
-	env = environment_new(envp);
+	env = environment_new((const char **)envp);
 	if (ac && av)
 	{
 		loop(env);
