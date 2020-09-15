@@ -1,3 +1,6 @@
 [submodule "libs/libft"]
 	path = libs/libft
 	url = https://github.com/vesord/libft.git
+[submodule "unit_testing/lib"]
+	path = unit_testing/lib
+	url = https://github.com/google/googletest.git
