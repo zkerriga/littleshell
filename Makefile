@@ -19,7 +19,8 @@ LIB_DIR = libs
 CLASS_DIR = classes
 
 CC = gcc
-INCLUDES =  -I./$(LIB_DIR)/libft -I./$(HDR_DIR) -I./$(SRC_DIR)/$(CLASS_DIR)/environment
+INCLUDES =  -I./$(LIB_DIR)/libft -I./$(HDR_DIR) \
+			-I./$(SRC_DIR)/$(CLASS_DIR)/environment -I./$(SRC_DIR)/$(CLASS_DIR)/word_work
 FLAGS = -Wall -Wextra -Werror $(INCLUDES) #-O2
 
 FILES = main.c \
@@ -29,7 +30,8 @@ FILES = main.c \
 		$(wildcard $(SRC_DIR)/parse_commands/*.c) \
 		$(wildcard $(SRC_DIR)/exec_all_commands/*.c) \
 		$(wildcard $(SRC_DIR)/builtin_functions/*.c) \
-		$(wildcard $(SRC_DIR)/$(CLASS_DIR)/environment/*.c)
+		$(wildcard $(SRC_DIR)/$(CLASS_DIR)/environment/*.c) \
+		$(wildcard $(SRC_DIR)/$(CLASS_DIR)/word_work/*.c) \
 
 FILES_O = $(addprefix $(OBJ_DIR)/, $(FILES:.c=.o))
 
@@ -43,7 +45,8 @@ $(OBJ_DIR):
 				$(OBJ_DIR)/$(SRC_DIR)/parse_commands/ \
 				$(OBJ_DIR)/$(SRC_DIR)/exec_all_commands/ \
 				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/ \
-				$(OBJ_DIR)/$(SRC_DIR)/$(CLASS_DIR)/environment
+				$(OBJ_DIR)/$(SRC_DIR)/$(CLASS_DIR)/environment \
+				$(OBJ_DIR)/$(SRC_DIR)/$(CLASS_DIR)/word_work
 
 .PHONY: lft
 lft:
