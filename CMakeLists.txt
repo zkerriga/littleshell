@@ -40,4 +40,12 @@ add_executable(minishell
         ${LIBFT}
         main.c)
 
-#target_link_libraries(minishell ${CMAKE_CURRENT_SOURCE_DIR}/libs/libft/libft.a)
+add_library(test
+        ${READ_LINE_SRCS}
+        ${PARSE_COMMANDS}
+        ${EXEC_ALL_COMMANDS}
+        ${CLEAR_COMMAND_LINE}
+        ${ENVIRONMENT}
+        ${LIBFT}
+        main.c)
+add_subdirectory(unit_testing)
