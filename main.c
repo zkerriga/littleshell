@@ -39,7 +39,7 @@ void	loop(t_env *env)
 		//free(clean_cmd_line);
 		free(current_path);
 		ft_lstclear(&cmd_list, NULL); //TODO: заменить NULL на функцию для удаления
-		status = 0; // for testing
+		status = 1; // for testing
 	}
 }
 

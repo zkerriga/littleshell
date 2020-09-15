@@ -58,6 +58,11 @@ char *get_shell_word_and_go_next(char **str, t_env *env)
 					++(*str);
 				word_work->add_char(word_work, **str);
 			}
+			else
+			{
+				++(*str);
+				word_work->add_char(word_work, **str);
+			}
 		}
 		else if (**str == '$')
 			(*str) += word_work->expand(word_work, *str, env);
@@ -99,8 +104,18 @@ void parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 
 	tab_word = shell_word_split_with_env(cmd_str, env);
 
-	//	first argument is always command_name
+	//	first argument is always command name
 	cmd->args = tab_word;
 	cmd->cmd_name = ft_strdup(tab_word[0]);
+
+	// TEST
+	char	**i_tab_word;
+	i_tab_word = tab_word;
+	while (*i_tab_word)
+	{
+		printf("|%s", *i_tab_word);
+		++i_tab_word;
+	}
+	printf("\n\n");
 }
 

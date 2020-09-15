@@ -17,10 +17,10 @@
 
 typedef struct	s_word_work
 {
-	void	(*add_char)(struct s_word_work *self, char ch);
-	char	*(*ret_word)(struct s_word_work *self);
-	int		(*expand)(struct s_word_work *self, char *str, t_env *env);
-	void	(*delete)(struct s_word_work *self);
+	void		(*add_char)(struct s_word_work *self, char ch);
+	const char	*(*ret_word)(struct s_word_work *self);
+	int			(*expand)(struct s_word_work *self, char *str, t_env *env);
+	void		(*delete)(struct s_word_work *self);
 }				t_word_work;
 
 t_word_work	*word_work_new();
