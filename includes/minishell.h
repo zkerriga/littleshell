@@ -15,7 +15,7 @@
 
 # include "libft.h"
 
-typedef struct	s_cmd
+typedef struct	s_cmd	// TODO: add const modifier to strings
 {
 	char		*cmd_name;
 	char		**args;
