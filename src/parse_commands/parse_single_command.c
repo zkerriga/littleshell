@@ -65,6 +65,7 @@ char *get_shell_word_and_go_next(char **str, t_env *env)
 		++(*str);
 	}
 	word = ft_strdup(word_work->ret_word(word_work));
+	word_work->delete(word_work);
 	return (word);
 }
 
