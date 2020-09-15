@@ -24,7 +24,7 @@ const char	*environment_get_value(t_env *self, const char *key)
 	const char	*value;
 	size_t		len;
 
-	if (!(tab = self->_env_array))
+	if (!(tab = self->_env_array) || !key)
 		return (NULL);
 	value = NULL;
 	len = ft_strlen(key);
