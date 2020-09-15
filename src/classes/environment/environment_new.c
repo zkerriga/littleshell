@@ -12,30 +12,36 @@
 
 #include "_environment.h"
 
-static int	envp_is_valid(const char **envp)
+static size_t	count_environment(const char **envp)
 {
+	size_t	counter;
+
+	counter = 0;
 	while (*envp)
 	{
 		if (!ft_strchr(*envp++, '='))
 			return (0);
+		++counter;
 	}
-	return (1);
+	return (counter);
 }
 
 /*
 ** Class constructor. Returns NULL if an error occurs.
 */
 
-t_env	*environment_new(const char **envp)
+t_env			*environment_new(const char **envp)
 {
 	t_env	*self;
+	size_t	len;
 
-	if (!envp_is_valid(envp))
+	if (!(len = count_environment(envp)))
 		return (NULL);
 	if ((self = ft_calloc(sizeof(t_env), 1)))
 	{
 		if ((self->_env_array = ft_tabdub(envp)))
 		{
+			self->len = len;
 			self->add = environment_add;
 			self->remove = NULL;
 			self->print = NULL;

@@ -24,6 +24,7 @@ typedef struct	s_env
 	char		**(*transfer_control)(struct s_env *self);
 	void		(*del)(struct s_env *self);
 	char		**_env_array;
+	size_t		len;
 }				t_env;
 
 t_env			*environment_new(const char **envp);
