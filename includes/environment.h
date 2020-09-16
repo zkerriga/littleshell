@@ -43,6 +43,8 @@ typedef struct	s_env
 	void		(*print)(struct s_env *self, int fd);
 	const char	*(*get_value)(struct s_env *self, const char *key);
 	char		**(*transfer_control)(struct s_env *self);
+	void		(*set_status)(struct s_env *self, int status);
+	int			(*get_status)(struct s_env *self);
 	void		(*del)(struct s_env *self);
 }				t_env;
 
