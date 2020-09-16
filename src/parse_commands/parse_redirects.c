@@ -13,29 +13,52 @@
 #include "minishell.h"
 #include "parse_commands.h"
 
-char	**parse_redirection(char ***args_tab, const char *redt)
+static void	tab_shift(char **tab)
+{
+	*tab = *(tab + 1);
+	while (*tab)
+		*tab = *(tab + 1);
+}
+
+static char *has_arg_redir(char *arg, const char *redt)
+{
+	int		red_len;
+	char	*red_word;
+
+	red_word = arg;
+	red_len = ft_strlen(redt);
+	while (red_word && ft_isspace(*arg))
+		red_word++;
+	if (!ft_strncmp(red_word, redt, red_len))
+	{
+		red_word = ft_strdup(red_word);	// TODO: add error managment
+		free(arg);
+		return (red_word);
+	}
+	return (NULL);
+}
+
+char		**parse_redirection(char **args_tab, const char *redt)
 {
 	char	**redir_tab;
-	char	**cur_tab;
-	int		redir_tab_i;
+	int		tab_i;
+	char	*redir_word;
 
-	cur_tab = *args_tab;
 	if (!(redir_tab = (char **)malloc(sizeof(*redir_tab))))
 		exit(1); // TODO: add error managment;
-	redir_tab_i = 0;
+	tab_i = 0;
 	*redir_tab = NULL;
-
-	// Go for each arg in args and try parse redir.
-	while (cur_tab)
+	redir_word = NULL;
+	while (args_tab)
 	{
-		if (has_arg_redir(*cur_tab, redt))
+		if ((redir_word = has_arg_redir(*args_tab, redt)))
 		{
-			ft_realloc_tab(redir_tab, redir_tab_i + 1, redir_tab_i + 2);
-			redir_tab[redir_tab_i++] = *cur_tab;
-			tab_shift()
+			ft_realloc_tab((void **)redir_tab, tab_i + 1, tab_i + 2);
+			redir_tab[tab_i++] = redir_word;
+			tab_shift(args_tab);
 		}
-
-		++cur_tab;
+		else
+			++args_tab;
 	}
 	return (redir_tab);
 }
