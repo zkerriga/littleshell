@@ -16,6 +16,14 @@
 # include "libft.h"
 # include "environment.h"
 
-int	exec_all_commands(t_list *cmd_list, t_env *env);
+typedef int (*t_func_ptr)(char **, int, int, t_env *);
+
+typedef struct	s_cmdlink
+{
+	const char	*cmd_name;
+	int			(*func)(char **, int, int, t_env *);
+}				t_cmdlink;
+
+int				exec_all_commands(t_list *cmd_list, t_env *env);
 
 #endif
