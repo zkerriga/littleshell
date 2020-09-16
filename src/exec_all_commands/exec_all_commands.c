@@ -59,7 +59,13 @@ int	exec_all_commands(t_list *cmd_list, t_env *env)
 			status = cmd_link(cmd->args, 0, 1, env);
 			cmd_link = NULL;
 		}
-		printf("+------------+\n| cmd -> %s\n| status -> %d\n+------------+\n", cmd->cmd_name, status);
+		else if (is_ok_set_cmd_exec_name(cmd, env))
+		{
+			printf("i will try run: %s\n", cmd->cmd_name);
+		}
+		else
+			printf("no such command:(\n");
+		//printf("+------------+\n| cmd -> %s\n| status -> %d\n+------------+\n", cmd->cmd_name, status);
 		cmd_list = cmd_list->next;
 	}
 	return (0);

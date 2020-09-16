@@ -26,4 +26,6 @@ typedef struct	s_cmdlink
 
 int				exec_all_commands(t_list *cmd_list, t_env *env);
 
+int is_ok_set_cmd_exec_name(t_command *name, t_env *env);
+
 #endif

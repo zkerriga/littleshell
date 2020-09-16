@@ -90,7 +90,7 @@ t_list *parse_command_line(char *cmd_line, t_env *env)
 		else
 		{
 			ft_lstadd_back(&lst_head, lst_cur);
-			test_cmd_print(lst_cur->content);
+			//test_cmd_print(lst_cur->content);
 		}
 	}
 	return (lst_head);
