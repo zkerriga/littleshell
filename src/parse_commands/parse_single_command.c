@@ -14,6 +14,7 @@
 #include "parse_commands.h"
 #include "environment.h"
 #include "word_work.h"
+#include "test_minishell.h"
 #include <stdlib.h>
 
 //
@@ -109,7 +110,7 @@ void parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 	}
 
 	// TEST
-
+	test_cmd_print(cmd);
 	// END TEST
 }
 

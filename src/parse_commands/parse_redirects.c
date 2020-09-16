@@ -31,7 +31,7 @@ static char *has_arg_redir(char *arg, const char *redt)
 		red_word++;
 	if (!ft_strncmp(red_word, redt, red_len))
 	{
-		red_word = ft_strdup(red_word);	// TODO: add error managment
+		red_word = ft_strdup(red_word + red_len);	// TODO: add error managment
 		free(arg);
 		return (red_word);
 	}
@@ -49,12 +49,13 @@ char		**parse_redirection(char **args_tab, const char *redt)
 	tab_i = 0;
 	*redir_tab = NULL;
 	redir_word = NULL;
-	while (args_tab)
+	while (*args_tab)
 	{
 		if ((redir_word = has_arg_redir(*args_tab, redt)))
 		{
-			ft_realloc_tab((void **)redir_tab, tab_i + 1, tab_i + 2);
+			redir_tab = (char **)ft_realloc_tab((void **)redir_tab, tab_i + 1, tab_i + 2);
 			redir_tab[tab_i++] = redir_word;
+			redir_tab[tab_i] = NULL;
 			tab_shift(args_tab);
 		}
 		else
