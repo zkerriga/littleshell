@@ -14,7 +14,8 @@
 # define EXEC_ALL_COMMANDS_H
 
 # include "libft.h"
+# include "environment.h"
 
-int	exec_all_commands(t_list *cmd_list);
+int	exec_all_commands(t_list *cmd_list, t_env *env);
 
 #endif

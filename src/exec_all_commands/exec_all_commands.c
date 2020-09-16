@@ -11,12 +11,25 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "minishell.h"
+#include "builtin_functions.h"
 
-int	exec_all_commands(t_list *cmd_list)
+#include <stdio.h>
+int	exec_all_commands(t_list *cmd_list, t_env *env)
 {
-	if (cmd_list)
+	int			status;
+	t_command	*cmd;
+
+	status = 0;
+	while (cmd_list)
 	{
-		;
+		cmd = cmd_list->content;
+		if (ft_strncmp(cmd->cmd_name, "env", 4) == 0)
+		{
+			status = env_command(NULL, 0, 1, env);
+		}
+		printf("+------------+\n| cmd -> %s\n| status -> %d\n+------------+\n", cmd->cmd_name, status);
+		cmd_list = cmd_list->next;
 	}
 	return (0);
 }
