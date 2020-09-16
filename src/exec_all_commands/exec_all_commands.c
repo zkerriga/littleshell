@@ -13,20 +13,50 @@
 #include "libft.h"
 #include "minishell.h"
 #include "builtin_functions.h"
-
+#include "exec_all_commands.h"
 #include <stdio.h>
+
+static int			is_equal_cmd_name(const char *const_name, const char *cmd)
+{
+	while (*const_name && *cmd)
+	{
+		if (*const_name++ != ft_tolower(*cmd++))
+			return (0);
+	}
+	return (*const_name == *cmd);
+}
+
+static t_func_ptr	if_builtins_get_function(char *cmd_name)
+{
+	const t_cmdlink	cmd_links[] = {{"env", env_command}, {NULL, NULL}};
+	int				i;
+
+	i = 0;
+	while (cmd_links[i].cmd_name)
+	{
+		if (is_equal_cmd_name(cmd_links[i].cmd_name, cmd_name))
+		{
+			return (cmd_links[i].func);
+		}
+		++i;
+	}
+	return (NULL);
+}
+
 int	exec_all_commands(t_list *cmd_list, t_env *env)
 {
-	int			status;
-	t_command	*cmd;
+	int				status;
+	t_command		*cmd;
+	t_func_ptr		cmd_link;
 
 	status = 0;
 	while (cmd_list)
 	{
 		cmd = cmd_list->content;
-		if (ft_strncmp(cmd->cmd_name, "env", 4) == 0)
+		if ((cmd_link = if_builtins_get_function(cmd->cmd_name)))
 		{
-			status = env_command(NULL, 0, 1, env);
+			status = cmd_link(cmd->args, 0, 1, env);
+			cmd_link = NULL;
 		}
 		printf("+------------+\n| cmd -> %s\n| status -> %d\n+------------+\n", cmd->cmd_name, status);
 		cmd_list = cmd_list->next;
