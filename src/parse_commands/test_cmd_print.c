@@ -22,8 +22,8 @@ void	test_cmd_print(t_command *cmd)
 	tab_i = cmd->args;
 	while (tab_i && *tab_i)
 	{
-		ft_putendl_fd(*tab_i, 1);
-		++tab_i;
+		ft_putstr_fd(*tab_i, 1);
+		ft_putstr_fd(*(++tab_i) ? ", " : ".", 1);
 	}
 	ft_putstr_fd("\n\n", 1);
 
@@ -31,8 +31,8 @@ void	test_cmd_print(t_command *cmd)
 	tab_i = cmd->redir_in;
 	while (tab_i && *tab_i)
 	{
-		ft_putendl_fd(*tab_i, 1);
-		++tab_i;
+		ft_putstr_fd(*tab_i, 1);
+		ft_putstr_fd(*(++tab_i) ? ", " : ".", 1);
 	}
 	ft_putstr_fd("\n\n", 1);
 
@@ -40,8 +40,8 @@ void	test_cmd_print(t_command *cmd)
 	tab_i = cmd->redir_out;
 	while (tab_i && *tab_i)
 	{
-		ft_putendl_fd(*tab_i, 1);
-		++tab_i;
+		ft_putstr_fd(*tab_i, 1);
+		ft_putstr_fd(*(++tab_i) ? ", " : ".", 1);
 	}
 	ft_putstr_fd("\n\n", 1);
 
@@ -49,8 +49,8 @@ void	test_cmd_print(t_command *cmd)
 	tab_i = cmd->redir_in_app;
 	while (tab_i && *tab_i)
 	{
-		ft_putendl_fd(*tab_i, 1);
-		++tab_i;
+		ft_putstr_fd(*tab_i, 1);
+		ft_putstr_fd(*(++tab_i) ? ", " : ".", 1);
 	}
 	ft_putstr_fd("\n\n", 1);
 
@@ -58,8 +58,8 @@ void	test_cmd_print(t_command *cmd)
 	tab_i = cmd->redir_out_app;
 	while (tab_i && *tab_i)
 	{
-		ft_putendl_fd(*tab_i, 1);
-		++tab_i;
+		ft_putstr_fd(*tab_i, 1);
+		ft_putstr_fd(*(++tab_i) ? ", " : ".", 1);
 	}
 	ft_putstr_fd("\n\n", 1);
 }
