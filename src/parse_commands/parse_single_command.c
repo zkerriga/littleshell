@@ -20,26 +20,49 @@
 //
 #include <stdio.h>
 
+static int	is_redirect(char ch)
+{
+	if (ch == '<' || ch == '>')
+		return (1);
+	return (0);
+}
+
 char *get_shell_word_and_go_next(char **str, t_env *env)
 {
 	int			quote;
 	int			d_quote;
+	char		*str_start;
 	char		*word;
 	t_word_work	*word_work;
 
 	quote = 0;
 	d_quote = 0;
 	word_work = word_work_new();
-	while (ft_isspace(**str))
+	while (ft_isspace(**str))			// Probably might be deleted
 		++(*str);
+	str_start = *str;
 	while (**str)
 	{
-		if (ft_isspace(**str) && !(d_quote || quote))
+		if (is_redirect(**str) && !(d_quote || quote))
+		{
+			if (str_start == *str)
+			{
+				word_work->add_char(word_work, **str);
+				++(*str);
+				if (is_redirect(**str))
+				{
+					word_work->add_char(word_work, **str);
+					++(*str);
+				}
+			}
+			break ;
+		}
+		else if (ft_isspace(**str) && !(d_quote || quote))
 		{
 			++(*str);
 			break;
 		}
-		if (**str == '\'' && !d_quote)
+		else if (**str == '\'' && !d_quote)
 			quote = !quote;
 		else if (**str == '"' && !quote)
 			d_quote = !d_quote;
