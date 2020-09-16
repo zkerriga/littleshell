@@ -11,22 +11,23 @@
 /* ************************************************************************** */
 
 #include "environment.h"
+#include "errno.h"
 
 /*
 ** The command prints an unsorted list of environment variables
 ** and returns 0 if successful. If an error occurs, returns 126.
 */
 
-int		env_command(char **args, int stdin, int stdout, t_env *env)
+int		env_command(char **args, int fdin, int fdout, t_env *env)
 {
 	const int	env_error_code = 126;
 	const int	success_code = 0;
 
-	if (args || stdin)
+	if (args || fdin)
 	{
 	}
 	if (!env)
-		return (env_error_code);
-	env->print(env, stdout); //TODO: не хватает проверки ошибок с дескриптором
+		return (errno = env_error_code);
+	env->print(env, fdout); //TODO: не хватает проверки ошибок с дескриптором
 	return (success_code);
 }

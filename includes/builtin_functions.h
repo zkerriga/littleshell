@@ -14,7 +14,11 @@
 # define BUILTIN_FUNCTION_H
 
 # include "environment.h"
+# include <errno.h>
+# include <stdio.h>
+# include <string.h>
 
-int		env_command(char **args, int stdin, int stdout, t_env *env);
+int		env_command(char **args, int fdin, int fdout, t_env *env);
+int		unset_command(char **args, int fdin, int fdout, t_env *env);
 
 #endif

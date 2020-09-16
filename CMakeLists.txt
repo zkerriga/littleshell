@@ -43,6 +43,7 @@ set(WORD_WORK
 
 set(BUILTINS
         src/builtin_functions/env/env.c
+        src/builtin_functions/unset/unset.c
         )
 
 FILE(GLOB LIBFT libs/libft/*/*.c)
