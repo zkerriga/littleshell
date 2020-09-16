@@ -44,6 +44,7 @@ set(WORD_WORK
 set(BUILTINS
         src/builtin_functions/env/env.c
         src/builtin_functions/unset/unset.c
+        src/builtin_functions/write_err.c
         )
 
 FILE(GLOB LIBFT libs/libft/*/*.c)

@@ -37,11 +37,9 @@ int			unset_command(char **args, int fdin, int fdout, t_env *env)
 {
 	const int	unset_error_code = 1;
 	int			status;
-	char		*error_str;
+	int			unused;
 
-	if (fdin || fdout)
-	{
-	}
+	unused = fdout || fdin;
 	if (!env)
 		return (errno = unset_error_code);
 	status = 0;
@@ -49,8 +47,8 @@ int			unset_command(char **args, int fdin, int fdout, t_env *env)
 	{
 		if (!is_valid_arg(*args))
 		{
-			error_str = strerror((status = unset_error_code));
-			write(2, error_str, ft_strlen(error_str));
+			status = unset_error_code;
+			write_err("unset", *args, "not a valid identifier");
 		}
 		else
 		{

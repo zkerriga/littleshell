@@ -22,10 +22,9 @@ int		env_command(char **args, int fdin, int fdout, t_env *env)
 {
 	const int	env_error_code = 126;
 	const int	success_code = 0;
+	int			unused;
 
-	if (args || fdin)
-	{
-	}
+	unused = args || fdin;
 	if (!env)
 		return (errno = env_error_code);
 	env->print(env, fdout); //TODO: не хватает проверки ошибок с дескриптором
