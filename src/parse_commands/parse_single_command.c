@@ -98,28 +98,18 @@ void parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 	char	**tab_word;
 
 	tab_word = shell_word_split_with_env(cmd_str, env);
-	cmd->redir_in = parse_redirection(&tab_word, "<");
-
-	// Here we should fill redirects
-
-
-
-	//	here we should set cmd fields
+	cmd->redir_in = parse_redirection(tab_word, "<");
+	cmd->redir_out = parse_redirection(tab_word, ">");
+	cmd->redir_in_app = parse_redirection(tab_word, "<<");
+	cmd->redir_out_app = parse_redirection(tab_word, ">>");
 	if (*tab_word)
 	{
 		cmd->args = tab_word;
-		cmd->cmd_name = ft_strdup(tab_word[0]);
+		cmd->cmd_name = ft_strdup(tab_word[0]);	// TODO: add error managment
 	}
 
 	// TEST
-	char	**i_tab_word;
-	i_tab_word = tab_word;
-	while (*i_tab_word)
-	{
-		printf("|%s", *i_tab_word ? *i_tab_word : "null!");
-		++i_tab_word;
-	}
-	printf("\n\n");
+
 	// END TEST
 }
 
