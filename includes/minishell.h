@@ -24,6 +24,7 @@ typedef struct	s_cmd	// TODO: add const modifier to strings
 	char		**redir_out;
 	char		**redir_out_app;
 	char		next_operator[2];
+	int 		is_empty;
 }				t_command;
 
 #endif
