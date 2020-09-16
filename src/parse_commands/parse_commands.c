@@ -17,9 +17,6 @@
 #include "environment.h"
 #include "test_minishell.h"
 
-//
-#include <stdio.h>
-
 void	destroy_command(t_command *cmd)
 {
 	if (cmd->redir_out_app)
@@ -37,7 +34,7 @@ void	destroy_command(t_command *cmd)
 	free(cmd);
 }
 
-t_command	*new_command()
+static t_command	*new_command()
 {
 	t_command	*new_command;
 
@@ -53,7 +50,8 @@ t_command	*new_command()
 **	return modified *cmd_line;
 */
 
-char *parse_first_cmd_and_go_next(char *cmd_line, t_command *cmd, t_env *env)
+static char 		*parse_first_cmd_and_go_next(char *cmd_line,
+										t_command *cmd, t_env *env)
 {
 	char	*cur_cmd_line;
 
@@ -82,7 +80,7 @@ t_list *parse_command_line(char *cmd_line, t_env *env)
 	{
 		if (!(cur_cmd = new_command()) ||		// TODO: refactor command_new
 			!(lst_cur = ft_lstnew(cur_cmd)))
-			printf("Malloc error parse commands!\n");	//	TODO: add error management
+			ft_putendl_fd("Malloc error parse commands!", 1);	//	TODO: add error management
 		cmd_line = parse_first_cmd_and_go_next(cmd_line, lst_cur->content, env);
 		if (((t_command*)(lst_cur->content))->is_empty)
 		{

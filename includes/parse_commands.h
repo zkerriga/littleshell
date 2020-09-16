@@ -18,6 +18,8 @@
 
 t_list *parse_command_line(char *cmd_line, t_env *env);
 
+void	destroy_command(t_command *cmd);
+
 int		does_command_separates(char **cmd_line);
 void	set_separator_type(char **cmd_line, t_command *cmd);
 

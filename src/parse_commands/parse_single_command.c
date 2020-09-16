@@ -16,9 +16,6 @@
 #include "word_work.h"
 #include <stdlib.h>
 
-//
-#include <stdio.h>
-
 static int	is_redirect_next(char *str)
 {
 	while (*str && ft_isspace(*str))
@@ -35,7 +32,7 @@ static int	is_redirect(char ch)
 	return (0);
 }
 
-char *get_shell_word_and_go_next(char **str, t_env *env)
+static char	*get_shell_word_and_go_next(char **str, t_env *env)
 {
 	int			quote;
 	int			d_quote;
@@ -107,7 +104,7 @@ char *get_shell_word_and_go_next(char **str, t_env *env)
 }
 
 
-char **shell_word_split_with_env(char *str, t_env *env)
+static char **shell_word_split_with_env(char *str, t_env *env)
 {
 	char	**tab_word;
 	int		i_word;
@@ -128,19 +125,19 @@ char **shell_word_split_with_env(char *str, t_env *env)
 			}// TODO: mignt be malloc error
 			i_word++;
 			if (!(tab_word = (char **)ft_realloc_tab((void **)tab_word, i_word, i_word + 1)))
-				printf("Malloc error in shell_word_split_with_env\n"); // TODO: error check
+				ft_putendl_fd("Malloc error in shell_word_split_with_env", 1); // TODO: error check
 		}
 	}
 	return (tab_word);
 }
 
-void parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
+void		parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 {
 	char	**tab_word;
 
 	if (!(tab_word = shell_word_split_with_env(cmd_str, env)))
 	{
-		printf("Parse error!\n"); // TODO: add normal error msg
+		ft_putendl_fd("Parse error!", 1); // TODO: add normal error msg
 		cmd->is_empty = 1;
 		return ;
 	}
