@@ -47,6 +47,7 @@ $(OBJ_DIR):
 				$(OBJ_DIR)/$(SRC_DIR)/exec_all_commands/ \
 				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/env/ \
 				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/unset/ \
+				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/export/ \
 				$(OBJ_DIR)/$(SRC_DIR)/$(CLASS_DIR)/environment \
 				$(OBJ_DIR)/$(SRC_DIR)/$(CLASS_DIR)/word_work
 
