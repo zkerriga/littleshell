@@ -30,6 +30,8 @@ set(ENVIRONMENT
         src/classes/environment/environment_remove.c
         src/classes/environment/environment_transfer_control.c
         src/classes/environment/environment_get_value.c
+        src/classes/environment/environment_get_status.c
+        src/classes/environment/environment_set_status.c
         )
 
 set(WORD_WORK
