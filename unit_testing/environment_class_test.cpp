@@ -13,6 +13,20 @@ extern "C" {
 #include "parse_commands.h"
 };
 
+TEST(env, env_get_set_status) {
+	const char *envp[10] = {"HOME=/zkerriga/", "PATH=/zkerriga/21/school/",
+							"D==1=2=3=4=5=6=7=8=9=", "E=",
+							"F====================", NULL};
+	t_env *env;
+
+	env = environment_new(envp);
+	ASSERT_EQ(0, env->get_status(env));
+	env->set_status(env, 1234);
+	ASSERT_EQ(1234, env->get_status(env));
+	env->set_status(env, -999999);
+	ASSERT_EQ(-999999, env->get_status(env));
+}
+
 TEST(env, env_get_value)
 {
 	const char	*envp[10] = {"HOME=/zkerriga/", "PATH=/zkerriga/21/school/",
