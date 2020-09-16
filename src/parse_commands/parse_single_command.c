@@ -105,6 +105,7 @@ void parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 		cmd->args = tab_word;
 		cmd->cmd_name = ft_strdup(tab_word[0]);
 	}
+
 	// TEST
 	char	**i_tab_word;
 	i_tab_word = tab_word;
@@ -114,5 +115,6 @@ void parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 		++i_tab_word;
 	}
 	printf("\n\n");
+	// END TEST
 }
 
