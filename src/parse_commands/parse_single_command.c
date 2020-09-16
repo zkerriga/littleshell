@@ -14,11 +14,19 @@
 #include "parse_commands.h"
 #include "environment.h"
 #include "word_work.h"
-#include "test_minishell.h"
 #include <stdlib.h>
 
 //
 #include <stdio.h>
+
+static int	is_redirect_next(char *str)
+{
+	while (*str && ft_isspace(*str))
+		++str;
+	if (*str == '>' || *str == '<' || *str == '\0')
+		return (1);
+	return (0);
+}
 
 static int	is_redirect(char ch)
 {
@@ -54,6 +62,11 @@ char *get_shell_word_and_go_next(char **str, t_env *env)
 					word_work->add_char(word_work, **str);
 					++(*str);
 				}
+				if (is_redirect_next(*str))
+				{
+					word_work->delete(word_work);
+					return (NULL);
+				}
 			}
 			break ;
 		}
@@ -72,7 +85,7 @@ char *get_shell_word_and_go_next(char **str, t_env *env)
 				word_work->add_char(word_work, **str);
 			else if (d_quote)
 			{
-				if (*(*str + 1) == '$' || *(*str + 1) == '"')
+				if (*(*str + 1) == '$' || *(*str + 1) == '"' || *(*str + 1) == '>' || *(*str + 1) == '<')
 					++(*str);
 				word_work->add_char(word_work, **str);
 			}
@@ -108,7 +121,11 @@ char **shell_word_split_with_env(char *str, t_env *env)
 			str++;
 		if (*str)
 		{
-			tab_word[i_word] = get_shell_word_and_go_next(&str, env);	// TODO: mignt be malloc error
+			if (!(tab_word[i_word] = get_shell_word_and_go_next(&str, env)))
+			{
+				ft_free_tab((void **)tab_word);
+				return (NULL);
+			}// TODO: mignt be malloc error
 			i_word++;
 			if (!(tab_word = (char **)ft_realloc_tab((void **)tab_word, i_word, i_word + 1)))
 				printf("Malloc error in shell_word_split_with_env\n"); // TODO: error check
@@ -121,19 +138,24 @@ void parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 {
 	char	**tab_word;
 
-	tab_word = shell_word_split_with_env(cmd_str, env);
-	cmd->redir_in = parse_redirection(tab_word, "<");
-	cmd->redir_out = parse_redirection(tab_word, ">");
-	cmd->redir_in_app = parse_redirection(tab_word, "<<");
-	cmd->redir_out_app = parse_redirection(tab_word, ">>");
+	if (!(tab_word = shell_word_split_with_env(cmd_str, env)))
+	{
+		printf("Parse error!\n"); // TODO: add normal error msg
+		cmd->is_empty = 1;
+		return ;
+	}
 	if (*tab_word)
 	{
+		cmd->redir_in_app = parse_redirection(tab_word, "<<");
+		cmd->redir_out_app = parse_redirection(tab_word, ">>");
+		cmd->redir_in = parse_redirection(tab_word, "<");
+		cmd->redir_out = parse_redirection(tab_word, ">");
 		cmd->args = tab_word;
 		cmd->cmd_name = ft_strdup(tab_word[0]);	// TODO: add error managment
 	}
-
-	// TEST
-	test_cmd_print(cmd);
-	// END TEST
+	else
+	{
+		free(tab_word);
+		cmd->is_empty = 1;
+	}
 }
-
