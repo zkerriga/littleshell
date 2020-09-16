@@ -15,6 +15,7 @@
 #include "minishell.h"
 #include "parse_commands.h"
 #include "environment.h"
+#include "test_minishell.h"
 
 //
 #include <stdio.h>
@@ -83,7 +84,16 @@ t_list *parse_command_line(char *cmd_line, t_env *env)
 			!(lst_cur = ft_lstnew(cur_cmd)))
 			printf("Malloc error parse commands!\n");	//	TODO: add error management
 		cmd_line = parse_first_cmd_and_go_next(cmd_line, lst_cur->content, env);
-		ft_lstadd_back(&lst_head, lst_cur);
+		if (((t_command*)(lst_cur->content))->is_empty)
+		{
+			free(lst_cur->content);
+			free(lst_cur);
+		}
+		else
+		{
+			ft_lstadd_back(&lst_head, lst_cur);
+			test_cmd_print(lst_cur->content);
+		}
 	}
 	return (lst_head);
 }
