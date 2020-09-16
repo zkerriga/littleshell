@@ -34,7 +34,7 @@ void	loop(t_env *env)
 		cmd_line = read_line();
 		//clean_cmd_line = clear_command_line(cmd_line);
 		cmd_list = parse_command_line(cmd_line, env);
-		status = exec_all_commands(cmd_list);
+		status = exec_all_commands(cmd_list, env);
 		free(cmd_line);
 		//free(clean_cmd_line);
 		free(current_path);
