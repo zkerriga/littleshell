@@ -43,9 +43,14 @@ set(WORD_WORK
         src/classes/word_work/word_work_ret_word.c
         src/classes/word_work/word_work_add_size.c)
 
+set(BUILTINS
+        src/builtin_functions/env/env.c
+        )
+
 FILE(GLOB LIBFT libs/libft/*/*.c)
 
 add_executable(minishell
+        ${BUILTINS}
         ${READ_LINE_SRCS}
         ${PARSE_COMMANDS}
         ${EXEC_ALL_COMMANDS}

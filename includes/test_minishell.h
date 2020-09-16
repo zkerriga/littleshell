@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_functions.h                                :+:      :+:    :+:   */
+/*   test_minishell.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkerriga <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: matrus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/12 17:23:37 by zkerriga          #+#    #+#             */
-/*   Updated: 2020/09/12 17:23:41 by zkerriga         ###   ########.fr       */
+/*   Created: 2020/09/16 10:07:41 by matrus            #+#    #+#             */
+/*   Updated: 2020/09/16 10:07:42 by matrus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_FUNCTION_H
-# define BUILTIN_FUNCTION_H
+#ifndef TEST_MINISHELL_H
+# define TEST_MINISHELL_H
 
-# include "environment.h"
+#include "minishell.h"
 
-int		env_command(char **args, int stdin, int stdout, t_env *env);
+void	test_cmd_print(t_command *cmd);
 
 #endif
