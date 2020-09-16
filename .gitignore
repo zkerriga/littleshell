@@ -5,6 +5,6 @@ bin/
 .DS_Store
 libs/libft/libft.a
 libs/libft/obj
-
+matrus_main.c
 test.c
 test_program
