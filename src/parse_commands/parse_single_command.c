@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
+#include "parse_commands.h"
 #include "environment.h"
 #include "word_work.h"
 #include <stdlib.h>
@@ -98,8 +98,13 @@ void parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 	char	**tab_word;
 
 	tab_word = shell_word_split_with_env(cmd_str, env);
+	cmd->redir_in = parse_redirection(&tab_word, "<");
 
-	//	first argument is always command name
+	// Here we should fill redirects
+
+
+
+	//	here we should set cmd fields
 	if (*tab_word)
 	{
 		cmd->args = tab_word;
