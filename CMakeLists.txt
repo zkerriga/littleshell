@@ -27,6 +27,7 @@ set(ENVIRONMENT
         src/classes/environment/environment_del.c
         src/classes/environment/environment_add.c
         src/classes/environment/environment_print.c
+        src/classes/environment/environment_print_sorted.c
         src/classes/environment/environment_remove.c
         src/classes/environment/environment_transfer_control.c
         src/classes/environment/environment_get_value.c
