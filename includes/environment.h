@@ -41,6 +41,7 @@ typedef struct	s_env
 	int			(*add)(struct s_env *self, const char *key, const char *value);
 	void		(*remove)(struct s_env *self, const char *key);
 	void		(*print)(struct s_env *self, int fd);
+	void		(*print_sorted)(struct s_env *self, int fd);
 	const char	*(*get_value)(struct s_env *self, const char *key);
 	char		**(*transfer_control)(struct s_env *self);
 	void		(*set_status)(struct s_env *self, int status);

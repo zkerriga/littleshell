@@ -49,6 +49,7 @@ t_env			*environment_new(const char **envp)
 		self->add = environment_add;
 		self->remove = environment_remove;
 		self->print = environment_print;
+		self->print_sorted = environment_print_sorted;
 		self->get_value = environment_get_value;
 		self->transfer_control = environment_transfer_control;
 		self->set_status = environment_set_status;
