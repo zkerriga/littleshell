@@ -65,12 +65,6 @@ char *parse_first_cmd_and_go_next(char *cmd_line, t_command *cmd, t_env *env)
 		*cmd_line = '\0';
 		cmd_line++;
 	}
-	// TEST		cmd_line should separate properly, operator type should set properly
-	// printf("type after: %1c%1c ", cmd->next_operator[0], cmd->next_operator[1]);
-	// printf("parsed cmd: %s\n", cur_cmd_line);
-	// END TEST
-
-	// parse_single_command(cur_cmd_line, cmd) is next task
 	parse_single_command(cur_cmd_line, cmd, env);
 	return (cmd_line);
 }
@@ -89,8 +83,7 @@ t_list *parse_command_line(char *cmd_line, t_env *env)
 			!(lst_cur = ft_lstnew(cur_cmd)))
 			printf("Malloc error parse commands!\n");	//	TODO: add error management
 		cmd_line = parse_first_cmd_and_go_next(cmd_line, lst_cur->content, env);
-		// yeah, there leaks cos no push in lst;
-		//ft_lstadd_back(&lst_head, lst_cur);
+		ft_lstadd_back(&lst_head, lst_cur);
 	}
 	return (lst_head);
 }
