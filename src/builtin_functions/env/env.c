@@ -12,6 +12,11 @@
 
 #include "environment.h"
 
+/*
+** The command prints an unsorted list of environment variables
+** and returns 0 if successful. If an error occurs, returns 126.
+*/
+
 int		env_command(char **args, int stdin, int stdout, t_env *env)
 {
 	const int	env_error_code = 126;

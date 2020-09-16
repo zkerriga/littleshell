@@ -13,4 +13,8 @@
 #ifndef BUILTIN_FUNCTION_H
 # define BUILTIN_FUNCTION_H
 
+# include "environment.h"
+
+int		env_command(char **args, int stdin, int stdout, t_env *env);
+
 #endif
