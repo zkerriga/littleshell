@@ -16,47 +16,34 @@
 static void	tab_shift(char **tab)
 {
 	*tab = *(tab + 1);
-	while (*tab)
+	while (tab++ && *tab)
 		*tab = *(tab + 1);
-}
-
-static char *has_arg_redir(char *arg, const char *redt)
-{
-	int		red_len;
-	char	*red_word;
-
-	red_word = arg;
-	red_len = ft_strlen(redt);
-	while (red_word && ft_isspace(*arg))
-		red_word++;
-	if (!ft_strncmp(red_word, redt, red_len))
-	{
-		red_word = ft_strdup(red_word + red_len);	// TODO: add error managment
-		free(arg);
-		return (red_word);
-	}
-	return (NULL);
 }
 
 char		**parse_redirection(char **args_tab, const char *redt)
 {
 	char	**redir_tab;
 	int		tab_i;
-	char	*redir_word;
 
 	if (!(redir_tab = (char **)malloc(sizeof(*redir_tab))))
 		exit(1); // TODO: add error managment;
 	tab_i = 0;
 	*redir_tab = NULL;
-	redir_word = NULL;
 	while (*args_tab)
 	{
-		if ((redir_word = has_arg_redir(*args_tab, redt)))
+		if (!ft_strncmp(*args_tab, redt, ft_strlen(redt)))
 		{
 			redir_tab = (char **)ft_realloc_tab((void **)redir_tab, tab_i + 1, tab_i + 2);
-			redir_tab[tab_i++] = redir_word;
-			redir_tab[tab_i] = NULL;
+			free(*args_tab);
 			tab_shift(args_tab);
+			if (*args_tab)
+			{
+				redir_tab[tab_i++] = *args_tab;
+				tab_shift(args_tab);
+			}
+			else
+				redir_tab[tab_i++] = ft_strdup(""); // TODO: error check
+			redir_tab[tab_i] = NULL;
 		}
 		else
 			++args_tab;
