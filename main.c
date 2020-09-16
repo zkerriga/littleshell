@@ -38,7 +38,7 @@ void	loop(t_env *env)
 		free(cmd_line);
 		//free(clean_cmd_line);
 		free(current_path);
-		ft_lstclear(&cmd_list, NULL); //TODO: заменить NULL на функцию для удаления
+		ft_lstclear(&cmd_list, (void (*)(void*))destroy_command);
 		status = 1; // for testing
 	}
 }
