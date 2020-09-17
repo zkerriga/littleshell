@@ -28,11 +28,11 @@ static int			is_equal_cmd_name(const char *const_name, const char *cmd)
 
 static t_func_ptr	if_builtins_get_function(char *cmd_name)
 {
+	int				i;
 	const t_cmdlink	cmd_links[] = {{"env", env_command},
 {"unset", unset_command}, {"export", export_command}, {"exit", exit_command},
 {"echo", echo_command}, {"cd", cd_command}, {"pwd", pwd_command},
 {NULL, NULL}};
-	int				i;
 
 	i = 0;
 	while (cmd_links[i].cmd_name)
@@ -46,12 +46,24 @@ static t_func_ptr	if_builtins_get_function(char *cmd_name)
 	return (NULL);
 }
 
-int	exec_one_command(t_command *cmd, t_env *env)
+int					exec_one_command(t_command *cmd, t_env *env)
 {
 	int				status;
 	t_func_ptr		cmd_link;
 
 	status = 0;
+	cmd_link = if_builtins_get_function(cmd->cmd_name);
+	if (!cmd_link && !is_ok_set_cmd_exec_name(cmd, env))
+	{
+		status = 1;
+		write_err(cmd->cmd_name, NULL, "no such command");
+	}
+	else
+		status = execute_command(cmd_link, cmd, env);
+	return (status);
+}
+
+/*
 	if ((cmd_link = if_builtins_get_function(cmd->cmd_name)))
 	{
 		status = execute_command(cmd_link, cmd, env);
@@ -65,14 +77,13 @@ int	exec_one_command(t_command *cmd, t_env *env)
 	else
 	{
 		status = 1;
-		write_err(NULL, NULL, "no such command");
+		write_err(cmd->cmd_name, NULL, "no such command");
 	}
 	return (status);
-}
+*/
 
 /*
 **	OLD FUNCTION! NOT USED NOW!
-*/
 
 int	exec_all_commands(t_list *cmd_list, t_env *env)
 {
@@ -99,8 +110,8 @@ int	exec_all_commands(t_list *cmd_list, t_env *env)
 			status = 1;
 			write_err(NULL, NULL, "no such command");
 		}
-		//printf("+------------+\n| cmd -> %s\n| status -> %d\n+------------+\n", cmd->cmd_name, status);
 		cmd_list = cmd_list->next;
 	}
 	return (status);
 }
+*/
