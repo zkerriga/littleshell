@@ -37,7 +37,7 @@ static void	print_execution_result(int fd_from, int fd_to)
 	while ((gnl_status = get_next_line(fd_from, &line)) >= 0)
 	{
 		write(fd_to, line, ft_strlen(line));
-		write(fd_to, "\n", 1);
+		write(fd_to, "\n", *line ? 1 : 0);
 //		ft_putendl_fd("", fd_to);
 		free(line); //добавил zkerriga
 		if (!gnl_status)
