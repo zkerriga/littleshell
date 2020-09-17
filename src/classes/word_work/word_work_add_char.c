@@ -18,5 +18,5 @@ void		word_work_add_char(t_word_work *self, char ch)
 		self->add_size(self);
 	self->word[self->w_len] = ch;
 	self->word[self->w_len + 1] = '\0';
-	self->w_len++;
+	++(self->w_len);
 }

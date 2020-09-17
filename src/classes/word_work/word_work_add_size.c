@@ -13,7 +13,7 @@
 #include "_word_work.h"
 #include "get_next_line.h" //TODO: move ft_realloc to libft
 
-void 	word_work_add_size(t_word_work *self)
+void	word_work_add_size(t_word_work *self)
 {
 	self->w_max_len += SHELL_WORD_LEN;
 	self->word = ft_realloc(self->word, self->w_max_len, self->w_max_len);
