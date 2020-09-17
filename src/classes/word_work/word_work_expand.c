@@ -16,7 +16,7 @@
 static char	*parse_key(char *str)
 {
 	char	*key_start;
-	char 	*key;
+	char	*key;
 
 	key_start = str;
 	if (ft_isalpha(*str) || *str == '_')
@@ -24,8 +24,8 @@ static char	*parse_key(char *str)
 		++str;
 		while (ft_isalnum(*str) || *str == '_')
 			++str;
-		key = (char *)malloc(sizeof(*key) * (str - key_start + 1));
-		ft_strlcpy(key, key_start, str - key_start + 1);
+		if ((key = (char *)malloc(sizeof(*key) * (str - key_start + 1))))
+			ft_strlcpy(key, key_start, str - key_start + 1);
 		return (key);
 	}
 	return (ft_strdup(""));
@@ -33,19 +33,26 @@ static char	*parse_key(char *str)
 
 int			word_work_expand(t_word_work *self, char *str, t_env *env)
 {
-	int			shift;
+	size_t		shift;
 	char		*key;
 	const char	*value;
 
-	shift = 0;
-	str++;
-	key = parse_key(str);
-	shift += ft_strlen(key);
-	value = env->get_value(env, (const char*)key);
+	shift = 1;
+	key = NULL;
+	if (*++str == '?')
+	{
+		key = ft_itoa(env->get_status(env)); //TODO: malloc
+		value = (const char *)key;
+	}
+	else
+	{
+		key = parse_key(str); //TODO: malloc
+		shift = ft_strlen(key);
+		value = env->get_value(env, (const char*)key);
+	}
 	while (value && *value)
 	{
-		self->add_char(self, *value);
-		++value;
+		self->add_char(self, *value++);
 	}
 	free(key);
 	return (shift);

@@ -14,5 +14,5 @@
 
 void	environment_set_status(t_env *self, int status)
 {
-	self->exit_status = status;
+	self->exit_status = (unsigned char)status;
 }
