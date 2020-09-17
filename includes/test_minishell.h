@@ -13,7 +13,7 @@
 #ifndef TEST_MINISHELL_H
 # define TEST_MINISHELL_H
 
-#include "minishell.h"
+# include "minishell.h"
 
 void	test_cmd_print(t_command *cmd);
 

@@ -23,6 +23,6 @@ typedef struct	s_word_work
 	void		(*delete)(struct s_word_work *self);
 }				t_word_work;
 
-t_word_work	*word_work_new();
+t_word_work		*word_work_new();
 
 #endif
