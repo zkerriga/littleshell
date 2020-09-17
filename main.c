@@ -17,11 +17,26 @@
 #include "environment.h"
 #include "clear_command_line.h"
 
+int		execute_line(char *cmd_line, t_env *env)
+{
+	t_command	cmd;
+	int			status;
+
+	ft_bzero(&cmd, sizeof(cmd));
+	while (*cmd_line)
+	{
+		cmd_line = parse_first_cmd_and_go_next(cmd_line, &cmd, env);
+		if (!cmd.is_empty)
+			status = exec_one_command(&cmd, env);
+	}
+	return (status);
+}
+
 void	loop(t_env *env)
 {
 	char	*cmd_line;
 	//char	*clean_cmd_line;
-	t_list	*cmd_list;
+	//t_list	*cmd_list;
 	int		status;
 	char	*current_path;
 
@@ -33,12 +48,13 @@ void	loop(t_env *env)
 		write(1, ": ", 2);
 		cmd_line = read_line();
 		//clean_cmd_line = clear_command_line(cmd_line);
-		cmd_list = parse_command_line(cmd_line, env);
-		status = exec_all_commands(cmd_list, env);
+		//cmd_list = parse_command_line(cmd_line, env);
+		//status = exec_all_commands(cmd_list, env);
+		status = execute_line(cmd_line, env);
 		free(cmd_line);
 		//free(clean_cmd_line);
 		free(current_path);
-		ft_lstclear(&cmd_list, (void (*)(void*))destroy_command);
+		//ft_lstclear(&cmd_list, (void (*)(void*))destroy_command);
 		status = 1; // for testing
 	}
 }
