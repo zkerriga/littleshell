@@ -40,7 +40,8 @@ void	loop(t_env *env)
 	int		status;
 	char	*current_path;
 
-	status = 1; //TODO: сделать штуку, которая отчистит терминал
+	status = 1;
+	write(1, "\033c", ft_strlen("\033c"));
 	while (status)
 	{
 		current_path = getcwd(NULL, 0);
@@ -51,7 +52,6 @@ void	loop(t_env *env)
 		//status = exec_all_commands(cmd_list, env);
 		status = execute_line(cmd_line, env);
 		free(cmd_line);
-		//free(clean_cmd_line);
 		free(current_path);
 		//ft_lstclear(&cmd_list, (void (*)(void*))destroy_command);
 		status = 1; // for testing
