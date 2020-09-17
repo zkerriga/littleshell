@@ -63,7 +63,10 @@ int	exec_one_command(t_command *cmd, t_env *env)
 		//printf("i will try run: %s\n", cmd->cmd_name);
 	}
 	else
-		printf("no such command:(\n");
+	{
+		status = 1;
+		write_err(NULL, NULL, "no such command");
+	}
 	return (status);
 }
 
@@ -92,7 +95,10 @@ int	exec_all_commands(t_list *cmd_list, t_env *env)
 			//printf("i will try run: %s\n", cmd->cmd_name);
 		}
 		else
+		{
+			status = 1;
 			write_err(NULL, NULL, "no such command");
+		}
 		//printf("+------------+\n| cmd -> %s\n| status -> %d\n+------------+\n", cmd->cmd_name, status);
 		cmd_list = cmd_list->next;
 	}

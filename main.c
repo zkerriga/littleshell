@@ -29,6 +29,7 @@ int		execute_line(char *cmd_line, t_env *env)
 		cmd_line = parse_first_cmd_and_go_next(cmd_line, &cmd, env);
 		if (!cmd.is_empty)
 			status = exec_one_command(&cmd, env);
+		env->set_status(env, status);
 	}
 	return (status);
 }

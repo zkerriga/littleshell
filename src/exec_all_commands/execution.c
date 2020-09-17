@@ -68,15 +68,15 @@ static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 	else if (inf->pid < 0)
 	{
 		// Fork error here
-		status = -1;
 		ft_putendl_fd("Forking error", 1); // TODO: error fd 2
+		return (-1);
 	}
 	else
 	{
 		// Parent here
 		waitpid(inf->pid, &status, WUNTRACED);
 	}
-	return (status);
+	return (WEXITSTATUS(status));
 }
 
 /*
