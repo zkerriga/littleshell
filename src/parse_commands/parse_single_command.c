@@ -142,6 +142,7 @@ void		parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 	}
 	if (*tab_word)
 	{
+		cmd->redir_out_last = find_last_redir_out(tab_word);
 		cmd->redir_in_app = parse_redirection(tab_word, "<<");
 		cmd->redir_out_app = parse_redirection(tab_word, ">>");
 		cmd->redir_in = parse_redirection(tab_word, "<");

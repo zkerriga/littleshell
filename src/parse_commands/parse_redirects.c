@@ -50,3 +50,17 @@ char		**parse_redirection(char **args_tab, const char *redt)
 	}
 	return (redir_tab);
 }
+
+const char	*find_last_redir_out(char **args_tab)
+{
+	const char	*redir_last;
+
+	redir_last = NULL;
+	while (*args_tab)
+	{
+		if (!ft_strncmp(*args_tab, ">", 1) || !ft_strncmp(*args_tab, ">>", 1))
+			redir_last = *(args_tab + 1);
+		++args_tab;
+	}
+	return (redir_last);
+}
