@@ -17,10 +17,10 @@ set(PARSE_COMMANDS
         src/parse_commands/parse_single_command.c
         src/classes/word_work/word_work_new.c
         src/parse_commands/parse_redirects.c
-        src/parse_commands/test_cmd_print.c)
+        src/parse_commands/test_cmd_print.c src/parse_commands/parse_and_execute.c)
 
 set(EXEC_ALL_COMMANDS
-        src/exec_all_commands/exec_all_commands.c src/exec_all_commands/search_path_command.c src/exec_all_commands/execution.c)
+        src/exec_all_commands/exec_all_commands.c src/exec_all_commands/search_path_command.c src/exec_all_commands/execution.c src/parse_commands/parse_and_execute.c)
 
 set(CLEAR_COMMAND_LINE
         src/clear_command_line/clear_command_line.c)

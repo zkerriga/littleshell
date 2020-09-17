@@ -27,4 +27,6 @@ typedef struct	s_cmd	// TODO: add const modifier to strings
 	int 		is_empty;
 }				t_command;
 
+t_command	*new_command();
+
 #endif

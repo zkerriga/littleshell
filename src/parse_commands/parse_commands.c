@@ -34,7 +34,7 @@ void	destroy_command(t_command *cmd)
 	free(cmd);
 }
 
-static t_command	*new_command()
+t_command	*new_command()
 {
 	t_command	*new_command;
 
@@ -50,7 +50,7 @@ static t_command	*new_command()
 **	return modified *cmd_line;
 */
 
-static char 		*parse_first_cmd_and_go_next(char *cmd_line,
+char 		*parse_first_cmd_and_go_next(char *cmd_line,
 										t_command *cmd, t_env *env)
 {
 	char	*cur_cmd_line;
@@ -67,6 +67,10 @@ static char 		*parse_first_cmd_and_go_next(char *cmd_line,
 	parse_single_command(cur_cmd_line, cmd, env);
 	return (cmd_line);
 }
+
+/*
+**	OLD FUNCTION! NOT USED NOW!
+*/
 
 t_list *parse_command_line(char *cmd_line, t_env *env)
 {
