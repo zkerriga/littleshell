@@ -30,7 +30,7 @@ static t_func_ptr	if_builtins_get_function(char *cmd_name)
 {
 	const t_cmdlink	cmd_links[] = {{"env", env_command},
 {"unset", unset_command}, {"export", export_command},
-{"exit", exit_command}, {NULL, NULL}};
+{"exit", exit_command}, {"echo", echo_command}, {NULL, NULL}};
 	int				i;
 
 	i = 0;
