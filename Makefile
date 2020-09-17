@@ -30,7 +30,6 @@ FILES = main.c \
 		$(wildcard $(SRC_DIR)/parse_commands/*.c) \
 		$(wildcard $(SRC_DIR)/exec_all_commands/*.c) \
 		$(wildcard $(SRC_DIR)/builtin_functions/*.c) \
-		$(wildcard $(SRC_DIR)/builtin_functions/*/*.c) \
 		$(wildcard $(SRC_DIR)/$(CLASS_DIR)/environment/*.c) \
 		$(wildcard $(SRC_DIR)/$(CLASS_DIR)/word_work/*.c) \
 
@@ -45,11 +44,7 @@ $(OBJ_DIR):
 				$(OBJ_DIR)/$(SRC_DIR)/clear_command_line/ \
 				$(OBJ_DIR)/$(SRC_DIR)/parse_commands/ \
 				$(OBJ_DIR)/$(SRC_DIR)/exec_all_commands/ \
-				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/env/ \
-				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/unset/ \
-				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/export/ \
-				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/exit/ \
-				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/echo/ \
+				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/ \
 				$(OBJ_DIR)/$(SRC_DIR)/$(CLASS_DIR)/environment \
 				$(OBJ_DIR)/$(SRC_DIR)/$(CLASS_DIR)/word_work
 

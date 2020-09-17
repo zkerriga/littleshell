@@ -46,12 +46,12 @@ set(WORD_WORK
         src/classes/word_work/word_work_add_size.c)
 
 set(BUILTINS
-        src/builtin_functions/env/env.c
-        src/builtin_functions/unset/unset.c
+        src/builtin_functions/env.c
+        src/builtin_functions/unset.c
         src/builtin_functions/write_err.c
-        src/builtin_functions/export/export.c
-        src/builtin_functions/exit/exit.c
-        src/builtin_functions/echo/echo.c
+        src/builtin_functions/export.c
+        src/builtin_functions/exit.c
+        src/builtin_functions/echo.c
         )
 
 FILE(GLOB LIBFT libs/libft/*/*.c)
