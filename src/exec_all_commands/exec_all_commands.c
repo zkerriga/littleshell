@@ -29,9 +29,9 @@ static int			is_equal_cmd_name(const char *const_name, const char *cmd)
 static t_func_ptr	if_builtins_get_function(char *cmd_name)
 {
 	const t_cmdlink	cmd_links[] = {{"env", env_command},
-{"unset", unset_command}, {"export", export_command},
-{"exit", exit_command}, {"echo", echo_command},
-{"cd", cd_command}, {NULL, NULL}};
+{"unset", unset_command}, {"export", export_command}, {"exit", exit_command},
+{"echo", echo_command}, {"cd", cd_command}, {"pwd", pwd_command},
+{NULL, NULL}};
 	int				i;
 
 	i = 0;
