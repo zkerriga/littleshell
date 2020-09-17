@@ -15,8 +15,9 @@
 
 static int	is_valid_arg(char *arg)
 {
-	if (!ft_isalpha(*arg++) || !ft_strchr(arg, '='))
+	if (!(ft_isalpha(*arg) || *arg == '_') || !ft_strchr(arg, '='))
 		return (0);
+	++arg;
 	while (*arg && *arg != '=')
 	{
 		if (!ft_isalnum(*arg) && *arg != '_')
