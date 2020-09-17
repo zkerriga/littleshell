@@ -17,6 +17,7 @@
 #include "environment.h"
 #include "test_minishell.h"
 
+/*
 void	destroy_command(t_command *cmd)
 {
 	if (cmd->redir_out_app)
@@ -39,9 +40,10 @@ t_command	*new_command()
 	t_command	*new_command;
 
 	if (!(new_command = (t_command*)ft_calloc(1, sizeof(t_command))))
-		return (NULL); // TODO: error check
+		return (NULL);
 	return (new_command);
 }
+*/
 
 /*
 **	Parse command from *cmd_line till separate char (';' or '|'), then
@@ -50,7 +52,7 @@ t_command	*new_command()
 **	return modified *cmd_line;
 */
 
-char 		*parse_first_cmd_and_go_next(char *cmd_line,
+char	*parse_first_cmd_and_go_next(char *cmd_line,
 										t_command *cmd, t_env *env)
 {
 	char	*cur_cmd_line;
@@ -70,7 +72,6 @@ char 		*parse_first_cmd_and_go_next(char *cmd_line,
 
 /*
 **	OLD FUNCTION! NOT USED NOW!
-*/
 
 t_list *parse_command_line(char *cmd_line, t_env *env)
 {
@@ -82,9 +83,9 @@ t_list *parse_command_line(char *cmd_line, t_env *env)
 	lst_head = NULL;
 	while (*cmd_line)
 	{
-		if (!(cur_cmd = new_command()) ||		// TODO: refactor command_new
+		if (!(cur_cmd = new_command()) ||
 			!(lst_cur = ft_lstnew(cur_cmd)))
-			ft_putendl_fd("Malloc error parse commands!", 1);	//	TODO: add error management
+			ft_putendl_fd("Malloc error parse commands!", 1);
 		cmd_line = parse_first_cmd_and_go_next(cmd_line, lst_cur->content, env);
 		if (((t_command*)(lst_cur->content))->is_empty)
 		{
@@ -99,3 +100,4 @@ t_list *parse_command_line(char *cmd_line, t_env *env)
 	}
 	return (lst_head);
 }
+*/

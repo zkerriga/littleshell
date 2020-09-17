@@ -70,7 +70,7 @@ static char	*get_shell_word_and_go_next(char **str, t_env *env)
 		else if (ft_isspace(**str) && !(d_quote || quote))
 		{
 			++(*str);
-			break;
+			break ;
 		}
 		else if (**str == '\'' && !d_quote)
 			quote = !quote;
@@ -103,8 +103,7 @@ static char	*get_shell_word_and_go_next(char **str, t_env *env)
 	return (word);
 }
 
-
-static char **shell_word_split_with_env(char *str, t_env *env)
+static char	**shell_word_split_with_env(char *str, t_env *env)
 {
 	char	**tab_word;
 	int		i_word;
