@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _word_work.h                                       :+:      :+:    :+:   */
+/*   hidden_word_work.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matrus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _WORD_WORK_H
-# define _WORD_WORK_H
+#ifndef HIDDEN_WORD_WORK_H
+# define HIDDEN_WORD_WORK_H
 
 # include "environment.h"
 # define SHELL_WORD_LEN 256

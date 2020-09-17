@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _environment.h                                     :+:      :+:    :+:   */
+/*   hidden_environment.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zkerriga <zkerriga@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _ENVIRONMENT_H
-# define _ENVIRONMENT_H
+#ifndef HIDDEN_ENVIRONMENT_H
+# define HIDDEN_ENVIRONMENT_H
 
 # include "libft.h"
 

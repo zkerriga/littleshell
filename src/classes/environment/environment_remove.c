@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_environment.h"
+#include "hidden_environment.h"
 #include "libft.h"
 
 void	environment_remove(t_env *self, const char *key)

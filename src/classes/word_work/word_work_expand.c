@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_word_work.h"
+#include "hidden_word_work.h"
 #include "libft.h"
 
 static char	*parse_key(char *str)

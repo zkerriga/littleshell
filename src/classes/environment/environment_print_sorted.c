@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_environment.h"
+#include "hidden_environment.h"
 #include "libft.h"
 
 static int	env_compare(void *env1, void *env2)
