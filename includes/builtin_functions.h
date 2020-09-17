@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_FUNCTION_H
-# define BUILTIN_FUNCTION_H
+#ifndef BUILTIN_FUNCTIONS_H
+# define BUILTIN_FUNCTIONS_H
 
 # include "environment.h"
 # include <errno.h>

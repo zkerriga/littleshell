@@ -16,7 +16,7 @@
 # include "libft.h"
 # include "environment.h"
 
-typedef int (*t_func_ptr)(char **, int, int, t_env *);
+typedef int	(*t_func_ptr)(char **, int, int, t_env *);
 
 typedef struct	s_cmdlink
 {
