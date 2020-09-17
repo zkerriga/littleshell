@@ -15,9 +15,11 @@ set(PARSE_COMMANDS
         src/parse_commands/parse_commands.c
         src/parse_commands/separate_commands.c
         src/parse_commands/parse_single_command.c
+        src/parse_commands/pre_parse.c
         src/classes/word_work/word_work_new.c
         src/parse_commands/parse_redirects.c
-        src/parse_commands/test_cmd_print.c)
+        src/parse_commands/test_cmd_print.c
+        )
 
 set(EXEC_ALL_COMMANDS
         src/exec_all_commands/exec_all_commands.c src/exec_all_commands/search_path_command.c src/exec_all_commands/execution.c)

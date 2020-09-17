@@ -15,6 +15,7 @@
 #include "exec_all_commands.h"
 #include "parse_commands.h"
 #include "environment.h"
+#include <errno.h>
 
 int		execute_line(char *cmd_line, t_env *env)
 {
@@ -37,12 +38,10 @@ void	loop(t_env *env)
 {
 	char	*cmd_line;
 	//t_list	*cmd_list;
-	int		status;
 	char	*current_path;
 
-	status = 1;
 	write(1, "\033c", ft_strlen("\033c"));
-	while (status)
+	while (1)
 	{
 		current_path = getcwd(NULL, 0);
 		write(1, current_path, ft_strlen(current_path));
@@ -50,11 +49,13 @@ void	loop(t_env *env)
 		cmd_line = read_line();
 		//cmd_list = parse_command_line(cmd_line, env);
 		//status = exec_all_commands(cmd_list, env);
-		status = execute_line(cmd_line, env);
+		if (is_valid_command(cmd_line))
+			execute_line(cmd_line, env);
 		free(cmd_line);
 		free(current_path);
 		//ft_lstclear(&cmd_list, (void (*)(void*))destroy_command);
-		status = 1; // for testing
+		if (errno == ENOMEM)
+			break ;
 	}
 }
 
