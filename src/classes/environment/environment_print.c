@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_environment.h"
+#include "hidden_environment.h"
 
 void	environment_print(t_env *self, int fd)
 {

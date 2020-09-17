@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_environment.h"
+#include "hidden_environment.h"
 #include "libft.h"
 
 static char	*create_env_string(const char *key, const char *value)

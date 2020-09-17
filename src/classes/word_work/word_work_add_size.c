@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_word_work.h"
+#include "hidden_word_work.h"
 #include "get_next_line.h" //TODO: move ft_realloc to libft
 
 void	word_work_add_size(t_word_work *self)

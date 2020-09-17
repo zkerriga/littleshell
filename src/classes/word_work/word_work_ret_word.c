@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_word_work.h"
+#include "hidden_word_work.h"
 
 const char	*word_work_ret_word(t_word_work *self)
 {
