@@ -24,6 +24,7 @@ typedef struct	s_cmdlink
 	int			(*func)(char **, int, int, t_env *);
 }				t_cmdlink;
 
+int				exec_one_command(t_command *cmd, t_env *env);
 int				exec_all_commands(t_list *cmd_list, t_env *env);
 int				execute_command(t_func_ptr builtin, t_command *cmd, t_env *env);
 
