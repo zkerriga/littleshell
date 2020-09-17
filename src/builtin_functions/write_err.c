@@ -21,8 +21,11 @@
 void	write_err(char *cmd_name, char *trouble_str, char *description)
 {
 	write(2, "minishell: ", 11);
-	write(2, cmd_name, ft_strlen(cmd_name));
-	write(2, ": ", 3);
+	if (cmd_name)
+	{
+		write(2, cmd_name, ft_strlen(cmd_name));
+		write(2, ": ", 3);
+	}
 	if (trouble_str)
 	{
 		write(2, "`", 1);
