@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   word_work_new.c                                        :+:      :+:    :+:   */
+/*   word_work_new.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matrus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,7 @@
 #include "_word_work.h"
 #include "libft.h"
 
-t_word_work	*word_work_new()
+t_word_work	*word_work_new(void)
 {
 	t_word_work *ww_new;
 

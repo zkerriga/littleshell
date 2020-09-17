@@ -14,5 +14,5 @@
 
 char	**environment_transfer_control(t_env *self)
 {
-	return (self->_env_array);
+	return (self->env_array);
 }
