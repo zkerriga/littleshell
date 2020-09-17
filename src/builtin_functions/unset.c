@@ -13,7 +13,6 @@
 #include "environment.h"
 #include "builtin_functions.h"
 
-
 static int	is_valid_arg(char *arg)
 {
 	if (!ft_isalpha(*arg) && *arg != '_')
