@@ -46,6 +46,31 @@ static t_func_ptr	if_builtins_get_function(char *cmd_name)
 	return (NULL);
 }
 
+int	exec_one_command(t_command *cmd, t_env *env)
+{
+	int				status;
+	t_func_ptr		cmd_link;
+
+	status = 0;
+	if ((cmd_link = if_builtins_get_function(cmd->cmd_name)))
+	{
+		status = execute_command(cmd_link, cmd, env);
+		cmd_link = NULL;
+	}
+	else if (is_ok_set_cmd_exec_name(cmd, env))
+	{
+		status = execute_command(NULL, cmd, env);
+		//printf("i will try run: %s\n", cmd->cmd_name);
+	}
+	else
+		printf("no such command:(\n");
+	return (status);
+}
+
+/*
+**	OLD FUNCTION! NOT USED NOW!
+*/
+
 int	exec_all_commands(t_list *cmd_list, t_env *env)
 {
 	int				status;
