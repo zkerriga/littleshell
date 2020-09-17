@@ -34,19 +34,19 @@ static void	split_and_add(char *env_str, t_env *env)
 	char		*equal_ptr;
 
 	equal_ptr = ft_strchr(env_str, '='); //TODO: NULL bag
-	if (!(key = ft_substr(env_str, 0, equal_ptr - env_str))) //TODO: malloc error
-		exit(ENOMEM);
+	if (!(key = ft_substr(env_str, 0, equal_ptr - env_str)))
+		exit(ENOMEM); //TODO: malloc error
 	value = equal_ptr + 1;
 	if (env->add(env, key, value))
 		exit(ENOMEM); //TODO: error management
 	free(key);
 }
 
-int		export_command(char **args, int fdin, int fdout, t_env *env)
+int			export_command(char **args, int fdin, int fdout, t_env *env)
 {
 	const int	export_error_code = 1;
-	int	status;
-	int	unused;
+	int			status;
+	int			unused;
 
 	unused = fdin;
 	if (!env)
@@ -65,9 +65,7 @@ int		export_command(char **args, int fdin, int fdout, t_env *env)
 			write_err("export", *args, "not a valid identifier");
 		}
 		else
-		{
 			split_and_add(*args, env);
-		}
 	}
 	return (status ? errno = export_error_code : status);
 }
