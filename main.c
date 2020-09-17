@@ -22,6 +22,7 @@ int		execute_line(char *cmd_line, t_env *env)
 	t_command	cmd;
 	int			status;
 
+	status = 0;
 	ft_bzero(&cmd, sizeof(cmd));
 	while (*cmd_line)
 	{
