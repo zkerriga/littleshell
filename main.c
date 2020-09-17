@@ -15,7 +15,6 @@
 #include "exec_all_commands.h"
 #include "parse_commands.h"
 #include "environment.h"
-#include "clear_command_line.h"
 
 int		execute_line(char *cmd_line, t_env *env)
 {
@@ -37,7 +36,6 @@ int		execute_line(char *cmd_line, t_env *env)
 void	loop(t_env *env)
 {
 	char	*cmd_line;
-	//char	*clean_cmd_line;
 	//t_list	*cmd_list;
 	int		status;
 	char	*current_path;
@@ -49,7 +47,6 @@ void	loop(t_env *env)
 		write(1, current_path, ft_strlen(current_path));
 		write(1, ": ", 2);
 		cmd_line = read_line();
-		//clean_cmd_line = clear_command_line(cmd_line);
 		//cmd_list = parse_command_line(cmd_line, env);
 		//status = exec_all_commands(cmd_list, env);
 		status = execute_line(cmd_line, env);
