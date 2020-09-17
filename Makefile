@@ -26,7 +26,6 @@ FLAGS = -Wall -Wextra -Werror $(INCLUDES) #-O2
 FILES = main.c \
 		$(wildcard $(SRC_DIR)/*.c) \
 		$(wildcard $(SRC_DIR)/read_line/*.c) \
-		$(wildcard $(SRC_DIR)/clear_command_line/*.c) \
 		$(wildcard $(SRC_DIR)/parse_commands/*.c) \
 		$(wildcard $(SRC_DIR)/exec_all_commands/*.c) \
 		$(wildcard $(SRC_DIR)/builtin_functions/*.c) \
@@ -41,7 +40,6 @@ all: $(OBJ_DIR) lft $(NAME)
 
 $(OBJ_DIR):
 	@mkdir -p	$(OBJ_DIR)/$(SRC_DIR)/read_line/ \
-				$(OBJ_DIR)/$(SRC_DIR)/clear_command_line/ \
 				$(OBJ_DIR)/$(SRC_DIR)/parse_commands/ \
 				$(OBJ_DIR)/$(SRC_DIR)/exec_all_commands/ \
 				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/ \

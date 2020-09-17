@@ -70,7 +70,7 @@ static char	*get_shell_word_and_go_next(char **str, t_env *env)
 		else if (ft_isspace(**str) && !(d_quote || quote))
 		{
 			++(*str);
-			break;
+			break ;
 		}
 		else if (**str == '\'' && !d_quote)
 			quote = !quote;
@@ -92,7 +92,7 @@ static char	*get_shell_word_and_go_next(char **str, t_env *env)
 				word_work->add_char(word_work, **str);
 			}
 		}
-		else if (!quote && **str == '$' && (ft_isalpha(*(*str + 1)) || *(*str + 1) == '_'))
+		else if (!quote && **str == '$' && (ft_isalpha(*(*str + 1)) || *(*str + 1) == '_' || *(*str + 1) == '?'))
 			(*str) += word_work->expand(word_work, *str, env);
 		else
 			word_work->add_char(word_work, **str);
@@ -103,8 +103,7 @@ static char	*get_shell_word_and_go_next(char **str, t_env *env)
 	return (word);
 }
 
-
-static char **shell_word_split_with_env(char *str, t_env *env)
+static char	**shell_word_split_with_env(char *str, t_env *env)
 {
 	char	**tab_word;
 	int		i_word;

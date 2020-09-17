@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_environment.h"
+#include "hidden_environment.h"
 
 char	**environment_transfer_control(t_env *self)
 {
-	return (self->_env_array);
+	return (self->env_array);
 }

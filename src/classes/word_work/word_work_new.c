@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   word_work_new.c                                        :+:      :+:    :+:   */
+/*   word_work_new.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matrus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_word_work.h"
+#include "hidden_word_work.h"
 #include "libft.h"
 
-t_word_work	*word_work_new()
+t_word_work	*word_work_new(void)
 {
 	t_word_work *ww_new;
 
-	if(!(ww_new = (t_word_work *)malloc(sizeof(*ww_new))))
+	if (!(ww_new = (t_word_work *)malloc(sizeof(*ww_new))))
 		exit(1); // TODO: add error management
 	ww_new->ret_word = word_work_ret_word;
 	ww_new->add_char = word_work_add_char;

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_environment.h"
+#include "hidden_environment.h"
 #include "libft.h"
 
 static int	env_compare(void *env1, void *env2)
@@ -44,12 +44,12 @@ static char	**sort_tab(char **tab, size_t size, int (*cmp)(void *, void *))
 	return (tab);
 }
 
-void	environment_print_sorted(t_env *self, int fd)
+void		environment_print_sorted(t_env *self, int fd)
 {
 	char	**env_tab;
 	char	**save_ptr;
 
-	env_tab = ft_tabdub((const char **)self->_env_array);
+	env_tab = ft_tabdub((const char **)self->env_array);
 	save_ptr = env_tab;
 	env_tab = sort_tab(env_tab, self->len, env_compare);
 	while (*env_tab)

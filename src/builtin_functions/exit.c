@@ -35,7 +35,7 @@ static int	is_numeric_argument(char *arg)
 	return (sign_flag ? 0 : 1);
 }
 
-int		exit_command(char **args, int fdin, int fdout, t_env *env)
+int			exit_command(char **args, int fdin, int fdout, t_env *env)
 {
 	const int	exit_error_code = 1;
 	const int	alpha_error_code = 255;
@@ -45,9 +45,7 @@ int		exit_command(char **args, int fdin, int fdout, t_env *env)
 	unused = fdout || fdin;
 	write(2, "exit\n", 6);
 	if (!args[1])
-	{
 		status = env->get_status(env);
-	}
 	else if (is_numeric_argument(args[1]))
 	{
 		if (args[2])

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_word_work.h"
+#include "hidden_word_work.h"
 
 void		word_work_add_char(t_word_work *self, char ch)
 {
@@ -18,5 +18,5 @@ void		word_work_add_char(t_word_work *self, char ch)
 		self->add_size(self);
 	self->word[self->w_len] = ch;
 	self->word[self->w_len + 1] = '\0';
-	self->w_len++;
+	++(self->w_len);
 }

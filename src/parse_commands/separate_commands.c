@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int		is_command_separator(const char *line)
+static int		is_command_separator(const char *line)
 {
 	if (line[0] == '|')
 		return (1);
@@ -33,7 +33,7 @@ int		does_command_separates(char **cmd_line)
 	static int	was_d_quote;
 
 	if ((!(was_quote || was_d_quote) &&
-		 is_command_separator(*cmd_line)) ||
+		is_command_separator(*cmd_line)) ||
 		(**cmd_line == '\\' && *(*cmd_line + 1) == '\0'))	// case with last backslash
 		return (1);
 	if (**cmd_line == '\\')
@@ -53,7 +53,7 @@ int		does_command_separates(char **cmd_line)
 **	if separator contains 2 chars, shifts ptr *cmd_line by 1
 */
 
-void	set_separator_type(char **cmd_line, t_command *cmd)
+void			set_separator_type(char **cmd_line, t_command *cmd)
 {
 	cmd->next_operator[0] = '\0';
 	cmd->next_operator[1] = '\0';
@@ -63,6 +63,4 @@ void	set_separator_type(char **cmd_line, t_command *cmd)
 		cmd->next_operator[0] = ';';
 	else if (**cmd_line == '|')
 		cmd->next_operator[0] = '|';
-	else
-		return ;
 }

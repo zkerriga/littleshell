@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   _word_work.h                                       :+:      :+:    :+:   */
+/*   hidden_word_work.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matrus <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#ifndef _WORD_WORK_H		// TODO: add class word_work to Cmake
-# define _WORD_WORK_H
+#ifndef HIDDEN_WORD_WORK_H
+# define HIDDEN_WORD_WORK_H
 
 # include "environment.h"
 # define SHELL_WORD_LEN 256
@@ -27,15 +26,15 @@ typedef struct	s_word_work
 	int			cur_pos;
 	int			w_len;
 	int			w_max_len;
-	void 		(*add_size)(struct s_word_work *self);
+	void		(*add_size)(struct s_word_work *self);
 }				t_word_work;
 
-t_word_work	*word_work_new();
+t_word_work		*word_work_new();
 
-int			word_work_expand(t_word_work *self, char *str, t_env *env);
-const char	*word_work_ret_word(t_word_work *self);
-void		word_work_add_char(t_word_work *self, char ch);
-void		word_work_delete(t_word_work *self);
-void 		word_work_add_size(t_word_work *self);
+int				word_work_expand(t_word_work *self, char *str, t_env *env);
+const char		*word_work_ret_word(t_word_work *self);
+void			word_work_add_char(t_word_work *self, char ch);
+void			word_work_delete(t_word_work *self);
+void			word_work_add_size(t_word_work *self);
 
 #endif

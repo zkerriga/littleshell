@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "environment.h"
-#include "errno.h"
+#include <errno.h>
 
 /*
 ** The command prints an unsorted list of environment variables
