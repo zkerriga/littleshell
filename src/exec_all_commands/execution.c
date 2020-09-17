@@ -24,21 +24,21 @@ typedef struct	s_exec_info
 	int		status;
 }				t_exec_info;
 
-static void		print_execution_result(int fd_from, int fd_to)
-{
-	int		gnl_status;
-	char	*line;
-
-	while ((gnl_status = get_next_line(fd_from, &line)) >= 0)
-	{
-		write(fd_to, line, ft_strlen(line));
-		write(fd_to, "\n", *line ? 1 : 0);
-		free(line);
-		if (!gnl_status)
-			break ;
-	}
-//	printf("errno: %i\n", errno);	// TODO: understand where errno sets to 2
-}
+//static void		print_execution_result(int fd_from, int fd_to)
+//{
+//	int		gnl_status;
+//	char	*line;
+//
+//	while ((gnl_status = get_next_line(fd_from, &line)) >= 0)
+//	{
+//		write(fd_to, line, ft_strlen(line));
+//		write(fd_to, "\n", *line ? 1 : 0);
+//		free(line);
+//		if (!gnl_status)
+//			break ;
+//	}
+////	printf("errno: %i\n", errno);	// TODO: understand where errno sets to 2
+//}
 
 static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 {
@@ -105,7 +105,8 @@ int				execute_command(t_func_ptr builtin, t_command *cmd, t_env *env)
 	if (exe_i.fd_prev > 0)
 		close(exe_i.fd_prev);
 	exe_i.fd_prev = exe_i.fd_pipe[0];
-	close(exe_i.fd_pipe[1]);
+	if (cmd->next_operator[0] == '|' && cmd->next_operator[1] == '\0')
+		close(exe_i.fd_pipe[1]);
 
 	// Make redirects out
 	// If next command not pipe - reset fds;
