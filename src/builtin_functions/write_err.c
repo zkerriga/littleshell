@@ -12,6 +12,12 @@
 
 #include "libft.h"
 
+/*
+** The function generates and prints an error string in stderr.
+** If the second argument is NULL, the command argument will not participate
+** in the error output.
+*/
+
 void	write_err(char *cmd_name, char *trouble_str, char *description)
 {
 	write(2, "minishell: ", 11);

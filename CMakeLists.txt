@@ -52,6 +52,7 @@ set(BUILTINS
         src/builtin_functions/export.c
         src/builtin_functions/exit.c
         src/builtin_functions/echo.c
+        src/builtin_functions/cd.c
         )
 
 FILE(GLOB LIBFT libs/libft/*/*.c)
