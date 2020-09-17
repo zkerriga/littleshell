@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_environment.h"
+#include "hidden_environment.h"
 #include "libft.h"
 
 void	environment_remove(t_env *self, const char *key)
@@ -21,7 +21,7 @@ void	environment_remove(t_env *self, const char *key)
 	if (!key)
 		return ;
 	key_len = ft_strlen(key);
-	env_tab = self->_env_array;
+	env_tab = self->env_array;
 	while (*env_tab)
 	{
 		if (!ft_strncmp(key, *env_tab, key_len) && (*env_tab)[key_len] == '=')

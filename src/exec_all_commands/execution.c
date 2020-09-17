@@ -11,25 +11,20 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "builtin_functions.h"
 #include "exec_all_commands.h"
 #include "get_next_line.h"
-
 #include <stdlib.h>
 
 typedef struct	s_exec_info
 {
-	int 	fd_prev;
+	int		fd_prev;
 	int		fd_next;
-	int 	fd_pipe[2];
+	int		fd_pipe[2];
 	pid_t	pid;
 	int		status;
 }				t_exec_info;
-//
-#include <errno.h>
 
-
-static void	print_execution_result(int fd_from, int fd_to)
+static void		print_execution_result(int fd_from, int fd_to)
 {
 	int		gnl_status;
 	char	*line;
@@ -38,17 +33,16 @@ static void	print_execution_result(int fd_from, int fd_to)
 	{
 		write(fd_to, line, ft_strlen(line));
 		write(fd_to, "\n", *line ? 1 : 0);
-//		ft_putendl_fd("", fd_to);
-		free(line); //добавил zkerriga
+		free(line);
 		if (!gnl_status)
 			break ;
 	}
-//	printf("errno: %i\n", errno);		// TODO: understand where errno sets to 2
+//	printf("errno: %i\n", errno);	// TODO: understand where errno sets to 2
 }
 
 static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 {
-	int status;
+	int	status;
 
 	inf->pid = fork();
 	if (inf->pid == 0)
@@ -68,15 +62,15 @@ static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 	else if (inf->pid < 0)
 	{
 		// Fork error here
-		status = -1;
 		ft_putendl_fd("Forking error", 1); // TODO: error fd 2
+		return (-1);
 	}
 	else
 	{
 		// Parent here
 		waitpid(inf->pid, &status, WUNTRACED);
 	}
-	return (status);
+	return (WEXITSTATUS(status));
 }
 
 /*
@@ -87,7 +81,7 @@ static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 **	if separator is not a pipeline then outputs goes to redirections or to fd=1
 */
 
-int			execute_command(t_func_ptr builtin, t_command *cmd, t_env *env)
+int				execute_command(t_func_ptr builtin, t_command *cmd, t_env *env)
 {
 	static t_exec_info	exe_i;
 

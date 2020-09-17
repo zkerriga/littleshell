@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_environment.h"
+#include "hidden_environment.h"
 
 static size_t	count_environment(const char **envp)
 {
@@ -39,7 +39,7 @@ t_env			*environment_new(const char **envp)
 		return (NULL);
 	if ((self = ft_calloc(sizeof(t_env), 1)))
 	{
-		if (!(self->_env_array = ft_tabdub(envp)))
+		if (!(self->env_array = ft_tabdub(envp)))
 		{
 			free(self);
 			return (NULL);

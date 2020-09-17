@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_environment.h"
+#include "hidden_environment.h"
 
 void	environment_print(t_env *self, int fd)
 {
 	char	**env_tab;
 
-	env_tab = self->_env_array;
+	env_tab = self->env_array;
 	while (*env_tab)
 	{
 		write(fd, *env_tab, ft_strlen(*env_tab));

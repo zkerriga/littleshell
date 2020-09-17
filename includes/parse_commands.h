@@ -14,19 +14,19 @@
 # define PARSE_COMMANDS_H
 
 # include "libft.h"
-#include "environment.h"
+# include "environment.h"
 
 t_list		*parse_command_line(char *cmd_line, t_env *env);
-char 		*parse_first_cmd_and_go_next(char *cmd_line,
-										 t_command *cmd, t_env *env);
+char		*parse_first_cmd_and_go_next(char *cmd_line,
+											t_command *cmd, t_env *env);
 
-void	destroy_command(t_command *cmd);
+void		destroy_command(t_command *cmd);
 
-int		does_command_separates(char **cmd_line);
-void	set_separator_type(char **cmd_line, t_command *cmd);
+int			does_command_separates(char **cmd_line);
+void		set_separator_type(char **cmd_line, t_command *cmd);
 
-void	parse_single_command(char *cmd_str, t_command *cmd, t_env *env);
+void		parse_single_command(char *cmd_str, t_command *cmd, t_env *env);
 
-char	**parse_redirection(char **args_tab, const char *redt);
+char		**parse_redirection(char **args_tab, const char *redt);
 
 #endif
