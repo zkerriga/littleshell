@@ -29,7 +29,8 @@ static int			is_equal_cmd_name(const char *const_name, const char *cmd)
 static t_func_ptr	if_builtins_get_function(char *cmd_name)
 {
 	const t_cmdlink	cmd_links[] = {{"env", env_command},
-{"unset", unset_command}, {"export", export_command}, {NULL, NULL}};
+{"unset", unset_command}, {"export", export_command},
+{"exit", exit_command}, {NULL, NULL}};
 	int				i;
 
 	i = 0;
@@ -68,5 +69,5 @@ int	exec_all_commands(t_list *cmd_list, t_env *env)
 		//printf("+------------+\n| cmd -> %s\n| status -> %d\n+------------+\n", cmd->cmd_name, status);
 		cmd_list = cmd_list->next;
 	}
-	return (0);
+	return (status);
 }

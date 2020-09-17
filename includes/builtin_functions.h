@@ -21,6 +21,7 @@
 int		env_command(char **args, int fdin, int fdout, t_env *env);
 int		unset_command(char **args, int fdin, int fdout, t_env *env);
 int		export_command(char **args, int fdin, int fdout, t_env *env);
+int		exit_command(char **args, int fdin, int fdout, t_env *env);
 
 void	write_err(char *cmd_name, char *trouble_str, char *description);
 
