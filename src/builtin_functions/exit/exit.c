@@ -15,17 +15,24 @@
 
 static int	is_numeric_argument(char *arg)
 {
+	int		sign_flag;
+
+	sign_flag = 0;
 	while (ft_isspace(*arg))
 		++arg;
 	if (*arg == '-' || *arg == '+')
+	{
+		sign_flag = 1;
 		++arg;
+	}
 	while (*arg)
 	{
 		if (!ft_isdigit(*arg))
 			return (0);
+		sign_flag = 0;
 		++arg;
 	}
-	return (1);
+	return (sign_flag ? 0 : 1);
 }
 
 int		exit_command(char **args, int fdin, int fdout, t_env *env)
