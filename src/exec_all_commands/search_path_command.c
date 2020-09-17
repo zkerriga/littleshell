@@ -39,7 +39,7 @@ static int	does_dir_contains_cmd(const char *path, const char *name)
 
 static void	set_full_cmd_name(const char *dir_path, t_command *cmd)
 {
-	size_t		len;
+	size_t	len;
 	char	*full_name;
 
 	len = ft_strlen(dir_path) + ft_strlen(cmd->cmd_name);
@@ -51,11 +51,11 @@ static void	set_full_cmd_name(const char *dir_path, t_command *cmd)
 	cmd->cmd_name = full_name;
 }
 
-int is_ok_set_cmd_exec_name(t_command *cmd, t_env *env)
+int			is_ok_set_cmd_exec_name(t_command *cmd, t_env *env)
 {
 	struct stat	f_stat;
-	char 		**path_tab;
-	int 		i;
+	char		**path_tab;
+	int			i;
 
 	if (!(stat(cmd->cmd_name, &f_stat)))
 		return (1);
@@ -73,4 +73,3 @@ int is_ok_set_cmd_exec_name(t_command *cmd, t_env *env)
 	ft_free_tab((void **)path_tab);
 	return (0);
 }
-
