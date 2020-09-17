@@ -51,6 +51,7 @@ set(BUILTINS
         src/builtin_functions/write_err.c
         src/builtin_functions/export/export.c
         src/builtin_functions/exit/exit.c
+        src/builtin_functions/echo/echo.c
         )
 
 FILE(GLOB LIBFT libs/libft/*/*.c)
