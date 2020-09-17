@@ -148,7 +148,7 @@ void		parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 		cmd->redir_in = parse_redirection(tab_word, "<");
 		cmd->redir_out = parse_redirection(tab_word, ">");
 		cmd->args = tab_word;
-		cmd->cmd_name = ft_strdup(tab_word[0]);	// TODO: add error managment
+		cmd->cmd_name = (*tab_word) ? ft_strdup(tab_word[0]) : ft_strdup("");	// TODO: add error managment
 	}
 	else
 	{
