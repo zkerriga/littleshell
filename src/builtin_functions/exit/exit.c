@@ -39,7 +39,7 @@ int		exit_command(char **args, int fdin, int fdout, t_env *env)
 	write(2, "exit\n", 6);
 	if (!args[1])
 	{
-		exit(env->get_status(env));
+		status = env->get_status(env);
 	}
 	else if (is_numeric_argument(args[1]))
 	{
@@ -48,7 +48,13 @@ int		exit_command(char **args, int fdin, int fdout, t_env *env)
 			write_err("exit", NULL, "too many arguments");
 			return (errno = exit_error_code);
 		}
-		exit((unsigned char)ft_atoi(args[1]));
+		status = (unsigned char)ft_atoi(args[1]);
 	}
-	return (0);
+	else
+	{
+		write_err("exit", args[1], "numeric argument required");
+		errno = alpha_error_code;
+		status = alpha_error_code;
+	}
+	exit(status);
 }
