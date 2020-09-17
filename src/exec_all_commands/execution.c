@@ -91,8 +91,17 @@ int			execute_command(t_func_ptr builtin, t_command *cmd, t_env *env)
 {
 	static t_exec_info	exe_i;
 
-	if ((pipe(exe_i.fd_pipe)) < 0)
-		ft_putendl_fd("pipe error", 1); // TODO: error managment ERRNO
+	if (cmd->next_operator[0] == '|' && cmd->next_operator[1] == '\0')
+	{
+		if ((pipe(exe_i.fd_pipe)) < 0)
+			ft_putendl_fd("pipe error", 1); // TODO: error managment ERRNO
+	}
+	else
+	{
+		exe_i.fd_pipe[0] = 0;
+		exe_i.fd_pipe[1] = 1;
+	}
+
 
 	if (builtin)
 		exe_i.status = builtin(cmd->args, exe_i.fd_prev, exe_i.fd_pipe[1], env);
@@ -106,12 +115,14 @@ int			execute_command(t_func_ptr builtin, t_command *cmd, t_env *env)
 
 	// Make redirects out
 	// If next command not pipe - reset fds;
-	if (cmd->next_operator[0] == ';' || cmd->next_operator[0] == '\0')
+	if (!(cmd->next_operator[0] == '|' && cmd->next_operator[1] == '\0'))
 	{
-		print_execution_result(exe_i.fd_pipe[0], 1 /* field to redir to*/);
-		close(exe_i.fd_pipe[0]);
+//		print_execution_result(exe_i.fd_pipe[0], 1 /* field to redir to*/);
 		exe_i.fd_prev = 0;
 		exe_i.fd_next = 1;
 	}
+	else
+		close(exe_i.fd_pipe[0]);
+
 	return (exe_i.status);
 }
