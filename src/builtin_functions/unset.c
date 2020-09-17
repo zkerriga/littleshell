@@ -16,8 +16,9 @@
 
 static int	is_valid_arg(char *arg)
 {
-	if (!ft_isalpha(*arg++))
+	if (!ft_isalpha(*arg) && *arg != '_')
 		return (0);
+	++arg;
 	while (*arg)
 	{
 		if (!ft_isalnum(*arg) && *arg != '_')

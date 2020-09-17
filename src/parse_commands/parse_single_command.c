@@ -92,7 +92,7 @@ static char	*get_shell_word_and_go_next(char **str, t_env *env)
 				word_work->add_char(word_work, **str);
 			}
 		}
-		else if (!quote && **str == '$' && (ft_isalpha(*(*str + 1)) || *(*str + 1) == '_'))
+		else if (!quote && **str == '$' && (ft_isalpha(*(*str + 1)) || *(*str + 1) == '_' || *(*str + 1) == '?'))
 			(*str) += word_work->expand(word_work, *str, env);
 		else
 			word_work->add_char(word_work, **str);
