@@ -22,9 +22,6 @@ set(PARSE_COMMANDS
 set(EXEC_ALL_COMMANDS
         src/exec_all_commands/exec_all_commands.c src/exec_all_commands/search_path_command.c src/exec_all_commands/execution.c)
 
-set(CLEAR_COMMAND_LINE
-        src/clear_command_line/clear_command_line.c)
-
 set(ENVIRONMENT
         src/classes/environment/environment_new.c
         src/classes/environment/environment_del.c
@@ -63,7 +60,6 @@ add_executable(minishell
         ${READ_LINE_SRCS}
         ${PARSE_COMMANDS}
         ${EXEC_ALL_COMMANDS}
-        ${CLEAR_COMMAND_LINE}
         ${ENVIRONMENT}
         ${WORD_WORK}
         ${LIBFT}
@@ -73,7 +69,6 @@ add_library(test
         ${READ_LINE_SRCS}
         ${PARSE_COMMANDS}
         ${EXEC_ALL_COMMANDS}
-        ${CLEAR_COMMAND_LINE}
         ${ENVIRONMENT}
         ${LIBFT}
         main.c)
