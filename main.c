@@ -30,6 +30,7 @@ int		execute_line(char *cmd_line, t_env *env)
 		if (!cmd.is_empty)
 			status = exec_one_command(&cmd, env);
 		env->set_status(env, status);
+		destroy_command(&cmd);
 	}
 	return (status);
 }

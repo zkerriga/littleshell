@@ -17,7 +17,7 @@
 #include "environment.h"
 #include "test_minishell.h"
 
-/*
+
 void	destroy_command(t_command *cmd)
 {
 	if (cmd->redir_out_app)
@@ -32,9 +32,9 @@ void	destroy_command(t_command *cmd)
 		ft_free_tab((void **)cmd->args);
 	if (cmd->cmd_name)
 		free(cmd->cmd_name);
-	free(cmd);
 }
 
+/*
 t_command	*new_command()
 {
 	t_command	*new_command;
