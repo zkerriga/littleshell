@@ -39,6 +39,12 @@ typedef struct	s_exec_info
 //	}
 //}
 
+//void	child_sigquit_handler(int sigN)
+//{
+//	ft_putnbr_fd(sigN, 2);
+//	ft_putstr_fd(" SIGQUIT Handling %i signal\n", 2);
+//}
+
 static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 {
 	int	status;
@@ -47,13 +53,14 @@ static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 	if (inf->pid == 0)
 	{
 		// Child here
-
+		signal(SIGQUIT, SIG_DFL);
 		// Make redirects in here. If redirect, pipeline is ignored.
 		dup2(inf->fd_prev, 0);
 		// Make redirects out here. If redirect, pipeline is ignored.
 		dup2(inf->fd_pipe[1], 1);
 		// Exec smth
-		status = execve(cmd->cmd_name, cmd->args, env->transfer_control(env));
+		g_last_exec_status = execve(cmd->cmd_name, cmd->args, env->transfer_control(env));
+		status = g_last_exec_status;
 		// If Error -> write smth;
 		ft_putendl_fd("Oops! Bad execution:(", 2);	// TODO: err 'zsh: quit       ./minishell'
 		exit(status);

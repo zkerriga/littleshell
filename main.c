@@ -15,7 +15,10 @@
 #include "exec_all_commands.h"
 #include "parse_commands.h"
 #include "environment.h"
+#include "signal_handlers.h"
 #include <errno.h>
+
+int 	g_last_exec_status;
 
 int		execute_line(char *cmd_line, t_env *env)
 {
@@ -60,20 +63,12 @@ void	loop(t_env *env)
 	}
 }
 
-#include <stdio.h>
-
-void	child_sigquit_handler(int sigN)
-{
-	printf("Handling %i signal\n", sigN);
-}
-
-
 int		main(int ac, char **av, char **envp)
 {
 	t_env	*env;
 
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGCHLD, child_sigquit_handler);
+	signal(SIGCHLD, sigchild_handler);
 	env = environment_new((const char **)envp);
 	if (ac && av)
 	{
