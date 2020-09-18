@@ -14,6 +14,7 @@
 #include "exec_all_commands.h"
 #include "get_next_line.h"
 #include <stdlib.h>
+#include <fcntl.h>
 
 typedef struct	s_exec_info
 {
@@ -72,6 +73,18 @@ static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 	return (WEXITSTATUS(status));
 }
 
+static int		open_redirect_if_exist(const char *filename, int is_double)
+{
+	int	fd;
+	int	flags;
+
+	if (!filename)
+		return (1);
+	flags = O_RDONLY | (is_double ? O_APPEND : 0);
+	fd = open(filename, flags);
+	return (fd < 0 ? 1 : fd);
+}
+
 /*
 **	function tries to create a pipe
 **	then select which command to exec (builtin / extern)
@@ -87,7 +100,7 @@ int				execute_command(t_func_ptr builtin, t_command *cmd, t_env *env)
 
 	is_pipe = cmd->next_operator[0] == '|' && cmd->next_operator[1] == '\0';
 	exe_i.fd_pipe[0] = 0;
-	exe_i.fd_pipe[1] = 1;
+	exe_i.fd_pipe[1] = open_redirect_if_exist(cmd->redir_out_last, cmd->last_is_double);
 	if (is_pipe)
 		if ((pipe(exe_i.fd_pipe)) < 0)
 			ft_putendl_fd("pipe error", 1); // TODO: error managment ERRNO
@@ -100,18 +113,18 @@ int				execute_command(t_func_ptr builtin, t_command *cmd, t_env *env)
 	if (exe_i.fd_prev > 0)
 		close(exe_i.fd_prev);
 
-	if (is_pipe)
+	if (is_pipe || exe_i.fd_pipe[1] != 1)
 		close(exe_i.fd_pipe[1]);
 
 	exe_i.fd_prev = exe_i.fd_pipe[0];
 
 	// Make redirects out
 	// If next command not pipe - reset fds;
-	if (!is_pipe)
-	{
-		exe_i.fd_prev = 0;
-		exe_i.fd_next = 1;
-	}
+//	if (!is_pipe)
+//	{
+//		exe_i.fd_prev = 0;
+//		exe_i.fd_next = 1;
+//	}
 //	else
 //		close(exe_i.fd_pipe[0]);
 	return (exe_i.status);
