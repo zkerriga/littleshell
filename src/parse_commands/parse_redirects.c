@@ -58,7 +58,7 @@ const char	*find_last_redir_out(char **args_tab)
 	redir_last = NULL;
 	while (*args_tab)
 	{
-		if (!ft_strncmp(*args_tab, ">", 1) || !ft_strncmp(*args_tab, ">>", 1))
+		if (!ft_strncmp(*args_tab, ">", 1) || !ft_strncmp(*args_tab, ">>", 2))
 			redir_last = *(args_tab + 1);
 		++args_tab;
 	}
