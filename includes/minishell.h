@@ -31,6 +31,4 @@ typedef struct	s_cmd
 
 t_command		*new_command();
 
-extern int		g_last_exec_status;
-
 #endif

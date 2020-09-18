@@ -18,7 +18,9 @@
 #include "signal_handlers.h"
 #include "error_manager.h"
 
-int 	g_last_exec_status;
+//
+#include <stdio.h>
+
 
 int		execute_line(char *cmd_line, t_env *env)
 {
@@ -46,6 +48,7 @@ void	loop(t_env *env)
 	write(1, "\033c", ft_strlen("\033c"));
 	while (1)
 	{
+		//printf("BEG: g_stat: %d\n", g_last_exec_status);
 		current_path = getcwd(NULL, 0);
 		write(1, current_path, ft_strlen(current_path));
 		write(1, ": ", 2);
@@ -64,7 +67,7 @@ int		main(int ac, char **av, char **envp)
 	t_env	*env;
 
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGCHLD, sigchild_handler);
+//	signal(SIGCHLD, sigchild_handler);
 	if (!(env = environment_new((const char **)envp)))
 		errman(ENOMEM, NULL);
 	if (ac && av)
