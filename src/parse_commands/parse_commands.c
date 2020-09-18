@@ -32,6 +32,7 @@ void	destroy_command(t_command *cmd)
 		ft_free_tab((void **)cmd->args);
 	if (cmd->cmd_name)
 		free(cmd->cmd_name);
+	ft_bzero(cmd, sizeof(*cmd));
 }
 
 /*

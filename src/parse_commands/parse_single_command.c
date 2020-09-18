@@ -108,7 +108,7 @@ static char	**shell_word_split_with_env(char *str, t_env *env)
 	char	**tab_word;
 	int		i_word;
 
-	tab_word = (char**)malloc(sizeof(char*));
+	tab_word = (char**)malloc(sizeof(char*)); //TODO: malloc
 	*tab_word = NULL;
 	i_word = 0;
 	while (*str)
