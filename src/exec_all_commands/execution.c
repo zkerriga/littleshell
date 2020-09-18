@@ -80,7 +80,7 @@ static int		open_redirect_if_exist(const char *filename, int is_double)
 
 	if (!filename)
 		return (1);
-	flags = O_RDONLY | (is_double ? O_APPEND : 0);
+	flags = O_WRONLY | (is_double ? O_APPEND : O_TRUNC);
 	fd = open(filename, flags);
 	return (fd < 0 ? 1 : fd);
 }
