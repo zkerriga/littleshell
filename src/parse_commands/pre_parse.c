@@ -13,60 +13,82 @@
 #include <unistd.h>
 #include "libft.h"
 
-static void	write_syntax_error(char *trouble_str, char *description)
+static int	write_syntax_error(char trouble1, char trouble2)
 {
+	char		trouble_str[3];
+	const char	*description = "syntax error near unexpected token";
+
+	trouble_str[0] = trouble1;
+	trouble_str[1] = trouble2;
+	trouble_str[2] = '\0';
 	write(2, "minishell: ", 11);
 	write(2, description, ft_strlen(description));
 	write(2, " `", 2);
 	write(2, trouble_str, ft_strlen(trouble_str));
 	write(2, "'\n", 2);
+	return (0);
 }
 
 static char	*move_line_to_next_quot(char *line, char quote)
 {
 	++line;
-	while (*line && *line != quote)
+	while (*line)
+	{
+		if (*line == '\\' && (line[1] == '"' || line[1] == '\''))
+			++line;
+		else if (*line == quote)
+			break ;
 		++line;
+	}
 	return (line);
+}
+
+static int	check_is_sep_error(int *sep_exist, char *line)
+{
+	if (!*sep_exist)
+	{
+		*sep_exist = 1;
+		if (*line == line[1] && *line == ';')
+			return (write_syntax_error(';', ';'));
+		else if (*line == line[1])
+			return (1);
+	}
+	return (write_syntax_error(*line, (line[1] == *line) ? *line : 0));
 }
 
 int			is_valid_command(char *line)
 {
-	char	buf[3];
-	int		active_separator_exist;
+	int		sep_exist;
 	char	*is_sep;
+	int		status;
 
-	ft_bzero(buf, 3);
-	active_separator_exist = 0;
 	while (*line)
 	{
-		if (*line == '"' || *line == '\'')
+		if (*line == '\\' && (line[1] == '"' || line[1] == '\''))
+			++line;
+		else if (*line == '"' || *line == '\'')
 		{
-			active_separator_exist = 0;
+			sep_exist = 0;
 			line = move_line_to_next_quot(line, *line);
 		}
 		else if (!(is_sep = ft_strchr("&|;", *line)) && !ft_isspace(*line))
-		{
-			active_separator_exist = 0;
-		}
-		else if (is_sep && !active_separator_exist)
-		{
-			active_separator_exist = 1;
-			if (*line == line[1] && *line == ';')
-			{
-				write_syntax_error(";;", "syntax error near unexpected token");
-				return (0);
-			}
-			else if (*line == line[1])
-				++line;
-		}
-		else if (is_sep && active_separator_exist)
-		{
-			buf[0] = *line;
-			buf[1] = line[1] == *line ? *line : '\0';
-			write_syntax_error(buf, "syntax error near unexpected token");
+			sep_exist = 0;
+		else if (is_sep && (status = check_is_sep_error(&sep_exist, line)))
+			++line;
+		else if (!status)
 			return (0);
-		}
+//
+//
+//		else if (is_sep && !sep_exist)
+//		{
+//			sep_exist = 1;
+//			if (*line == line[1] && *line == ';')
+//				return (write_syntax_error(';', ';'));
+//			else if (*line == line[1])
+//				++line;
+//		}
+//		else if (is_sep)
+//			return (write_syntax_error(*line, (line[1] == *line) ? *line : 0));
 		++line;
 	}
 	return (1);
