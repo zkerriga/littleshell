@@ -60,11 +60,11 @@ include $(wildcard $(OBJ_DIR)/*.d $(OBJ_DIR)/*/*.d $(OBJ_DIR)/*/*/*.d $(OBJ_DIR)
 
 .PHONY: clean
 clean:
-	$(RM) -rf $(OBJ_DIR)
+	rm -rf $(OBJ_DIR)
 
 .PHONY: fclean
 fclean: clean
-	$(RM) -f $(NAME)
+	rm -f $(NAME)
 
 .PHONY: re
 re: fclean libfclean all
