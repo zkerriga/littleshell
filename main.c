@@ -49,7 +49,7 @@ void	loop(t_env *env)
 		cmd_line = read_line();
 		//cmd_list = parse_command_line(cmd_line, env);
 		//status = exec_all_commands(cmd_list, env);
-		if (is_valid_command(cmd_line))
+		if (is_valid_command(cmd_line, 0, NULL))
 			execute_line(cmd_line, env);
 		free(cmd_line);
 		free(current_path);
