@@ -22,6 +22,14 @@ static void	write_syntax_error(char *trouble_str, char *description)
 	write(2, "'\n", 2);
 }
 
+static char	*move_line_to_next_quot(char *line, char quote)
+{
+	++line;
+	while (*line && *line != quote)
+		++line;
+	return (line);
+}
+
 int			is_valid_command(char *line)
 {
 	char	buf[3];
@@ -32,7 +40,12 @@ int			is_valid_command(char *line)
 	active_separator_exist = 0;
 	while (*line)
 	{
-		if (!(is_sep = ft_strchr("&|;", *line)) && !ft_isspace(*line))
+		if (*line == '"' || *line == '\'')
+		{
+			active_separator_exist = 0;
+			line = move_line_to_next_quot(line, *line);
+		}
+		else if (!(is_sep = ft_strchr("&|;", *line)) && !ft_isspace(*line))
 		{
 			active_separator_exist = 0;
 		}
