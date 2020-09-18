@@ -28,7 +28,7 @@ void		set_separator_type(char **cmd_line, t_command *cmd);
 void		parse_single_command(char *cmd_str, t_command *cmd, t_env *env);
 
 char		**parse_redirection(char **args_tab, const char *redt);
-int			is_valid_command(char *cmd_line);
+int			is_valid_command(char *cmd_line, int sep_exist, char *is_sep);
 const char	*find_last_redir_out(char **args_tab);
 
 #endif

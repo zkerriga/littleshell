@@ -43,25 +43,8 @@ static char	*move_line_to_next_quot(char *line, char quote)
 	return (line);
 }
 
-static int	check_is_sep_error(int *sep_exist, char *line)
+int			is_valid_command(char *line, int sep_exist, char *is_sep)
 {
-	if (!*sep_exist)
-	{
-		*sep_exist = 1;
-		if (*line == line[1] && *line == ';')
-			return (write_syntax_error(';', ';'));
-		else if (*line == line[1])
-			return (1);
-	}
-	return (write_syntax_error(*line, (line[1] == *line) ? *line : 0));
-}
-
-int			is_valid_command(char *line)
-{
-	int		sep_exist;
-	char	*is_sep;
-	int		status;
-
 	while (*line)
 	{
 		if (*line == '\\' && (line[1] == '"' || line[1] == '\''))
@@ -73,22 +56,16 @@ int			is_valid_command(char *line)
 		}
 		else if (!(is_sep = ft_strchr("&|;", *line)) && !ft_isspace(*line))
 			sep_exist = 0;
-		else if (is_sep && (status = check_is_sep_error(&sep_exist, line)))
-			++line;
-		else if (!status)
-			return (0);
-//
-//
-//		else if (is_sep && !sep_exist)
-//		{
-//			sep_exist = 1;
-//			if (*line == line[1] && *line == ';')
-//				return (write_syntax_error(';', ';'));
-//			else if (*line == line[1])
-//				++line;
-//		}
-//		else if (is_sep)
-//			return (write_syntax_error(*line, (line[1] == *line) ? *line : 0));
+		else if (is_sep && !sep_exist)
+		{
+			sep_exist = 1;
+			if (*line == line[1] && *line == ';')
+				return (write_syntax_error(';', ';'));
+			else if (*line == line[1])
+				++line;
+		}
+		else if (is_sep)
+			return (write_syntax_error(*line, (line[1] == *line) ? *line : 0));
 		++line;
 	}
 	return (1);
