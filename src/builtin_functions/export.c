@@ -12,6 +12,7 @@
 
 #include "environment.h"
 #include "builtin_functions.h"
+#include "error_manager.h"
 
 static int	is_valid_arg(char *arg)
 {
@@ -35,10 +36,10 @@ static void	split_and_add(char *env_str, t_env *env)
 
 	equal_ptr = ft_strchr(env_str, '='); //TODO: NULL bag
 	if (!(key = ft_substr(env_str, 0, equal_ptr - env_str)))
-		exit(ENOMEM); //TODO: malloc error
+		errman(ENOMEM, NULL);
 	value = equal_ptr + 1;
 	if (env->add(env, key, value))
-		exit(ENOMEM); //TODO: error management
+		errman(ENOMEM, NULL);
 	free(key);
 }
 
@@ -54,7 +55,8 @@ int			export_command(char **args, int fdin, int fdout, t_env *env)
 	status = 0;
 	if (!args[1])
 	{
-		env->print_sorted(env, fdout); //TODO: нет обработки ошибки маллока
+		if (env->print_sorted(env, fdout))
+			errman(ENOMEM, NULL);
 		return (status);
 	}
 	while (*++args)

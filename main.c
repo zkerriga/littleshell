@@ -16,7 +16,7 @@
 #include "parse_commands.h"
 #include "environment.h"
 #include "signal_handlers.h"
-#include <errno.h>
+#include "error_manager.h"
 
 int 	g_last_exec_status;
 
@@ -41,7 +41,6 @@ int		execute_line(char *cmd_line, t_env *env)
 void	loop(t_env *env)
 {
 	char	*cmd_line;
-	//t_list	*cmd_list;
 	char	*current_path;
 
 	write(1, "\033c", ft_strlen("\033c"));
@@ -51,13 +50,10 @@ void	loop(t_env *env)
 		write(1, current_path, ft_strlen(current_path));
 		write(1, ": ", 2);
 		cmd_line = read_line();
-		//cmd_list = parse_command_line(cmd_line, env);
-		//status = exec_all_commands(cmd_list, env);
 		if (is_valid_command(cmd_line, 0, NULL))
 			execute_line(cmd_line, env);
 		free(cmd_line);
 		free(current_path);
-		//ft_lstclear(&cmd_list, (void (*)(void*))destroy_command);
 		if (errno == ENOMEM)
 			break ;
 	}
@@ -69,7 +65,8 @@ int		main(int ac, char **av, char **envp)
 
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGCHLD, sigchild_handler);
-	env = environment_new((const char **)envp);
+	if (!(env = environment_new((const char **)envp)))
+		errman(ENOMEM, NULL);
 	if (ac && av)
 	{
 		loop(env);
