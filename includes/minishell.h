@@ -31,4 +31,6 @@ typedef struct	s_cmd	// TODO: add const modifier to strings
 
 t_command		*new_command();
 
+extern int		g_last_exec_status;
+
 #endif
