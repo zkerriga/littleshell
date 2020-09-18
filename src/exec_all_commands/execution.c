@@ -84,6 +84,23 @@ static int		open_out_redirect_if_exist(const char *filename, int is_double)
 	return (fd < 0 ? 1 : fd);
 }
 
+static void		close_and_set_ft_prev(int *fd_prev, char **redirects_tab)
+{
+	char	*filename;
+	int		fd;
+
+	filename = NULL;
+	while (*redirects_tab)
+		filename = *redirects_tab++;
+	if (filename)
+	{
+		if (*fd_prev > 0)
+			close(*fd_prev);
+		fd = open(filename, O_RDONLY);
+		*fd_prev = (fd < 0) ? 0 : fd;
+	}
+}
+
 /*
 **	function tries to create a pipe
 **	then select which command to exec (builtin / extern)
@@ -100,7 +117,9 @@ int				execute_command(t_func_ptr builtin, t_command *cmd, t_env *env)
 	is_pipe = cmd->next_operator[0] == '|' && cmd->next_operator[1] == '\0';
 	if (cmd->redir_out_last)
 		is_pipe = 0;
-	exe_i.fd_pipe[0] = 0; //get_all_info_from_in_redirects();
+	if (cmd->redir_in)
+		close_and_set_ft_prev(&exe_i.fd_prev, cmd->redir_in);
+	exe_i.fd_pipe[0] = 0;
 	exe_i.fd_pipe[1] = open_out_redirect_if_exist(cmd->redir_out_last, cmd->last_is_double);
 	if (is_pipe)
 		if ((pipe(exe_i.fd_pipe)) < 0)

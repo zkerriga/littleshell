@@ -78,25 +78,24 @@ int			check_input_redirects(t_command *cmd)
 {
 	int			status;
 	char		**filename_tab;
+	char		*filename;
 
 	status = 0;
 	if ((filename_tab = cmd->redir_in))
 	{
+		filename = NULL;
 		while (*filename_tab)
-		{
-			if ((status = open_mask(*filename_tab, O_RDONLY, 0)))
-				return (status);
-			++filename_tab;
-		}
+			filename = *filename_tab++;
+		if (filename && (status = open_mask(filename, O_RDONLY, 0)))
+			return (status);
 	}
 	if ((filename_tab = cmd->redir_in_app))
 	{
+		filename = NULL;
 		while (*filename_tab)
-		{
-			if ((status = open_mask(*filename_tab, O_RDONLY, 0)))
-				return (status);
-			++filename_tab;
-		}
+			filename = *filename_tab++;
+		if (filename && (status = open_mask(filename, O_RDONLY, 0)))
+			return (status);
 	}
 	return (status);
 }
