@@ -25,26 +25,17 @@ typedef struct	s_exec_info
 	int		status;
 }				t_exec_info;
 
-//static void		print_execution_result(int fd_from, int fd_to)
-//{
-//	int		gnl_status;
-//	char	*line;
-//
-//	while ((gnl_status = get_next_line(fd_from, &line)) >= 0)
-//	{
-//		write(fd_to, line, ft_strlen(line));
-//		write(fd_to, "\n", *line ? 1 : 0);
-//		free(line);
-//		if (!gnl_status)
-//			break ;
-//	}
-//}
-
-//void	child_sigquit_handler(int sigN)
-//{
-//	ft_putnbr_fd(sigN, 2);
-//	ft_putstr_fd(" SIGQUIT Handling %i signal\n", 2);
-//}
+static int		parse_stop_status(int stat)
+{
+	if (WIFSIGNALED(stat))
+	{
+		ft_putstr_fd("\nQuit:\t", 2);
+		ft_putnbr_fd(WTERMSIG(stat), 2);
+		ft_putchar_fd('\n', 2);
+		return WTERMSIG(stat);
+	}
+	return (WEXITSTATUS(stat));
+}
 
 static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 {
@@ -60,8 +51,7 @@ static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 		// Make redirects out here. If redirect, pipeline is ignored.
 		dup2(inf->fd_out, 1);
 		// Exec smth
-		g_last_exec_status = execve(cmd->cmd_name, cmd->args, env->transfer_control(env));
-		status = g_last_exec_status;
+		status = execve(cmd->cmd_name, cmd->args, env->transfer_control(env));
 		// If Error -> write smth;
 		ft_putendl_fd("Oops! Bad execution:(", 2);	// TODO: err 'zsh: quit       ./minishell'
 		exit(status);
@@ -77,7 +67,7 @@ static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 		// Parent here
 		waitpid(inf->pid, &status, WUNTRACED);
 	}
-	return (WEXITSTATUS(status));
+	return (parse_stop_status(status));
 }
 
 
