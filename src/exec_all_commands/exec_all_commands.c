@@ -51,7 +51,7 @@ int					exec_one_command(t_command *cmd, t_env *env)
 	int				status;
 	t_func_ptr		cmd_link;
 
-	if ((status = open_output_redirects(cmd)))
+	if ((status = open_output_redirects(cmd) + check_input_redirects(cmd)))
 		return (status);
 	cmd_link = if_builtins_get_function(cmd->cmd_name);
 	if (!cmd_link && !is_ok_set_cmd_exec_name(cmd, env))

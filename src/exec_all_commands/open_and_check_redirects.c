@@ -74,7 +74,7 @@ int			open_output_redirects(t_command *cmd)
 ** If an error occurs, the command terminates with a non-zero status.
 */
 
-int	check_input_redirects(t_command *cmd)
+int			check_input_redirects(t_command *cmd)
 {
 	int			status;
 	char		**filename_tab;

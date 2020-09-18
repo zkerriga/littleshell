@@ -30,5 +30,6 @@ int				execute_command(t_func_ptr builtin, t_command *cmd, t_env *env);
 
 int				is_ok_set_cmd_exec_name(t_command *name, t_env *env);
 int				open_output_redirects(t_command *cmd);
+int				check_input_redirects(t_command *cmd);
 
 #endif
