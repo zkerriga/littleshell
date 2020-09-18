@@ -6,7 +6,7 @@
 #    By: zkerriga <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/10 17:29:48 by zkerriga          #+#    #+#              #
-#    Updated: 2020/09/10 17:33:10 by zkerriga         ###   ########.fr        #
+#    Updated: 2020/09/18 17:55:13 by matrus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ FILES = main.c \
 		$(wildcard $(SRC_DIR)/parse_commands/*.c) \
 		$(wildcard $(SRC_DIR)/exec_all_commands/*.c) \
 		$(wildcard $(SRC_DIR)/builtin_functions/*.c) \
+		$(wildcard $(SRC_DIR)/signal_handlers/*.c) \
 		$(wildcard $(SRC_DIR)/$(CLASS_DIR)/environment/*.c) \
 		$(wildcard $(SRC_DIR)/$(CLASS_DIR)/word_work/*.c) \
 
@@ -43,6 +44,7 @@ $(OBJ_DIR):
 				$(OBJ_DIR)/$(SRC_DIR)/parse_commands/ \
 				$(OBJ_DIR)/$(SRC_DIR)/exec_all_commands/ \
 				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/ \
+				$(OBJ_DIR)/$(SRC_DIR)/signal_handlers/ \
 				$(OBJ_DIR)/$(SRC_DIR)/$(CLASS_DIR)/environment \
 				$(OBJ_DIR)/$(SRC_DIR)/$(CLASS_DIR)/word_work
 

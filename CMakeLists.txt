@@ -69,7 +69,7 @@ add_executable(minishell
         ${ENVIRONMENT}
         ${WORD_WORK}
         ${LIBFT}
-        main.c)
+        main.c src/signal_handlers/handlers.c)
 
 add_library(test
         ${READ_LINE_SRCS}
