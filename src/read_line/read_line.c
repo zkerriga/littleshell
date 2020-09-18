@@ -72,7 +72,7 @@ int		is_read_ok(char ch, char **line, int *len)
 	if (ch != '\0')
 	{
 		if (!(*line = ft_realloc(*line, *len + 1,
-								 *len + 2))) // TODO: add err management
+								 *len + 2))) // TODO: add err managementx
 			exit(1);
 		(*line)[(*len)++] = ch;
 		(*line)[*len] = '\0';
@@ -97,7 +97,7 @@ char	*read_line(void)
 		if (ret == 0 && len == 0)
 		{
 			free(line);
-			line = ft_strdup("exit");
+			line = ft_strdup("exit");		// TODO: add error mgt
 			break ;
 		}
 		if (is_read_ok(ch, &line, &len))
