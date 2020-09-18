@@ -37,7 +37,6 @@ typedef struct	s_exec_info
 //		if (!gnl_status)
 //			break ;
 //	}
-////	printf("errno: %i\n", errno);	// TODO: understand where errno sets to 2
 //}
 
 static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
@@ -84,10 +83,12 @@ static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 int				execute_command(t_func_ptr builtin, t_command *cmd, t_env *env)
 {
 	static t_exec_info	exe_i;
+	int					is_pipe;
 
+	is_pipe = cmd->next_operator[0] == '|' && cmd->next_operator[1] == '\0';
 	exe_i.fd_pipe[0] = 0;
 	exe_i.fd_pipe[1] = 1;
-	if (cmd->next_operator[0] == '|' && cmd->next_operator[1] == '\0')
+	if (is_pipe)
 		if ((pipe(exe_i.fd_pipe)) < 0)
 			ft_putendl_fd("pipe error", 1); // TODO: error managment ERRNO
 
@@ -99,14 +100,14 @@ int				execute_command(t_func_ptr builtin, t_command *cmd, t_env *env)
 	if (exe_i.fd_prev > 0)
 		close(exe_i.fd_prev);
 
-	if (cmd->next_operator[0] == '|' && cmd->next_operator[1] == '\0')
+	if (is_pipe)
 		close(exe_i.fd_pipe[1]);
 
 	exe_i.fd_prev = exe_i.fd_pipe[0];
 
 	// Make redirects out
 	// If next command not pipe - reset fds;
-	if (!(cmd->next_operator[0] == '|' && cmd->next_operator[1] == '\0'))
+	if (!is_pipe)
 	{
 		exe_i.fd_prev = 0;
 		exe_i.fd_next = 1;
