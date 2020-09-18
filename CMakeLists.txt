@@ -25,7 +25,7 @@ set(EXEC_ALL_COMMANDS
         src/exec_all_commands/exec_all_commands.c
         src/exec_all_commands/search_path_command.c
         src/exec_all_commands/execution.c
-        src/exec_all_commands/open_output_redirects.c
+        src/exec_all_commands/open_and_check_redirects.c
         )
 
 set(ENVIRONMENT
