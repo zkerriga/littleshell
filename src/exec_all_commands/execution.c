@@ -55,7 +55,7 @@ static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 		// Exec smth
 		status = execve(cmd->cmd_name, cmd->args, env->transfer_control(env));
 		// If Error -> write smth;
-		ft_putendl_fd("Oops! Bad execution:(", 1);	// TODO: think about error and fd 2
+		ft_putendl_fd("Oops! Bad execution:(", 2);	// TODO: err 'zsh: quit       ./minishell'
 		exit(status);
 	}
 	else if (inf->pid < 0)

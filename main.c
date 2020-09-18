@@ -61,10 +61,19 @@ void	loop(t_env *env)
 }
 
 #include <stdio.h>
+
+void	child_sigquit_handler(int sigN)
+{
+	printf("Handling %i signal\n", sigN);
+}
+
+
 int		main(int ac, char **av, char **envp)
 {
 	t_env	*env;
 
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGCHLD, child_sigquit_handler);
 	env = environment_new((const char **)envp);
 	if (ac && av)
 	{
