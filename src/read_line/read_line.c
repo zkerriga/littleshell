@@ -26,3 +26,35 @@ char	*read_line(void)
 	get_next_line(0, &line);
 	return (line);
 }
+
+/*
+ * CHAR BY CHAR FUNCTIOIN
+ */
+
+//char	*read_line(void)
+//{
+//	char	*line;
+//	int 	len;
+//	char	ch;
+//
+//	len = 0;
+//	if (!(line = ft_strdup("\0")))
+//		exit(1);
+//	while (1)
+//	{
+//		read(0, &ch, 1);
+//		if (ch == '\n')
+//			break ;
+//		else if (ch == EOF)
+//			continue ;
+//		else
+//		{
+//			if (!(line = ft_realloc(line, len + 1, len + 2))) // TODO: add err management
+//				exit(1);
+//			line[len++] = ch;
+//			line[len] = '\0';
+//		}
+//	}
+//
+//	return (line);
+//}
