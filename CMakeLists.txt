@@ -28,6 +28,10 @@ set(EXEC_ALL_COMMANDS
         src/exec_all_commands/open_and_check_redirects.c
         )
 
+set(ERROR_MANAGER
+        src/errors/error_manager.c
+        )
+
 set(ENVIRONMENT
         src/classes/environment/environment_new.c
         src/classes/environment/environment_del.c
@@ -62,6 +66,7 @@ set(BUILTINS
 FILE(GLOB LIBFT libs/libft/*/*.c)
 
 add_executable(minishell
+        ${ERROR_MANAGER}
         ${BUILTINS}
         ${READ_LINE_SRCS}
         ${PARSE_COMMANDS}
@@ -72,10 +77,13 @@ add_executable(minishell
         main.c src/signal_handlers/handlers.c)
 
 add_library(test
+        ${ERROR_MANAGER}
+        ${BUILTINS}
         ${READ_LINE_SRCS}
         ${PARSE_COMMANDS}
         ${EXEC_ALL_COMMANDS}
         ${ENVIRONMENT}
+        ${WORD_WORK}
         ${LIBFT}
         main.c)
 
