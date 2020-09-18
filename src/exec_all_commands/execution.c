@@ -19,7 +19,6 @@
 typedef struct	s_exec_info
 {
 	int		fd_prev;
-	int		fd_next;
 	int		fd_pipe[2];
 	pid_t	pid;
 	int		status;
@@ -73,7 +72,7 @@ static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 	return (WEXITSTATUS(status));
 }
 
-static int		open_redirect_if_exist(const char *filename, int is_double)
+static int		open_out_redirect_if_exist(const char *filename, int is_double)
 {
 	int	fd;
 	int	flags;
@@ -99,8 +98,10 @@ int				execute_command(t_func_ptr builtin, t_command *cmd, t_env *env)
 	int					is_pipe;
 
 	is_pipe = cmd->next_operator[0] == '|' && cmd->next_operator[1] == '\0';
-	exe_i.fd_pipe[0] = 0;
-	exe_i.fd_pipe[1] = open_redirect_if_exist(cmd->redir_out_last, cmd->last_is_double);
+	if (cmd->redir_out_last)
+		is_pipe = 0;
+	exe_i.fd_pipe[0] = 0; //get_all_info_from_in_redirects();
+	exe_i.fd_pipe[1] = open_out_redirect_if_exist(cmd->redir_out_last, cmd->last_is_double);
 	if (is_pipe)
 		if ((pipe(exe_i.fd_pipe)) < 0)
 			ft_putendl_fd("pipe error", 1); // TODO: error managment ERRNO
