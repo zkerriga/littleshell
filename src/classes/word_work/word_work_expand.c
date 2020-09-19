@@ -12,6 +12,7 @@
 
 #include "hidden_word_work.h"
 #include "libft.h"
+#include "error_manager.h"
 
 static char	*parse_key(char *str)
 {
@@ -41,19 +42,19 @@ int			word_work_expand(t_word_work *self, char *str, t_env *env)
 	key = NULL;
 	if (*++str == '?')
 	{
-		key = ft_itoa(env->get_status(env)); //TODO: malloc
+		if (!(key = ft_itoa(env->get_status(env))))
+			errman(ENOMEM, NULL);
 		value = (const char *)key;
 	}
 	else
 	{
-		key = parse_key(str); //TODO: malloc
+		if (!(key = parse_key(str)))
+			errman(ENOMEM, NULL);
 		shift = ft_strlen(key);
 		value = env->get_value(env, (const char*)key);
 	}
 	while (value && *value)
-	{
 		self->add_char(self, *value++);
-	}
 	free(key);
 	return (shift);
 }

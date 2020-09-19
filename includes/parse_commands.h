@@ -16,7 +16,6 @@
 # include "libft.h"
 # include "environment.h"
 
-t_list		*parse_command_line(char *cmd_line, t_env *env);
 char		*parse_first_cmd_and_go_next(char *cmd_line,
 											t_command *cmd, t_env *env);
 

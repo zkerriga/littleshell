@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 #include "parse_commands.h"
+#include "error_manager.h"
 
 static void	tab_shift(char **tab)
 {
@@ -26,14 +27,15 @@ char		**parse_redirection(char **args_tab, const char *redt)
 	int		tab_i;
 
 	if (!(redir_tab = (char **)malloc(sizeof(*redir_tab))))
-		exit(1); // TODO: add error managment;
+		errman(ENOMEM, NULL);
 	tab_i = 0;
 	*redir_tab = NULL;
 	while (*args_tab)
 	{
 		if (!ft_strncmp(*args_tab, redt, ft_strlen(redt)))
 		{
-			redir_tab = (char **)ft_realloc_tab((void **)redir_tab, tab_i + 1, tab_i + 2); //TODO:malloc
+			if (!(redir_tab = (char **)ft_realloc_tab((void **)redir_tab, tab_i + 1, tab_i + 2)))
+				errman(ENOMEM, NULL);
 			free(*args_tab);
 			tab_shift(args_tab);
 			if (*args_tab)
@@ -41,8 +43,8 @@ char		**parse_redirection(char **args_tab, const char *redt)
 				redir_tab[tab_i++] = *args_tab;
 				tab_shift(args_tab);
 			}
-			else
-				redir_tab[tab_i++] = ft_strdup(""); // TODO: error check
+			else if (!(redir_tab[tab_i++] = ft_strdup("")))
+				errman(ENOMEM, NULL);
 			redir_tab[tab_i] = NULL;
 		}
 		else

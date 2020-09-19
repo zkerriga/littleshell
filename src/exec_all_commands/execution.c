@@ -16,6 +16,8 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <signal.h>
+#include "error_manager.h"
+#include "builtin_functions.h"
 
 typedef struct	s_exec_info
 {
@@ -28,18 +30,19 @@ typedef struct	s_exec_info
 
 static int		parse_stop_status(int stat)
 {
-	int	sig;
+	const char	*output_str = "Quit:\t";
+	int			sig;
 
 	if (WIFSIGNALED(stat))
 	{
 		sig = WTERMSIG(stat);
 		if (sig == SIGQUIT)
 		{
-			ft_putstr_fd("\nQuit:\t", 2);
-			ft_putnbr_fd(SIGQUIT, 2);
-			ft_putchar_fd('\n', 2);
+			write(2, output_str, ft_strlen(output_str));
+			ft_putnbr_fd(WTERMSIG(stat), 2);
+			write(2, "\n", 1);
 		}
-		return WTERMSIG(stat);
+		return (WTERMSIG(stat));
 	}
 	return (WEXITSTATUS(stat));
 }
@@ -73,14 +76,12 @@ static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 		dup2(inf->fd_out, 1);
 		// Exec smth
 		status = execve(cmd->cmd_name, cmd->args, env->transfer_control(env));
-		// If Error -> write smth;
-		ft_putendl_fd("Oops! Bad execution:(", 2);	// TODO: err 'zsh: quit       ./minishell'
+		write_err(cmd->cmd_name, NULL, "bad execution");
 		exit(status);
 	}
 	else if (inf->pid < 0)
 	{
-		// Fork error here
-		ft_putendl_fd("Forking error", 1); // TODO: error fd 2
+		errman(NOEXIT, "forking error");
 		return (-1);
 	}
 	else
@@ -92,19 +93,6 @@ static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 	return (parse_stop_status(status));
 }
 
-
-/*static int		open_out_redirect_if_exist(const char *filename, int is_double)
-{
-	int	fd;
-	int	flags;
-
-	if (!filename)
-		return (1);
-	flags = O_WRONLY | (is_double ? O_APPEND : O_TRUNC);
-	fd = open(filename, flags); //TODO: error?
-	return (fd < 0 ? 1 : fd);
-}*/
-
 static int		safe_open_out_redirect(t_exec_info *exe_i, t_command *cmd)
 {
 	int	fd;
@@ -114,20 +102,10 @@ static int		safe_open_out_redirect(t_exec_info *exe_i, t_command *cmd)
 		close(exe_i->fd_out);
 	flags = O_WRONLY | (cmd->last_is_double ? O_APPEND : O_TRUNC);
 	fd = open(cmd->redir_out_last, flags);
+	if (fd < 0)
+		errman(NOEXIT, "stdout redirect error");
 	return (fd < 0 ? 1 : fd);
 }
-
-/*static int		open_in_redirect_if_exist(char **redirects_tab)
-{
-	char	*filename;
-	int		fd;
-
-	filename = NULL;
-	while (*redirects_tab)
-		filename = *redirects_tab++;
-	fd = open(filename, O_RDONLY); //TODO: error?
-	return (fd < 0 ? 0 : fd);
-}*/
 
 static int		safe_open_in_redirect(t_exec_info *exe_i, t_command *cmd)
 {
@@ -143,7 +121,9 @@ static int		safe_open_in_redirect(t_exec_info *exe_i, t_command *cmd)
 	{
 		if (exe_i->fd_prev != 0)
 			close(exe_i->fd_prev);
-		fd = open(filename, O_RDONLY); //TODO: error?
+		fd = open(filename, O_RDONLY);
+		if (fd < 0)
+			errman(NOEXIT, "stdin redirect error");
 		return (fd < 0 ? 0 : fd);
 	}
 	return (exe_i->fd_prev);
@@ -156,6 +136,7 @@ static int		safe_open_in_redirect(t_exec_info *exe_i, t_command *cmd)
 **	PIPE.OUT saved till next execute, next execute will read from that fd
 **	if separator is not a pipeline then outputs goes to redirections or to fd=1
 */
+
 int				execute_command(t_func_ptr builtin, t_command *cmd, t_env *env)
 {
 	static t_exec_info	exe_i;
@@ -165,7 +146,7 @@ int				execute_command(t_func_ptr builtin, t_command *cmd, t_env *env)
 	if (is_pipe)
 	{
 		if (pipe(exe_i.fd_pipe) < 0)
-			ft_putendl_fd("pipe error", 1); // TODO: error managment ERRNO
+			return (errman(errno, NULL));
 	}
 	exe_i.fd_out = (is_pipe) ? exe_i.fd_pipe[1] : 1;
 	if (cmd->redir_out_last)
@@ -183,38 +164,3 @@ int				execute_command(t_func_ptr builtin, t_command *cmd, t_env *env)
 	exe_i.fd_prev = (is_pipe) ? exe_i.fd_pipe[0] : 0;
 	return (exe_i.status);
 }
-
-/*
-int				execute_command(t_func_ptr builtin, t_command *cmd, t_env *env)
-{
-	static t_exec_info	exe_i;
-	int					is_pipe;
-
-	is_pipe = cmd->next_operator[0] == '|' && cmd->next_operator[1] == '\0';
-	if (cmd->redir_out_last)
-		is_pipe = 0;
-	if (cmd->redir_in)
-		close_and_set_ft_prev(&exe_i.fd_prev, cmd->redir_in);
-	exe_i.fd_pipe[0] = 0;
-	exe_i.fd_pipe[1] = open_out_redirect_if_exist(cmd->redir_out_last, cmd->last_is_double);
-	if (is_pipe)
-		if ((pipe(exe_i.fd_pipe)) < 0)
-			ft_putendl_fd("pipe error", 1);
-
-	if (builtin)
-		exe_i.status = builtin(cmd->args, exe_i.fd_prev, exe_i.fd_pipe[1], env);
-	else
-		exe_i.status = exec_extern(&exe_i, cmd, env);
-
-	if (exe_i.fd_prev > 0)
-		close(exe_i.fd_prev);
-
-	if (is_pipe || exe_i.fd_pipe[1] != 1)
-		close(exe_i.fd_pipe[1]);
-
-	if (!is_pipe && cmd->next_operator[0] == '|' && cmd->next_operator[1] == '\0')
-		exe_i.fd_prev = exe_i.fd_pipe[0];
-
-	return (exe_i.status);
-}
-*/

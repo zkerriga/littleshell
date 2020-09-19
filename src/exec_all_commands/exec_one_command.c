@@ -54,7 +54,7 @@ int					exec_one_command(t_command *cmd, t_env *env)
 	if ((status = open_output_redirects(cmd) + check_input_redirects(cmd)))
 		return (status);
 	cmd_link = if_builtins_get_function(cmd->cmd_name);
-	if (!cmd_link && !is_ok_set_cmd_exec_name(cmd, env))
+	if (!cmd_link && !is_ok_set_cmd_exec_name(cmd, env)) //TODO: закрыть pipe -> echo 123 | \"
 	{
 		status = 1;
 		write_err(cmd->cmd_name, NULL, "no such command");
@@ -63,56 +63,3 @@ int					exec_one_command(t_command *cmd, t_env *env)
 		status = execute_command(cmd_link, cmd, env);
 	return (status);
 }
-
-/*
-	if ((cmd_link = if_builtins_get_function(cmd->cmd_name)))
-	{
-		status = execute_command(cmd_link, cmd, env);
-		cmd_link = NULL;
-	}
-	else if (is_ok_set_cmd_exec_name(cmd, env))
-	{
-		status = execute_command(NULL, cmd, env);
-		//printf("i will try run: %s\n", cmd->cmd_name);
-	}
-	else
-	{
-		status = 1;
-		write_err(cmd->cmd_name, NULL, "no such command");
-	}
-	return (status);
-*/
-
-/*
-**	OLD FUNCTION! NOT USED NOW!
-
-int	exec_all_commands(t_list *cmd_list, t_env *env)
-{
-	int				status;
-	t_command		*cmd;
-	t_func_ptr		cmd_link;
-
-	status = 0;
-	while (cmd_list)
-	{
-		cmd = cmd_list->content;
-		if ((cmd_link = if_builtins_get_function(cmd->cmd_name)))
-		{
-			status = execute_command(cmd_link, cmd, env);
-			cmd_link = NULL;
-		}
-		else if (is_ok_set_cmd_exec_name(cmd, env))
-		{
-			status = execute_command(NULL, cmd, env);
-			//printf("i will try run: %s\n", cmd->cmd_name);
-		}
-		else
-		{
-			status = 1;
-			write_err(NULL, NULL, "no such command");
-		}
-		cmd_list = cmd_list->next;
-	}
-	return (status);
-}
-*/
