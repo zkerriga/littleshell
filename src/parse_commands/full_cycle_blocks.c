@@ -41,7 +41,7 @@ void	end_block(t_word_work *w_work, char **str, t_quotes *q, t_env *env)
 	else if (**str == '\\')
 		slash_slash_block(w_work, str, q);
 	else if (!q->quote && **str == '$' && (ft_isalpha(*(*str + 1))
-										   || *(*str + 1) == '_' || *(*str + 1) == '?'))
+				|| *(*str + 1) == '_' || *(*str + 1) == '?'))
 	{
 		(*str) += w_work->expand(w_work, *str, env);
 	}

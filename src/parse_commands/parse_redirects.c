@@ -34,7 +34,8 @@ char		**parse_redirection(char **args_tab, const char *redt)
 	{
 		if (!ft_strncmp(*args_tab, redt, ft_strlen(redt)))
 		{
-			if (!(redir_tab = (char **)ft_realloc_tab((void **)redir_tab, tab_i + 1, tab_i + 2)))
+			if (!(redir_tab = (char **)ft_realloc_tab((void **)redir_tab,
+												tab_i + 1, tab_i + 2)))
 				errman(ENOMEM, NULL);
 			free(*args_tab);
 			tab_shift(args_tab);
@@ -53,7 +54,7 @@ char		**parse_redirection(char **args_tab, const char *redt)
 	return (redir_tab);
 }
 
-void	set_last_output_redirect_info(char **args_tab, t_command *cmd)
+void		set_last_output_redirect_info(char **args_tab, t_command *cmd)
 {
 	cmd->redir_out_last = NULL;
 	cmd->last_is_double = -1;

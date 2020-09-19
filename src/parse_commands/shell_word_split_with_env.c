@@ -81,7 +81,8 @@ char		**shell_word_split_with_env(char *str, t_env *env)
 				return (NULL);
 			}
 			i_word++;
-			if (!(tab_word = (char **)ft_realloc_tab((void **)tab_word, i_word, i_word + 1)))
+			if (!(tab_word = (char **)ft_realloc_tab((void **)tab_word,
+														i_word, i_word + 1)))
 				errman(ENOMEM, NULL);
 		}
 	}
