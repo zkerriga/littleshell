@@ -40,9 +40,6 @@ int		execute_line(char *cmd_line, t_env *env)
 	return (status);
 }
 
-#include <stdio.h>
-//
-
 void	loop(t_env *env)
 {
 	char	*cmd_line;
@@ -55,16 +52,13 @@ void	loop(t_env *env)
 		current_path = getcwd(NULL, 0);
 		if (!g_sigint)
 		{
-			write(1, "MAIN", 4);
 			write(1, current_path, ft_strlen(current_path));
 			write(1, ": ", 2);
 		}
 		cmd_line = read_line();
 		g_sigint = 0;
 		if (is_valid_command(cmd_line, 0, NULL))
-		{
 			execute_line(cmd_line, env);
-		}
 		free(cmd_line);
 		free(current_path);
 		if (errno == ENOMEM)
