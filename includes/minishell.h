@@ -29,6 +29,4 @@ typedef struct	s_cmd
 	int			is_empty;
 }				t_command;
 
-t_command		*new_command();
-
 #endif
