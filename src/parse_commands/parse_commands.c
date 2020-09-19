@@ -15,8 +15,6 @@
 #include "minishell.h"
 #include "parse_commands.h"
 #include "environment.h"
-#include "test_minishell.h"
-
 
 void	destroy_command(t_command *cmd)
 {
@@ -34,17 +32,6 @@ void	destroy_command(t_command *cmd)
 		free(cmd->cmd_name);
 	ft_bzero(cmd, sizeof(*cmd));
 }
-
-/*
-t_command	*new_command()
-{
-	t_command	*new_command;
-
-	if (!(new_command = (t_command*)ft_calloc(1, sizeof(t_command))))
-		return (NULL);
-	return (new_command);
-}
-*/
 
 /*
 **	Parse command from *cmd_line till separate char (';' or '|'), then

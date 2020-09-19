@@ -35,7 +35,9 @@ int		does_command_separates(char **cmd_line)
 	if ((!(was_quote || was_d_quote) &&
 		is_command_separator(*cmd_line)) ||
 		(**cmd_line == '\\' && *(*cmd_line + 1) == '\0'))	// case with last backslash
+	{
 		return (1);
+	}
 	if (**cmd_line == '\\')
 	{
 		(*cmd_line)++;
