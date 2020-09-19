@@ -57,35 +57,3 @@ char	*parse_first_cmd_and_go_next(char *cmd_line,
 	parse_single_command(cur_cmd_line, cmd, env);
 	return (cmd_line);
 }
-
-/*
-**	OLD FUNCTION! NOT USED NOW!
-
-t_list *parse_command_line(char *cmd_line, t_env *env)
-{
-	t_list		*lst_head;
-	t_list		*lst_cur;
-	t_command	*cur_cmd;
-
-	lst_cur = NULL;
-	lst_head = NULL;
-	while (*cmd_line)
-	{
-		if (!(cur_cmd = new_command()) ||
-			!(lst_cur = ft_lstnew(cur_cmd)))
-			ft_putendl_fd("Malloc error parse commands!", 1);
-		cmd_line = parse_first_cmd_and_go_next(cmd_line, lst_cur->content, env);
-		if (((t_command*)(lst_cur->content))->is_empty)
-		{
-			free(lst_cur->content);
-			free(lst_cur);
-		}
-		else
-		{
-			ft_lstadd_back(&lst_head, lst_cur);
-			//test_cmd_print(lst_cur->content);
-		}
-	}
-	return (lst_head);
-}
-*/
