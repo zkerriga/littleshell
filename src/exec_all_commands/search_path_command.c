@@ -47,7 +47,7 @@ static void	set_full_cmd_name(const char *dir_path, t_command *cmd)
 	if (!(full_name = (char*)ft_calloc(len + 2, sizeof(*full_name))))
 		errman(ENOMEM, NULL);
 	ft_strlcat(full_name, dir_path, len + 2);
-	ft_strlcat(full_name, "/", len + 2); // TODO: if (last char of dir) or (first char of cmd->name) has '/'??
+	ft_strlcat(full_name, "/", len + 2);
 	ft_strlcat(full_name, cmd->cmd_name, len + 2);
 	free(cmd->cmd_name);
 	cmd->cmd_name = full_name;
@@ -61,7 +61,7 @@ int			is_ok_set_cmd_exec_name(t_command *cmd, t_env *env)
 
 	if (!(stat(cmd->cmd_name, &f_stat)))
 		return (1);
-	if (!(path_tab = ft_split(env->get_value(env, "PATH"), ':'))) // TODO: if dir name contains ':'??
+	if (!(path_tab = ft_split(env->get_value(env, "PATH"), ':')))
 		errman(ENOMEM, NULL);
 	i = -1;
 	while (path_tab[++i])

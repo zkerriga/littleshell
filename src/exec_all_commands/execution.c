@@ -52,7 +52,10 @@ void			wait_child(t_exec_info *inf, int *status)
 
 	while (1)
 	{
-		wpid = waitpid(inf->pid, status, WUNTRACED); // TODO: errno might be set
+		errno = 0;
+		wpid = waitpid(inf->pid, status, WUNTRACED);
+		if (errno)
+			errman(errno, NULL);
 		if (wpid >= 0)
 			break;
 		if (g_sigint)
