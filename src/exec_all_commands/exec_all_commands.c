@@ -54,7 +54,7 @@ int					exec_one_command(t_command *cmd, t_env *env)
 	if ((status = open_output_redirects(cmd) + check_input_redirects(cmd)))
 		return (status);
 	cmd_link = if_builtins_get_function(cmd->cmd_name);
-	if (!cmd_link && !is_ok_set_cmd_exec_name(cmd, env))
+	if (!cmd_link && !is_ok_set_cmd_exec_name(cmd, env)) //TODO: закрыть pipe -> echo 123 | \"
 	{
 		status = 1;
 		write_err(cmd->cmd_name, NULL, "no such command");
