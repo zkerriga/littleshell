@@ -61,6 +61,7 @@ void			wait_child(t_exec_info *inf, int *status)
 		if (g_sigint)
 			kill(inf->pid, SIGINT);
 	}
+//	g_sigint = 0;
 }
 
 static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)

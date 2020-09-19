@@ -42,9 +42,9 @@ char	*read_line(void)
 	while (1)
 	{
 		ch = '\0';
-		if (g_sigint)
-			break ;
 		ret = read(0, &ch, 1);
+//		if (g_sigint)
+//			break ;
 		if (ret == 0 && len == 0)
 		{
 			free(line);
