@@ -22,7 +22,7 @@ static int		is_command_separator(const char *line)
 }
 
 /*
-**	Retruns 1 if command separator found in *cmd_line given quotation marks;
+**	Returns 1 if command separator found in *cmd_line given quotation marks;
 **	If '\' occurs, function moves ptr of *cmd_line skipping that backslash.
 **	Returns 0 otherwise.
 */
@@ -51,7 +51,7 @@ int		does_command_separates(char **cmd_line)
 }
 
 /*
-**	sets cmd->next_operator;
+**	Sets cmd->next_operator;
 **	if separator contains 2 chars, shifts ptr *cmd_line by 1
 */
 

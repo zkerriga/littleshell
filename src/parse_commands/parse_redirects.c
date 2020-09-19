@@ -34,7 +34,7 @@ char		**parse_redirection(char **args_tab, const char *redt)
 	{
 		if (!ft_strncmp(*args_tab, redt, ft_strlen(redt)))
 		{
-			if (!(redir_tab = (char **)ft_realloc_tab((void **)redir_tab, tab_i + 1, tab_i + 2))) //TODO:malloc
+			if (!(redir_tab = (char **)ft_realloc_tab((void **)redir_tab, tab_i + 1, tab_i + 2)))
 				errman(ENOMEM, NULL);
 			free(*args_tab);
 			tab_shift(args_tab);
