@@ -13,6 +13,7 @@ set(READ_LINE_SRCS
 
 set(PARSE_COMMANDS
         src/parse_commands/parse_commands.c
+        src/parse_commands/destroy_command.c
         src/parse_commands/separate_commands.c
         src/parse_commands/parse_single_command.c
         src/parse_commands/pre_parse.c
@@ -21,7 +22,7 @@ set(PARSE_COMMANDS
         )
 
 set(EXEC_ALL_COMMANDS
-        src/exec_all_commands/exec_all_commands.c
+        src/exec_all_commands/exec_one_command.c
         src/exec_all_commands/search_path_command.c
         src/exec_all_commands/execution.c
         src/exec_all_commands/open_and_check_redirects.c
