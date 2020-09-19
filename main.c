@@ -34,6 +34,8 @@ int		execute_line(char *cmd_line, t_env *env)
 			status = exec_one_command(&cmd, env);
 		env->set_status(env, status);
 		destroy_command(&cmd);
+		if (g_sigint)
+			break ;
 	}
 	return (status);
 }
@@ -49,12 +51,17 @@ void	loop(t_env *env)
 	{
 		//printf("BEG: g_stat: %d\n", g_last_exec_status);
 		current_path = getcwd(NULL, 0);
-		write(1, current_path, ft_strlen(current_path));
-		write(1, ": ", 2);
-		cmd_line = read_line();
+		if (!g_sigint)
+		{
+			write(1, current_path, ft_strlen(current_path));
+			write(1, ": ", 2);
+		}
+		g_sigint = 0;
+		if (!g_sigint)
+			cmd_line = read_line();
 		//cmd_list = parse_command_line(cmd_line, env);
 		//status = exec_all_commands(cmd_list, env);
-		if (is_valid_command(cmd_line, 0, NULL))
+		if (!g_sigint && is_valid_command(cmd_line, 0, NULL))
 			execute_line(cmd_line, env);
 		free(cmd_line);
 		free(current_path);

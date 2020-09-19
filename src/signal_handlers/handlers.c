@@ -12,9 +12,14 @@
 
 #include "minishell.h"
 
-#include <stdio.h>
-
 void	sigint_handler()
 {
+	char *current_path;
+
 	g_sigint = 1;
+	current_path = getcwd(NULL, 0);
+	write(1, "\n", 1);
+	write(1, current_path, ft_strlen(current_path));
+	write(1, ": ", 2);
+	free(current_path);
 }

@@ -17,59 +17,24 @@
 
 /*
 **	Just return line from user.
-**	No error management
-*/
-
-//char	*read_line(void)
-//{
-//	char	*line;
-//	int		fd;
-//	int		i;
-//
-//	line = NULL;
-//	line = calloc(100000, 1);
-//	fd = dup(0);
-//	i = 0;
-//	while (1)
-//	{
-//		read(fd, &(line[i]), 1);
-//		printf("%s\n", line);
-//		if (line[i] == '\n')
-//		{
-//			line[i] = '\0';
-//			break;
-//		}
-//		else if (line[i] == 4)
-//		{
-//			printf("I wrote to stdin\n");
-//			write(0, line, strlen(line));
-//			continue ;
-//		}
-//		else
-//			i++;
-//	}
-//	get_next_line(0, &line);
-//	return (line);
-//}
-
-//char	*read_line(void)
-//{
-//	char *line;
-//
-//	line = NULL;
-//	get_next_line(0, &line);
-//	return (line);
-//}
-
-/*
+**	No error manag
  * CHAR BY CHAR FUNCTIOIN
  */
+
+#include <signal.h>
+#include <stdio.h>
+
+void	sgihand(int sig)
+{
+	if (sig)
+		printf("I got siginfo!\n");
+}
 
 int		is_read_ok(char ch, char **line, int *len)
 {
 	if (ch == '\n')
 		return (0);
-	if (ch != '\0')
+	if (ft_isprint(ch) || ft_isspace(ch))
 	{
 		if (!(*line = ft_realloc(*line, *len + 1,
 								 *len + 2))) // TODO: add err managementx
@@ -87,13 +52,17 @@ char	*read_line(void)
 	int		ret;
 	char	ch;
 
+	signal(SIGINFO, sgihand);
 	len = 0;
 	if (!(line = ft_strdup("\0")))
 		exit(1);
 	while (1)
 	{
 		ch = '\0';
-		ret = read(0, &ch, 1);
+		if (!g_sigint)
+			ret = read(0, &ch, 1);
+		else
+			break ;
 		if (ret == 0 && len == 0)
 		{
 			free(line);
@@ -101,9 +70,9 @@ char	*read_line(void)
 			break ;
 		}
 		if (is_read_ok(ch, &line, &len))
-			continue ;
+			continue;
 		else
-			break ;
+			break;
 	}
 	return (line);
 }
