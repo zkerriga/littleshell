@@ -39,10 +39,10 @@ typedef struct	s_quotes
 	int			d_quote;
 }				t_quotes;
 
-static void	slash_slash_block(t_word_work *word_work, char **str, t_quotes *q)
+static void	slash_slash_block(t_word_work *w_work, char **str, t_quotes *q)
 {
 	if (q->quote)
-		word_work->add_char(word_work, **str);
+		w_work->add_char(w_work, **str);
 	else if (q->d_quote)
 	{
 		if (*(*str + 1) == '$' || *(*str + 1) == '"'
@@ -50,33 +50,53 @@ static void	slash_slash_block(t_word_work *word_work, char **str, t_quotes *q)
 		{
 			++(*str);
 		}
-		word_work->add_char(word_work, **str);
+		w_work->add_char(w_work, **str);
 	}
 	else
 	{
 		++(*str);
-		word_work->add_char(word_work, **str);
+		w_work->add_char(w_work, **str);
 	}
 }
 
-static void	end_else_block(t_word_work *word_work, char **str, t_quotes *q, t_env *env)
+static void	end_block(t_word_work *w_work, char **str, t_quotes *q, t_env *env)
 {
 	if (**str == '\'' && !q->d_quote)
 		q->quote = !q->quote;
 	else if (**str == '"' && !q->quote)
 		q->d_quote = !q->d_quote;
 	else if (**str == '\\')
-		slash_slash_block(word_work, str, q);
+		slash_slash_block(w_work, str, q);
 	else if (!q->quote && **str == '$' && (ft_isalpha(*(*str + 1))
 				|| *(*str + 1) == '_' || *(*str + 1) == '?'))
 	{
-		(*str) += word_work->expand(word_work, *str, env);
+		(*str) += w_work->expand(w_work, *str, env);
 	}
 	else
-		word_work->add_char(word_work, **str);
+		w_work->add_char(w_work, **str);
 }
 
-static char	*full_cycle(t_word_work *word_work, char **str, t_quotes *q, t_env *env)
+static int	begin_into_block(t_word_work *w_work, char **str, char *str_start)
+{
+	if (str_start == *str)
+	{
+		w_work->add_char(w_work, **str);
+		++(*str);
+		if (is_redirect(**str))
+		{
+			w_work->add_char(w_work, **str);
+			++(*str);
+		}
+		if (is_redirect_next(*str))
+		{
+			w_work->delete(w_work);
+			return (1);
+		}
+	}
+	return (0);
+}
+
+static int	full_cycle(t_word_work *w_work, char **str, t_quotes *q, t_env *env)
 {
 	char	*str_start;
 
@@ -85,21 +105,8 @@ static char	*full_cycle(t_word_work *word_work, char **str, t_quotes *q, t_env *
 	{
 		if (is_redirect(**str) && !(q->d_quote || q->quote))
 		{
-			if (str_start == *str)
-			{
-				word_work->add_char(word_work, **str);
-				++(*str);
-				if (is_redirect(**str))
-				{
-					word_work->add_char(word_work, **str);
-					++(*str);
-				}
-				if (is_redirect_next(*str))
-				{
-					word_work->delete(word_work);
-					return (NULL);
-				}
-			}
+			if (begin_into_block(w_work, str, str_start))
+				return (1);
 			break ;
 		}
 		else if (ft_isspace(**str) && !(q->d_quote || q->quote))
@@ -108,10 +115,10 @@ static char	*full_cycle(t_word_work *word_work, char **str, t_quotes *q, t_env *
 			break ;
 		}
 		else
-			end_else_block(word_work, str, q, env);
+			end_block(w_work, str, q, env);
 		++(*str);
 	}
-	return (str_start);
+	return (0);
 }
 
 static char	*get_shell_word_and_go_next(char **str, t_env *env)
@@ -124,7 +131,7 @@ static char	*get_shell_word_and_go_next(char **str, t_env *env)
 	word_work = word_work_new();
 	while (ft_isspace(**str))			// Probably might be deleted
 		++(*str);
-	if (!full_cycle(word_work, str, &q, env))
+	if (full_cycle(word_work, str, &q, env))
 		return (NULL);
 	if (!(word = ft_strdup(word_work->ret_word(word_work))))
 		errman(ENOMEM, NULL);
