@@ -19,15 +19,17 @@
 
 typedef struct	s_quotes
 {
-	int	quote;
-	int	d_quote;
+	int			quote;
+	int			d_quote;
 }				t_quotes;
 
-int		is_redirect_next(char *str);
-int		is_redirect(char ch);
+int				is_redirect_next(char *str);
+int				is_redirect(char ch);
 
-int		begin_into_block(t_word_work *w_work, char **str, char *str_start);
-void	end_block(t_word_work *w_work, char **str, t_quotes *q, t_env *env);
-void	slash_slash_block(t_word_work *w_work, char **str, t_quotes *q);
+int				begin_into_block(t_word_work *w_work,
+									char **str, char *str_start);
+void			end_block(t_word_work *w_work, char **str,
+							t_quotes *q, t_env *env);
+void			slash_slash_block(t_word_work *w_work, char **str, t_quotes *q);
 
 #endif
