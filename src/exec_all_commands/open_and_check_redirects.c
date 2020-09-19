@@ -61,7 +61,8 @@ int			open_output_redirects(t_command *cmd)
 	{
 		while (*filename_tab)
 		{
-			if ((status = open_mask(*filename_tab, O_CREAT | O_WRONLY | O_APPEND, 0644)))
+			if ((status = open_mask(*filename_tab,
+							O_CREAT | O_WRONLY | O_APPEND, 0644)))
 				return (status);
 			++filename_tab;
 		}

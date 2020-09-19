@@ -21,7 +21,7 @@ static void	write_error_message(int error_code, const char *description)
 	write(2, "\n", 1);
 }
 
-int		errman(int error_code, const char *description)
+int			errman(int error_code, const char *description)
 {
 	int		status;
 

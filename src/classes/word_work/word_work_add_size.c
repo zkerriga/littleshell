@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "hidden_word_work.h"
-#include "get_next_line.h" //TODO: move ft_realloc to libft
+#include "get_next_line.h"
 #include "error_manager.h"
 
 void	word_work_add_size(t_word_work *self)
