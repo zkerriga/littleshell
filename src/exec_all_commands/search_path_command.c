@@ -58,10 +58,14 @@ int			is_ok_set_cmd_exec_name(t_command *cmd, t_env *env)
 	struct stat	f_stat;
 	char		**path_tab;
 	int			i;
+	const char	*value;
 
 	if (!(stat(cmd->cmd_name, &f_stat)))
 		return (1);
-	if (!(path_tab = ft_split(env->get_value(env, "PATH"), ':')))
+	value = env->get_value(env, "PATH");
+	if (!value)
+		return (0);
+	if (!(path_tab = ft_split(value, ':')))
 		errman(ENOMEM, NULL);
 	i = -1;
 	while (path_tab[++i])
