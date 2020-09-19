@@ -18,7 +18,8 @@ set(PARSE_COMMANDS
         src/parse_commands/parse_single_command.c
         src/parse_commands/shell_word_split_with_env.c
         src/parse_commands/pre_parse.c
-        src/classes/word_work/word_work_new.c
+        src/parse_commands/full_cycle_is_redirect.c
+        src/parse_commands/full_cycle_blocks.c
         src/parse_commands/parse_redirects.c
         )
 
@@ -47,6 +48,7 @@ set(ENVIRONMENT
         )
 
 set(WORD_WORK
+        src/classes/word_work/word_work_new.c
         src/classes/word_work/word_work_delete.c
         src/classes/word_work/word_work_expand.c
         src/classes/word_work/word_work_add_char.c

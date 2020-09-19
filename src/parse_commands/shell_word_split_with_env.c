@@ -14,87 +14,8 @@
 #include "parse_commands.h"
 #include "environment.h"
 #include "word_work.h"
-#include <stdlib.h>
 #include "error_manager.h"
-
-static int	is_redirect_next(char *str)
-{
-	while (*str && ft_isspace(*str))
-		++str;
-	if (*str == '>' || *str == '<' || *str == '\0')
-		return (1);
-	return (0);
-}
-
-static int	is_redirect(char ch)
-{
-	if (ch == '<' || ch == '>')
-		return (1);
-	return (0);
-}
-
-typedef struct	s_quotes
-{
-	int			quote;
-	int			d_quote;
-}				t_quotes;
-
-static void	slash_slash_block(t_word_work *w_work, char **str, t_quotes *q)
-{
-	if (q->quote)
-		w_work->add_char(w_work, **str);
-	else if (q->d_quote)
-	{
-		if (*(*str + 1) == '$' || *(*str + 1) == '"'
-			|| *(*str + 1) == '>' || *(*str + 1) == '<')
-		{
-			++(*str);
-		}
-		w_work->add_char(w_work, **str);
-	}
-	else
-	{
-		++(*str);
-		w_work->add_char(w_work, **str);
-	}
-}
-
-static void	end_block(t_word_work *w_work, char **str, t_quotes *q, t_env *env)
-{
-	if (**str == '\'' && !q->d_quote)
-		q->quote = !q->quote;
-	else if (**str == '"' && !q->quote)
-		q->d_quote = !q->d_quote;
-	else if (**str == '\\')
-		slash_slash_block(w_work, str, q);
-	else if (!q->quote && **str == '$' && (ft_isalpha(*(*str + 1))
-										   || *(*str + 1) == '_' || *(*str + 1) == '?'))
-	{
-		(*str) += w_work->expand(w_work, *str, env);
-	}
-	else
-		w_work->add_char(w_work, **str);
-}
-
-static int	begin_into_block(t_word_work *w_work, char **str, char *str_start)
-{
-	if (str_start == *str)
-	{
-		w_work->add_char(w_work, **str);
-		++(*str);
-		if (is_redirect(**str))
-		{
-			w_work->add_char(w_work, **str);
-			++(*str);
-		}
-		if (is_redirect_next(*str))
-		{
-			w_work->delete(w_work);
-			return (1);
-		}
-	}
-	return (0);
-}
+#include "parse_full_cycle.h"
 
 static int	full_cycle(t_word_work *w_work, char **str, t_quotes *q, t_env *env)
 {
@@ -129,7 +50,7 @@ static char	*get_shell_word_and_go_next(char **str, t_env *env)
 
 	ft_bzero(&q, sizeof(q));
 	word_work = word_work_new();
-	while (ft_isspace(**str))			// Probably might be deleted
+	while (ft_isspace(**str))
 		++(*str);
 	if (full_cycle(word_work, str, &q, env))
 		return (NULL);
