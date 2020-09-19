@@ -27,14 +27,14 @@ static int		is_command_separator(const char *line)
 **	Returns 0 otherwise.
 */
 
-int		does_command_separates(char **cmd_line)
+int				does_command_separates(char **cmd_line)
 {
 	static int	was_quote;
 	static int	was_d_quote;
 
 	if ((!(was_quote || was_d_quote) &&
 		is_command_separator(*cmd_line)) ||
-		(**cmd_line == '\\' && *(*cmd_line + 1) == '\0'))	// case with last backslash
+		(**cmd_line == '\\' && *(*cmd_line + 1) == '\0'))
 	{
 		return (1);
 	}
