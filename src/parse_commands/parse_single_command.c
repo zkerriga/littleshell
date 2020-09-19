@@ -33,23 +33,47 @@ static int	is_redirect(char ch)
 	return (0);
 }
 
-static char	*get_shell_word_and_go_next(char **str, t_env *env)
+typedef struct	s_quotes
 {
 	int			quote;
 	int			d_quote;
+}				t_quotes;
+
+static void	slash_slash_block(t_word_work *word_work, char **str, t_quotes *q)
+{
+	if (q->quote)
+		word_work->add_char(word_work, **str);
+	else if (q->d_quote)
+	{
+		if (*(*str + 1) == '$' || *(*str + 1) == '"'
+			|| *(*str + 1) == '>' || *(*str + 1) == '<')
+		{
+			++(*str);
+		}
+		word_work->add_char(word_work, **str);
+	}
+	else
+	{
+		++(*str);
+		word_work->add_char(word_work, **str);
+	}
+}
+
+static char	*get_shell_word_and_go_next(char **str, t_env *env)
+{
+	t_quotes	q;
 	char		*str_start;
 	char		*word;
 	t_word_work	*word_work;
 
-	quote = 0;
-	d_quote = 0;
+	ft_bzero(&q, sizeof(q));
 	word_work = word_work_new();
 	while (ft_isspace(**str))			// Probably might be deleted
 		++(*str);
 	str_start = *str;
 	while (**str)
 	{
-		if (is_redirect(**str) && !(d_quote || quote))
+		if (is_redirect(**str) && !(q.d_quote || q.quote))
 		{
 			if (str_start == *str)
 			{
@@ -68,32 +92,18 @@ static char	*get_shell_word_and_go_next(char **str, t_env *env)
 			}
 			break ;
 		}
-		else if (ft_isspace(**str) && !(d_quote || quote))
+		else if (ft_isspace(**str) && !(q.d_quote || q.quote))
 		{
 			++(*str);
 			break ;
 		}
-		else if (**str == '\'' && !d_quote)
-			quote = !quote;
-		else if (**str == '"' && !quote)
-			d_quote = !d_quote;
+		else if (**str == '\'' && !q.d_quote)
+			q.quote = !q.quote;
+		else if (**str == '"' && !q.quote)
+			q.d_quote = !q.d_quote;
 		else if (**str == '\\')
-		{
-			if (quote)
-				word_work->add_char(word_work, **str);
-			else if (d_quote)
-			{
-				if (*(*str + 1) == '$' || *(*str + 1) == '"' || *(*str + 1) == '>' || *(*str + 1) == '<')
-					++(*str);
-				word_work->add_char(word_work, **str);
-			}
-			else
-			{
-				++(*str);
-				word_work->add_char(word_work, **str);
-			}
-		}
-		else if (!quote && **str == '$' && (ft_isalpha(*(*str + 1)) || *(*str + 1) == '_' || *(*str + 1) == '?'))
+			slash_slash_block(word_work, str, &q);
+		else if (!q.quote && **str == '$' && (ft_isalpha(*(*str + 1)) || *(*str + 1) == '_' || *(*str + 1) == '?'))
 			(*str) += word_work->expand(word_work, *str, env);
 		else
 			word_work->add_char(word_work, **str);
