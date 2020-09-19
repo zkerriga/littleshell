@@ -42,10 +42,9 @@ char	*read_line(void)
 	while (1)
 	{
 		ch = '\0';
-		if (!g_sigint)
-			ret = read(0, &ch, 1);
-		else
+		if (g_sigint)
 			break ;
+		ret = read(0, &ch, 1);
 		if (ret == 0 && len == 0)
 		{
 			free(line);
@@ -53,10 +52,8 @@ char	*read_line(void)
 				errman(ENOMEM, NULL);
 			break ;
 		}
-		if (is_read_ok(ch, &line, &len))
-			continue;
-		else
-			break;
+		if (!is_read_ok(ch, &line, &len))
+			break ;
 	}
 	return (line);
 }
