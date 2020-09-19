@@ -29,11 +29,13 @@ typedef struct	s_exec_info
 
 static int		parse_stop_status(int stat)
 {
+	const char	*output_str = "Quit:\t";
+
 	if (WIFSIGNALED(stat))
 	{
-		ft_putstr_fd("\nQuit:\t", 2);
+		write(2, output_str, ft_strlen(output_str));
 		ft_putnbr_fd(WTERMSIG(stat), 2);
-		ft_putchar_fd('\n', 2);
+		write(2, "\n", 1);
 		return WTERMSIG(stat);
 	}
 	return (WEXITSTATUS(stat));
