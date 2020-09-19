@@ -15,6 +15,7 @@
 #include "get_next_line.h"
 #include <stdlib.h>
 #include <fcntl.h>
+#include <signal.h>
 
 typedef struct	s_exec_info
 {
@@ -27,14 +28,35 @@ typedef struct	s_exec_info
 
 static int		parse_stop_status(int stat)
 {
+	int	sig;
+
 	if (WIFSIGNALED(stat))
 	{
-		ft_putstr_fd("\nQuit:\t", 2);
-		ft_putnbr_fd(WTERMSIG(stat), 2);
-		ft_putchar_fd('\n', 2);
+		sig = WTERMSIG(stat);
+		if (sig == SIGQUIT)
+		{
+			ft_putstr_fd("\nQuit:\t", 2);
+			ft_putnbr_fd(SIGQUIT, 2);
+			ft_putchar_fd('\n', 2);
+		}
 		return WTERMSIG(stat);
 	}
 	return (WEXITSTATUS(stat));
+}
+
+void			wait_child(t_exec_info *inf, int *status)
+{
+	int		wpid;
+
+	while (1)
+	{
+		wpid = waitpid(inf->pid, status, WUNTRACED);		// TODO: errno might be set
+		if (wpid >= 0)
+			break;
+		if (g_sigint)
+			kill(inf->pid, SIGINT);
+	}
+	g_sigint = 0;
 }
 
 static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
@@ -65,7 +87,8 @@ static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 	else
 	{
 		// Parent here
-		waitpid(inf->pid, &status, WUNTRACED);
+		wait_child(inf, &status);
+//		waitpid(inf->pid, &status, WUNTRACED);
 	}
 	return (parse_stop_status(status));
 }
