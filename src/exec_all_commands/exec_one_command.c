@@ -11,10 +11,8 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minishell.h"
 #include "builtin_functions.h"
 #include "exec_all_commands.h"
-#include <stdio.h>
 
 static int			is_equal_cmd_name(const char *const_name, const char *cmd)
 {
