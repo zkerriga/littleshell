@@ -43,8 +43,6 @@ char	*read_line(void)
 	{
 		ch = '\0';
 		ret = read(0, &ch, 1);
-//		if (g_sigint)
-//			break ;
 		if (ret == 0 && len == 0)
 		{
 			free(line);

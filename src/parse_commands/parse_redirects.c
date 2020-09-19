@@ -21,6 +21,17 @@ static void	tab_shift(char **tab)
 		*tab = *(tab + 1);
 }
 
+static void	end_cycle_block(char **args_tab, char **redir_tab, int *tab_i)
+{
+	if (*args_tab)
+	{
+		redir_tab[(*tab_i)++] = *args_tab;
+		tab_shift(args_tab);
+	}
+	else if (!(redir_tab[(*tab_i)++] = ft_strdup("")))
+		errman(ENOMEM, NULL);
+}
+
 char		**parse_redirection(char **args_tab, const char *redt)
 {
 	char	**redir_tab;
@@ -39,13 +50,7 @@ char		**parse_redirection(char **args_tab, const char *redt)
 				errman(ENOMEM, NULL);
 			free(*args_tab);
 			tab_shift(args_tab);
-			if (*args_tab)
-			{
-				redir_tab[tab_i++] = *args_tab;
-				tab_shift(args_tab);
-			}
-			else if (!(redir_tab[tab_i++] = ft_strdup("")))
-				errman(ENOMEM, NULL);
+			end_cycle_block(args_tab, redir_tab, &tab_i);
 			redir_tab[tab_i] = NULL;
 		}
 		else
