@@ -34,7 +34,7 @@ static void	split_and_add(char *env_str, t_env *env)
 	const char	*value;
 	char		*equal_ptr;
 
-	equal_ptr = ft_strchr(env_str, '='); //TODO: NULL bag
+	equal_ptr = ft_strchr(env_str, '=');
 	if (!(key = ft_substr(env_str, 0, equal_ptr - env_str)))
 		errman(ENOMEM, NULL);
 	value = equal_ptr + 1;
