@@ -14,16 +14,7 @@
 
 #include <stdio.h>
 
-//void	sigchild_handler()
-//{
-//	int		sigterm;
-//
-//	printf("g_stat: %d\n", g_last_exec_status);
-//	if (WIFSIGNALED(g_last_exec_status))
-//	{
-//		sigterm = WTERMSIG(g_last_exec_status);
-//		ft_putstr_fd("\nQuit:\t", 2);
-//		ft_putnbr_fd(sigterm, 2);
-//		ft_putchar_fd('\n', 2);
-//	}
-//}
+void	sigint_handler()
+{
+	g_sigint = 1;
+}

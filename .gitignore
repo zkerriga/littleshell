@@ -8,3 +8,8 @@ libs/libft/obj
 matrus_main.c
 test.c
 test_program
+test16k.txt
+test64k.txt
+test65k
+test660k.txt
+test70k.txt

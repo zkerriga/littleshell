@@ -18,9 +18,7 @@
 #include "signal_handlers.h"
 #include <errno.h>
 
-//
-#include <stdio.h>
-
+int		g_sigint;
 
 int		execute_line(char *cmd_line, t_env *env)
 {
@@ -71,7 +69,7 @@ int		main(int ac, char **av, char **envp)
 	t_env	*env;
 
 	signal(SIGQUIT, SIG_IGN);
-//	signal(SIGCHLD, sigchild_handler);
+	signal(SIGINT, sigint_handler);
 	env = environment_new((const char **)envp);
 	if (ac && av)
 	{
