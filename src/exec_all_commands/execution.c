@@ -18,34 +18,6 @@
 #include "error_manager.h"
 #include "builtin_functions.h"
 
-typedef struct	s_exec_info
-{
-	int		fd_prev;
-	int		fd_out;
-	int		fd_pipe[2];
-	pid_t	pid;
-	int		status;
-}				t_exec_info;
-
-static int		parse_stop_status(int stat)
-{
-	const char	*output_str = "Quit:\t";
-	int			sig;
-
-	if (WIFSIGNALED(stat))
-	{
-		sig = WTERMSIG(stat);
-		if (sig == SIGQUIT)
-		{
-			write(2, output_str, ft_strlen(output_str));
-			ft_putnbr_fd(WTERMSIG(stat), 2);
-			write(2, "\n", 1);
-		}
-		return (WTERMSIG(stat));
-	}
-	return (WEXITSTATUS(stat));
-}
-
 void			wait_child(t_exec_info *inf, int *status)
 {
 	int		wpid;
@@ -57,11 +29,10 @@ void			wait_child(t_exec_info *inf, int *status)
 		if (errno)
 			errman(errno, NULL);
 		if (wpid >= 0)
-			break;
+			break ;
 		if (g_sigint)
 			kill(inf->pid, SIGINT);
 	}
-//	g_sigint = 0;
 }
 
 static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
@@ -71,13 +42,9 @@ static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 	inf->pid = fork();
 	if (inf->pid == 0)
 	{
-		// Child here
 		signal(SIGQUIT, SIG_DFL);
-		// Make redirects in here. If redirect, pipeline is ignored.
 		dup2(inf->fd_prev, 0);
-		// Make redirects out here. If redirect, pipeline is ignored.
 		dup2(inf->fd_out, 1);
-		// Exec smth
 		status = execve(cmd->cmd_name, cmd->args, env->transfer_control(env));
 		write_err(cmd->cmd_name, NULL, "bad execution");
 		exit(status);
@@ -89,9 +56,7 @@ static int		exec_extern(t_exec_info *inf, t_command *cmd, t_env *env)
 	}
 	else
 	{
-		// Parent here
 		wait_child(inf, &status);
-//		waitpid(inf->pid, &status, WUNTRACED);
 	}
 	return (parse_stop_status(status));
 }
