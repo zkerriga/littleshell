@@ -17,6 +17,8 @@
 # include <unistd.h>
 # include <string.h>
 
+# define NOEXIT (-1)
+
 int		errman(int error_code, const char *description);
 
 #endif

@@ -13,7 +13,7 @@
 #include "error_manager.h"
 #include "libft.h"
 
-void	write_error_message(int error_code, const char *description)
+static void	write_error_message(int error_code, const char *description)
 {
 	write(2, "minishell: ", 11);
 	description = (description) ? description : strerror(error_code);
@@ -25,9 +25,9 @@ int		errman(int error_code, const char *description)
 {
 	int		status;
 
-	status = 0;
+	status = error_code;
 	write_error_message(error_code, description);
 	if (error_code == ENOMEM)
-		exit(ENOMEM);
+		exit(error_code);
 	return (status);
 }
