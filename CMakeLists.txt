@@ -12,7 +12,7 @@ set(READ_LINE_SRCS
         src/read_line/read_line.c)
 
 set(PARSE_COMMANDS
-        src/parse_commands/parse_commands.c
+        src/parse_commands/parse_and_go_next.c
         src/parse_commands/destroy_command.c
         src/parse_commands/separate_commands.c
         src/parse_commands/parse_single_command.c
