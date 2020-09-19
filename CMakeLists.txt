@@ -16,6 +16,7 @@ set(PARSE_COMMANDS
         src/parse_commands/destroy_command.c
         src/parse_commands/separate_commands.c
         src/parse_commands/parse_single_command.c
+        src/parse_commands/shell_word_split_with_env.c
         src/parse_commands/pre_parse.c
         src/classes/word_work/word_work_new.c
         src/parse_commands/parse_redirects.c
