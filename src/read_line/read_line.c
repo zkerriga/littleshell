@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 #include "minishell.h"
-
+#include "error_manager.h"
 
 /*
 **	Just return line from user.
@@ -71,9 +71,8 @@ int		is_read_ok(char ch, char **line, int *len)
 		return (0);
 	if (ch != '\0')
 	{
-		if (!(*line = ft_realloc(*line, *len + 1,
-								 *len + 2))) // TODO: add err managementx
-			exit(1);
+		if (!(*line = ft_realloc(*line, *len + 1, *len + 2)))
+			errman(ENOMEM, NULL);
 		(*line)[(*len)++] = ch;
 		(*line)[*len] = '\0';
 	}
@@ -83,13 +82,13 @@ int		is_read_ok(char ch, char **line, int *len)
 char	*read_line(void)
 {
 	char	*line;
-	int 	len;
+	int		len;
 	int		ret;
 	char	ch;
 
 	len = 0;
 	if (!(line = ft_strdup("\0")))
-		exit(1);
+		errman(ENOMEM, NULL);
 	while (1)
 	{
 		ch = '\0';
@@ -97,7 +96,8 @@ char	*read_line(void)
 		if (ret == 0 && len == 0)
 		{
 			free(line);
-			line = ft_strdup("exit");		// TODO: add error mgt
+			if (!(line = ft_strdup("exit")))
+				errman(ENOMEM, NULL);
 			break ;
 		}
 		if (is_read_ok(ch, &line, &len))
