@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "environment.h"
+# include "minishell.h"
 
 typedef int	(*t_func_ptr)(char **, int, int, t_env *);
 

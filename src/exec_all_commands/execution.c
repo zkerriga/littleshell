@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "exec_all_commands.h"
 #include <stdlib.h>
 #include <fcntl.h>
