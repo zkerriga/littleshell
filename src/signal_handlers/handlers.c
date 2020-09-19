@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	sigint_handler()
+void	sigint_handler(void)
 {
 	char *current_path;
 
