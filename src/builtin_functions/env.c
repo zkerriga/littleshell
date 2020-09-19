@@ -12,6 +12,8 @@
 
 #include "environment.h"
 #include <errno.h>
+#include <sys/stat.h>
+#include "error_manager.h"
 
 /*
 ** The command prints an unsorted list of environment variables
@@ -20,6 +22,7 @@
 
 int		env_command(char **args, int fdin, int fdout, t_env *env)
 {
+	struct stat	f_stat;
 	const int	env_error_code = 126;
 	const int	success_code = 0;
 	int			unused;
@@ -27,6 +30,8 @@ int		env_command(char **args, int fdin, int fdout, t_env *env)
 	unused = args || fdin;
 	if (!env)
 		return (errno = env_error_code);
-	env->print(env, fdout); //TODO: не хватает проверки ошибок с дескриптором
+	if (fstat(fdout, &f_stat) < 0)
+		return (errman(errno, NULL));
+	env->print(env, fdout);
 	return (success_code);
 }

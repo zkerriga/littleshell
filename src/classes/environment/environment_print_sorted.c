@@ -44,12 +44,13 @@ static char	**sort_tab(char **tab, size_t size, int (*cmp)(void *, void *))
 	return (tab);
 }
 
-void		environment_print_sorted(t_env *self, int fd)
+int			environment_print_sorted(t_env *self, int fd)
 {
 	char	**env_tab;
 	char	**save_ptr;
 
-	env_tab = ft_tabdub((const char **)self->env_array);
+	if (!(env_tab = ft_tabdub((const char **)self->env_array)))
+		return (1);
 	save_ptr = env_tab;
 	env_tab = sort_tab(env_tab, self->len, env_compare);
 	while (*env_tab)
@@ -60,4 +61,5 @@ void		environment_print_sorted(t_env *self, int fd)
 		++env_tab;
 	}
 	free(save_ptr);
+	return (0);
 }

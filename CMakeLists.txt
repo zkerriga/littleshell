@@ -12,20 +12,24 @@ set(READ_LINE_SRCS
         src/read_line/read_line.c)
 
 set(PARSE_COMMANDS
-        src/parse_commands/parse_commands.c
+        src/parse_commands/parse_and_go_next.c
+        src/parse_commands/destroy_command.c
         src/parse_commands/separate_commands.c
         src/parse_commands/parse_single_command.c
         src/parse_commands/pre_parse.c
         src/classes/word_work/word_work_new.c
         src/parse_commands/parse_redirects.c
-        src/parse_commands/test_cmd_print.c
         )
 
 set(EXEC_ALL_COMMANDS
-        src/exec_all_commands/exec_all_commands.c
+        src/exec_all_commands/exec_one_command.c
         src/exec_all_commands/search_path_command.c
         src/exec_all_commands/execution.c
         src/exec_all_commands/open_and_check_redirects.c
+        )
+
+set(ERROR_MANAGER
+        src/errors/error_manager.c
         )
 
 set(ENVIRONMENT
@@ -62,6 +66,7 @@ set(BUILTINS
 FILE(GLOB LIBFT libs/libft/*/*.c)
 
 add_executable(minishell
+        ${ERROR_MANAGER}
         ${BUILTINS}
         ${READ_LINE_SRCS}
         ${PARSE_COMMANDS}
@@ -72,10 +77,13 @@ add_executable(minishell
         main.c src/signal_handlers/handlers.c)
 
 add_library(test
+        ${ERROR_MANAGER}
+        ${BUILTINS}
         ${READ_LINE_SRCS}
         ${PARSE_COMMANDS}
         ${EXEC_ALL_COMMANDS}
         ${ENVIRONMENT}
+        ${WORD_WORK}
         ${LIBFT}
         main.c)
 

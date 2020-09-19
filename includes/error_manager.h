@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_minishell.h                                   :+:      :+:    :+:   */
+/*   error_manager.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matrus <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: zkerriga <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/16 10:07:41 by matrus            #+#    #+#             */
-/*   Updated: 2020/09/16 10:07:42 by matrus           ###   ########.fr       */
+/*   Created: 2020/09/18 18:08:43 by zkerriga          #+#    #+#             */
+/*   Updated: 2020/09/18 18:08:44 by zkerriga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_MINISHELL_H
-# define TEST_MINISHELL_H
+#ifndef ERROR_MANAGER_H
+# define ERROR_MANAGER_H
 
-# include "minishell.h"
+# include <errno.h>
+# include <unistd.h>
+# include <string.h>
 
-void	test_cmd_print(t_command *cmd);
+# define NOEXIT (-1)
+
+int		errman(int error_code, const char *description);
 
 #endif

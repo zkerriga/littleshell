@@ -32,6 +32,7 @@ FILES = main.c \
 		$(wildcard $(SRC_DIR)/signal_handlers/*.c) \
 		$(wildcard $(SRC_DIR)/$(CLASS_DIR)/environment/*.c) \
 		$(wildcard $(SRC_DIR)/$(CLASS_DIR)/word_work/*.c) \
+		$(wildcard $(SRC_DIR)/errors/*.c)
 
 FILES_O = $(addprefix $(OBJ_DIR)/, $(FILES:.c=.o))
 
@@ -45,6 +46,7 @@ $(OBJ_DIR):
 				$(OBJ_DIR)/$(SRC_DIR)/exec_all_commands/ \
 				$(OBJ_DIR)/$(SRC_DIR)/builtin_functions/ \
 				$(OBJ_DIR)/$(SRC_DIR)/signal_handlers/ \
+				$(OBJ_DIR)/$(SRC_DIR)/errors/ \
 				$(OBJ_DIR)/$(SRC_DIR)/$(CLASS_DIR)/environment \
 				$(OBJ_DIR)/$(SRC_DIR)/$(CLASS_DIR)/word_work
 

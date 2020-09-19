@@ -15,6 +15,7 @@
 #include "environment.h"
 #include "word_work.h"
 #include <stdlib.h>
+#include "error_manager.h"
 
 static int	is_redirect_next(char *str)
 {
@@ -98,7 +99,8 @@ static char	*get_shell_word_and_go_next(char **str, t_env *env)
 			word_work->add_char(word_work, **str);
 		++(*str);
 	}
-	word = ft_strdup(word_work->ret_word(word_work));
+	if (!(word = ft_strdup(word_work->ret_word(word_work))))
+		errman(ENOMEM, NULL);
 	word_work->delete(word_work);
 	return (word);
 }
@@ -108,7 +110,8 @@ static char	**shell_word_split_with_env(char *str, t_env *env)
 	char	**tab_word;
 	int		i_word;
 
-	tab_word = (char**)malloc(sizeof(char*)); //TODO: malloc
+	if (!(tab_word = (char**)malloc(sizeof(char*))))
+		errman(ENOMEM, NULL);
 	*tab_word = NULL;
 	i_word = 0;
 	while (*str)
@@ -121,10 +124,10 @@ static char	**shell_word_split_with_env(char *str, t_env *env)
 			{
 				ft_free_tab((void **)tab_word);
 				return (NULL);
-			}// TODO: mignt be malloc error
+			}
 			i_word++;
 			if (!(tab_word = (char **)ft_realloc_tab((void **)tab_word, i_word, i_word + 1)))
-				ft_putendl_fd("Malloc error in shell_word_split_with_env", 1); // TODO: error check
+				errman(ENOMEM, NULL);
 		}
 	}
 	return (tab_word);
@@ -136,7 +139,7 @@ void		parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 
 	if (!(tab_word = shell_word_split_with_env(cmd_str, env)))
 	{
-		ft_putendl_fd("Parse error!", 1); // TODO: add normal error msg
+		errman(NOEXIT, "parse error");
 		cmd->is_empty = 1;
 		return ;
 	}
@@ -148,7 +151,8 @@ void		parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 		cmd->redir_in = parse_redirection(tab_word, "<");
 		cmd->redir_out = parse_redirection(tab_word, ">");
 		cmd->args = tab_word;
-		cmd->cmd_name = (*tab_word) ? ft_strdup(tab_word[0]) : ft_strdup("");	// TODO: add error managment
+		if (!(cmd->cmd_name = ft_strdup((*tab_word) ? tab_word[0] : "")))
+			errman(ENOMEM, NULL);
 	}
 	else
 	{
