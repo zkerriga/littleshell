@@ -59,21 +59,31 @@ static void	slash_slash_block(t_word_work *word_work, char **str, t_quotes *q)
 	}
 }
 
-static char	*get_shell_word_and_go_next(char **str, t_env *env)
+static void	end_else_block(t_word_work *word_work, char **str, t_quotes *q, t_env *env)
 {
-	t_quotes	q;
-	char		*str_start;
-	char		*word;
-	t_word_work	*word_work;
+	if (**str == '\'' && !q->d_quote)
+		q->quote = !q->quote;
+	else if (**str == '"' && !q->quote)
+		q->d_quote = !q->d_quote;
+	else if (**str == '\\')
+		slash_slash_block(word_work, str, q);
+	else if (!q->quote && **str == '$' && (ft_isalpha(*(*str + 1))
+				|| *(*str + 1) == '_' || *(*str + 1) == '?'))
+	{
+		(*str) += word_work->expand(word_work, *str, env);
+	}
+	else
+		word_work->add_char(word_work, **str);
+}
 
-	ft_bzero(&q, sizeof(q));
-	word_work = word_work_new();
-	while (ft_isspace(**str))			// Probably might be deleted
-		++(*str);
+static char	*full_cycle(t_word_work *word_work, char **str, t_quotes *q, t_env *env)
+{
+	char	*str_start;
+
 	str_start = *str;
 	while (**str)
 	{
-		if (is_redirect(**str) && !(q.d_quote || q.quote))
+		if (is_redirect(**str) && !(q->d_quote || q->quote))
 		{
 			if (str_start == *str)
 			{
@@ -92,23 +102,30 @@ static char	*get_shell_word_and_go_next(char **str, t_env *env)
 			}
 			break ;
 		}
-		else if (ft_isspace(**str) && !(q.d_quote || q.quote))
+		else if (ft_isspace(**str) && !(q->d_quote || q->quote))
 		{
 			++(*str);
 			break ;
 		}
-		else if (**str == '\'' && !q.d_quote)
-			q.quote = !q.quote;
-		else if (**str == '"' && !q.quote)
-			q.d_quote = !q.d_quote;
-		else if (**str == '\\')
-			slash_slash_block(word_work, str, &q);
-		else if (!q.quote && **str == '$' && (ft_isalpha(*(*str + 1)) || *(*str + 1) == '_' || *(*str + 1) == '?'))
-			(*str) += word_work->expand(word_work, *str, env);
 		else
-			word_work->add_char(word_work, **str);
+			end_else_block(word_work, str, q, env);
 		++(*str);
 	}
+	return (str_start);
+}
+
+static char	*get_shell_word_and_go_next(char **str, t_env *env)
+{
+	t_quotes	q;
+	char		*word;
+	t_word_work	*word_work;
+
+	ft_bzero(&q, sizeof(q));
+	word_work = word_work_new();
+	while (ft_isspace(**str))			// Probably might be deleted
+		++(*str);
+	if (!full_cycle(word_work, str, &q, env))
+		return (NULL);
 	if (!(word = ft_strdup(word_work->ret_word(word_work))))
 		errman(ENOMEM, NULL);
 	word_work->delete(word_work);
