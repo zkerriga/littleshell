@@ -76,6 +76,7 @@ int		main(int ac, char **av, char **envp)
 {
 	t_env	*env;
 
+	signal(SIGTERM, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, sigint_handler);
 	if (!(env = environment_new((const char **)envp)))
