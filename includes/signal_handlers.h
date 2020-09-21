@@ -14,5 +14,6 @@
 # define SIGNAL_HANDLERS_H
 
 void	sigint_handler();
+void	sigquit_handler();
 
 #endif
