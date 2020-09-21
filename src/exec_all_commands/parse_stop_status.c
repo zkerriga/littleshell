@@ -26,7 +26,7 @@ int		parse_stop_status(int stat)
 			ft_putnbr_fd(WTERMSIG(stat), 2);
 			write(2, "\n", 1);
 		}
-		return (WTERMSIG(stat));
+		return (128 + sig);
 	}
 	return (WEXITSTATUS(stat));
 }
