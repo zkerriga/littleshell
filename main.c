@@ -19,6 +19,7 @@
 #include "error_manager.h"
 
 int		g_sigint;
+int		g_isread;
 
 int		execute_line(char *cmd_line, t_env *env)
 {
@@ -71,7 +72,7 @@ int		main(int ac, char **av, char **envp)
 	t_env	*env;
 
 	signal(SIGTERM, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, sigquit_handler);
 	signal(SIGINT, sigint_handler);
 	if (!(env = environment_new((const char **)envp)))
 		errman(ENOMEM, NULL);
