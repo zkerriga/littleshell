@@ -21,7 +21,7 @@ int		is_read_ok(char ch, char **line, int *len)
 		return (0);
 	if (ft_isprint(ch) || ft_isspace(ch))
 	{
-		if (!(*line = ft_realloc(*line, *len + 1, *len + 2)))
+		if (!(*line = ft_realloc(*line, (*len) + 2, (*len) + 1)))
 			errman(ENOMEM, NULL);
 		(*line)[(*len)++] = ch;
 		(*line)[*len] = '\0';

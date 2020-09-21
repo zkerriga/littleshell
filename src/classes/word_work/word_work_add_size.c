@@ -16,8 +16,9 @@
 
 void	word_work_add_size(t_word_work *self)
 {
+	self->word = ft_realloc(self->word, self->w_max_len
+		+ SHELL_WORD_LEN, self->w_max_len);
 	self->w_max_len += SHELL_WORD_LEN;
-	self->word = ft_realloc(self->word, self->w_max_len, self->w_max_len);
 	if (!self->word)
 		errman(ENOMEM, NULL);
 }
