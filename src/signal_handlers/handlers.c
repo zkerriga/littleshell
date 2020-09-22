@@ -13,12 +13,12 @@
 #include "minishell.h"
 #include "read_line.h"
 
-static void	clear_metachar_sigintquit()
+static void	clear_metachar_sigintquit(void)
 {
 	write(1, "\b\b  \b\b", 6);
 }
 
-void	sigint_handler(void)
+void		sigint_handler(void)
 {
 	char *current_path;
 
@@ -32,7 +32,7 @@ void	sigint_handler(void)
 	free(current_path);
 }
 
-void	sigquit_handler(void)
+void		sigquit_handler(void)
 {
 	if (g_isread)
 		clear_metachar_sigintquit();

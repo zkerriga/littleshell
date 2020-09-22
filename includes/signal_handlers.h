@@ -13,7 +13,7 @@
 #ifndef SIGNAL_HANDLERS_H
 # define SIGNAL_HANDLERS_H
 
-#include <signal.h>
+# include <signal.h>
 
 void	sigint_handler();
 void	sigquit_handler();

@@ -14,8 +14,10 @@
 #include "get_next_line.h"
 #include "minishell.h"
 #include "error_manager.h"
+#include "environment.h"
+#include "read_line.h"
 
-int		is_read_ok(char ch, char **line, int *len)
+static int	is_read_ok(char ch, char **line, int *len)
 {
 	if (ch == '\n')
 		return (0);
@@ -29,38 +31,43 @@ int		is_read_ok(char ch, char **line, int *len)
 	return (1);
 }
 
-static void	clear_metachar_d()
+static void	clear_metachar_d(void)
 {
 	write(1, "  \b\b", 4);
 }
 
-char	*read_line(void)
+static void	read_init(t_local *l)
 {
-	char	*line;
-	int		len;
-	int		ret;
-	char	ch;
-
-	len = 0;
+	l->len = 0;
 	g_isread = 1;
-	if (!(line = ft_strdup("\0")))
+	if (!(l->line = ft_strdup("\0")))
 		errman(ENOMEM, NULL);
+}
+
+char		*read_line(t_env *env)
+{
+	t_local	l;
+
+	read_init(&l);
 	while (1)
 	{
-		ch = '\0';
-		ret = read(0, &ch, 1);
-		if (ret == 0 && len == 0)
+		l.ch = '\0';
+		l.save_sigint_value = g_sigint;
+		l.ret = read(0, &l.ch, 1);
+		if (g_sigint != l.save_sigint_value)
+			env->set_status(env, 1);
+		if (l.ret == 0 && l.len == 0)
 		{
-			free(line);
-			if (!(line = ft_strdup("exit")))
+			free(l.line);
+			if (!(l.line = ft_strdup("exit")))
 				errman(ENOMEM, NULL);
 			break ;
 		}
-		if (ret == 0)
+		if (l.ret == 0)
 			clear_metachar_d();
-		if (!is_read_ok(ch, &line, &len))
+		if (!is_read_ok(l.ch, &l.line, &l.len))
 			break ;
 	}
 	g_isread = 0;
-	return (line);
+	return (l.line);
 }

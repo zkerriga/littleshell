@@ -13,6 +13,17 @@
 #ifndef READ_LINE_H
 # define READ_LINE_H
 
-char	*read_line(void);
+# include "environment.h"
+
+typedef struct	s_local
+{
+	char		*line;
+	int			len;
+	int			ret;
+	char		ch;
+	int			save_sigint_value;
+}				t_local;
+
+char			*read_line(t_env *env);
 
 #endif

@@ -15,7 +15,7 @@
 #include "environment.h"
 #include "error_manager.h"
 
-static char *string_to_lower(char *str)
+static char	*string_to_lower(char *str)
 {
 	char	*save_ptr;
 

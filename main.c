@@ -56,7 +56,7 @@ void	loop(t_env *env)
 			write(1, current_path, ft_strlen(current_path));
 			write(1, ": ", 2);
 		}
-		cmd_line = read_line();
+		cmd_line = read_line(env);
 		g_sigint = 0;
 		if (is_valid_command(cmd_line, 0, NULL))
 			execute_line(cmd_line, env);
