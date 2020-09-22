@@ -30,5 +30,6 @@ typedef struct	s_cmd
 }				t_command;
 
 extern int		g_sigint;
+extern int		g_isread;
 
 #endif
