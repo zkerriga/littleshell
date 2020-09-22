@@ -15,6 +15,19 @@
 #include "environment.h"
 #include "error_manager.h"
 
+static char *string_to_lower(char *str)
+{
+	char	*save_ptr;
+
+	save_ptr = str;
+	while (*str)
+	{
+		*str = (char)ft_tolower(*str);
+		++str;
+	}
+	return (save_ptr);
+}
+
 void		parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 {
 	char	**tab_word;
@@ -35,6 +48,7 @@ void		parse_single_command(char *cmd_str, t_command *cmd, t_env *env)
 		cmd->args = tab_word;
 		if (!(cmd->cmd_name = ft_strdup((*tab_word) ? tab_word[0] : "")))
 			errman(ENOMEM, NULL);
+		string_to_lower(cmd->cmd_name);
 	}
 	else
 	{
