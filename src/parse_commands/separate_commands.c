@@ -27,12 +27,9 @@ static int		is_command_separator(const char *line)
 **	Returns 0 otherwise.
 */
 
-int				does_command_separates(char **cmd_line)
+int does_command_separates(char **cmd_line, int *was_quote, int *was_d_quote)
 {
-	static int	was_quote;
-	static int	was_d_quote;
-
-	if ((!(was_quote || was_d_quote) &&
+	if ((!(*was_quote || *was_d_quote) &&
 		is_command_separator(*cmd_line)) ||
 		(**cmd_line == '\\' && *(*cmd_line + 1) == '\0'))
 	{
@@ -43,10 +40,10 @@ int				does_command_separates(char **cmd_line)
 		(*cmd_line)++;
 		return (0);
 	}
-	if (**cmd_line == '\'' && !was_d_quote)
-		was_quote = !was_quote;
-	if (**cmd_line == '\"' && !was_quote)
-		was_d_quote = !was_d_quote;
+	if (**cmd_line == '\'' && !*was_d_quote)
+		*was_quote = !(*was_quote);
+	if (**cmd_line == '\"' && !(*was_quote))
+		*was_d_quote = !(*was_d_quote);
 	return (0);
 }
 

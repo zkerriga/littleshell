@@ -21,7 +21,7 @@ char		*parse_first_cmd_and_go_next(char *cmd_line,
 
 void		destroy_command(t_command *cmd);
 
-int			does_command_separates(char **cmd_line);
+int does_command_separates(char **cmd_line, int *was_quote, int *was_d_quote);
 void		set_separator_type(char **cmd_line, t_command *cmd);
 
 char		**shell_word_split_with_env(char *str, t_env *env);

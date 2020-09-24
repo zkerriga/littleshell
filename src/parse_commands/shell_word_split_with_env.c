@@ -48,7 +48,7 @@ static char	*get_shell_word_and_go_next(char **str, t_env *env)
 	char		*word;
 	t_word_work	*word_work;
 
-	ft_bzero(&q, sizeof(q));
+	ft_bzero(&q, sizeof(t_quotes));
 	word_work = word_work_new();
 	while (ft_isspace(**str))
 		++(*str);
