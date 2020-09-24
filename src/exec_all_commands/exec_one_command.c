@@ -54,7 +54,7 @@ int					exec_one_command(t_command *cmd, t_env *env)
 	cmd_link = if_builtins_get_function(cmd->cmd_name);
 	if (!cmd_link && !is_ok_set_cmd_exec_name(cmd, env))
 	{
-		status = 1;
+		status = 127;
 		write_err(cmd->cmd_name, NULL, "no such command");
 	}
 	else
