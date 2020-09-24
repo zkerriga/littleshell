@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <sys/wait.h>
 #include "error_manager.h"
 #include "builtin_functions.h"
 
