@@ -20,6 +20,13 @@ git clone https://github.com/zkerriga/minishell --recursive
 ```
 Next, you need to compile the project with the `make` command. The Makefile will report the successful build of the project.
 
+#### Usage:
+To run the program, just write in the terminal:
+```
+./minishell
+```
+After that, **minishell** will greet you with the full path to the current directory. Then you can enter any single-line commands with the bash syntax.
+
 #### Issue:
 * The internal `cd` command doesn't enter data in the PWD and OLDPWD environment variables.
 * Backslash escaping is handled incorrectly. For example, the following case: `echo "\\"`.
