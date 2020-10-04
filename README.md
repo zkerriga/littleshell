@@ -27,6 +27,12 @@ To run the program, just write in the terminal:
 ```
 After that, **minishell** will greet you with the full path to the current directory. Then you can enter any single-line commands with the bash syntax.
 
+### Examples:
+![start](https://github.com/zkerriga/minishell/blob/master/gifs/start.gif)
+![pipelines](https://github.com/zkerriga/minishell/blob/master/gifs/pipelines.gif)
+![redirect](https://github.com/zkerriga/minishell/blob/master/gifs/redirect.gif)
+![signals](https://github.com/zkerriga/minishell/blob/master/gifs/signals.gif)
+
 ### Issue:
 * The internal `cd` command doesn't enter data in the PWD and OLDPWD environment variables.
 * Backslash escaping is handled incorrectly. For example, the following case: `echo "\\"`.
