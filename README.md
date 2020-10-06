@@ -28,10 +28,15 @@ To run the program, just write in the terminal:
 After that, **minishell** will greet you with the full path to the current directory. Then you can enter any single-line commands with the bash syntax.
 
 ### Examples:
-![start](https://github.com/zkerriga/minishell/blob/master/gifs/start.gif)
-![pipelines](https://github.com/zkerriga/minishell/blob/master/gifs/pipelines.gif)
-![redirect](https://github.com/zkerriga/minishell/blob/master/gifs/redirect.gif)
-![signals](https://github.com/zkerriga/minishell/blob/master/gifs/signals.gif)
+![start](https://github.com/zkerriga/minishell/blob/master/extra/start.gif)
+![pipelines](https://github.com/zkerriga/minishell/blob/master/extra/pipelines.gif)
+![redirect](https://github.com/zkerriga/minishell/blob/master/extra/redirect.gif)
+![signals](https://github.com/zkerriga/minishell/blob/master/extra/signals.gif)
+
+### Also:
+While working on the project, we used the [Scrum system](https://en.wikipedia.org/wiki/Scrum_(software_development)). We defined tasks for the sprint and held daily quick meetings to eliminate obstacles in the work. We also tried [CI](https://en.wikipedia.org/wiki/Continuous_integration) development methods in practice.
+![the scrum board](https://github.com/zkerriga/minishell/blob/master/extra/the_scrum_board.png)
+
 
 ### Issue:
 * The internal `cd` command doesn't enter data in the PWD and OLDPWD environment variables.
